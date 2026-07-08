@@ -1,0 +1,11 @@
+{
+  "name": "@nics/design-tokens",
+  "version": "0.1.0",
+  "description": "DCF 存取節點平台設計系統 — 唯一來源 design tokens",
+  "exports": {
+    "./tokens.css": "./tokens.css"
+  },
+  "files": [
+    "tokens.css"
+  ]
+}

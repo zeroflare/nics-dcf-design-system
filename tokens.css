@@ -220,69 +220,66 @@
   /* ===================== Base · 陰影 ===================== */
   /* sm 客製雙層柔和陰影 ( 卡片主力 );其餘沿用 Tailwind 預設 */
   --shadow-sm: 0 2px 12px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.05);
-}
 
-/* ===================== Function 層 · 語意 ( 只引用 Base ) =====================
-   命名可調。元件以 var() 取用,例如 color: var(--fg-primary)
-   ------------------------------------------------------------------ */
-:root {
-  /* 中性骨架 */
-  --fg-primary: var(--color-neutral-900);        /* 主要文字 / 圖示 */
-  --fg-secondary: var(--color-neutral-500);      /* 次要文字 / 圖示 */
-  --stroke: var(--color-neutral-300);            /* 邊框 / 分隔線 ( 不叫 border ) */
-  --bg-surface: var(--color-neutral-100);        /* 頁面底層背景 */
-  --bg-container: var(--color-neutral-0);        /* 卡片本身 ( 白 ) */
-  --bg-container-subtle: var(--color-neutral-50);   /* 卡片上輕量區隔 */
-  --bg-container-variant: var(--color-neutral-100); /* 卡片上的元件 */
-  --bg-container-high: var(--color-neutral-200);    /* 更重的強調區塊 */
+  /* ===================== Function 層 · 中性骨架 =====================
+     放在 @theme 並用 --color- 前綴,Tailwind 才會自動生成
+     bg-fg-primary / text-fg-primary / border-stroke 這類 utility class
+     ------------------------------------------------------------------ */
+  --color-fg-primary: var(--color-neutral-900);        /* 主要文字 / 圖示 */
+  --color-fg-secondary: var(--color-neutral-500);      /* 次要文字 / 圖示 */
+  --color-stroke: var(--color-neutral-300);            /* 邊框 / 分隔線 ( 不叫 border ) */
+  --color-bg-surface: var(--color-neutral-100);        /* 頁面底層背景 */
+  --color-bg-container: var(--color-neutral-0);        /* 卡片本身 ( 白 ) */
+  --color-bg-container-subtle: var(--color-neutral-50);   /* 卡片上輕量區隔 */
+  --color-bg-container-variant: var(--color-neutral-100); /* 卡片上的元件 */
+  --color-bg-container-high: var(--color-neutral-200);    /* 更重的強調區塊 */
 
-  /* 語意色 ( 每個語意只有 foreground=700 / background=50 / stroke=100 ) */
-  --primary-fg: var(--color-brand-700);
-  --primary-bg: var(--color-brand-50);
-  --primary-stroke: var(--color-brand-100);
+  /* ===================== Function 層 · 語意色 =====================
+     每個語意只有 foreground=700 / background=50 / stroke=100 三個 slot
+     ------------------------------------------------------------------ */
+  --color-primary-fg: var(--color-brand-700);
+  --color-primary-bg: var(--color-brand-50);
+  --color-primary-stroke: var(--color-brand-100);
 
-  --selected-bg: var(--color-brand-50);
-  --selected-stroke: var(--color-brand-100);
+  --color-selected-bg: var(--color-brand-50);
+  --color-selected-stroke: var(--color-brand-100);
 
-  --success-fg: var(--color-green-700);
-  --success-bg: var(--color-green-50);
-  --success-stroke: var(--color-green-100);
+  --color-success-fg: var(--color-green-700);
+  --color-success-bg: var(--color-green-50);
+  --color-success-stroke: var(--color-green-100);
 
-  --warning-fg: var(--color-yellow-700);
-  --warning-bg: var(--color-yellow-50);
-  --warning-stroke: var(--color-yellow-100);
+  --color-warning-fg: var(--color-yellow-700);
+  --color-warning-bg: var(--color-yellow-50);
+  --color-warning-stroke: var(--color-yellow-100);
 
-  --danger-fg: var(--color-red-700);
-  --danger-bg: var(--color-red-50);
-  --danger-stroke: var(--color-red-100);
+  --color-danger-fg: var(--color-red-700);
+  --color-danger-bg: var(--color-red-50);
+  --color-danger-stroke: var(--color-red-100);
 
-  --info-fg: var(--color-blue-700);
-  --info-bg: var(--color-blue-50);
-  --info-stroke: var(--color-blue-100);
-}
+  --color-info-fg: var(--color-blue-700);
+  --color-info-bg: var(--color-blue-50);
+  --color-info-stroke: var(--color-blue-100);
 
-/* ===================== Component 層 · Tag =====================
-   語意 5 種底色淺 ( 50 )、分類 12 種底色略深 ( 100 ),字一律 700
-   ------------------------------------------------------------------ */
-:root {
-  /* 語意狀態 ( bg 50 / fg 700 ) */
-  --tag-success-bg: var(--color-green-50);   --tag-success-fg: var(--color-green-700);
-  --tag-warning-bg: var(--color-yellow-50);  --tag-warning-fg: var(--color-yellow-700);
-  --tag-danger-bg: var(--color-red-50);      --tag-danger-fg: var(--color-red-700);
-  --tag-info-bg: var(--color-blue-50);       --tag-info-fg: var(--color-blue-700);
-  --tag-neutral-bg: var(--color-neutral-100);--tag-neutral-fg: var(--color-neutral-700);
+  /* ===================== Component 層 · Tag =====================
+     語意 5 種底色淺 ( 50 )、分類 12 種底色略深 ( 100 ),字一律 700
+     ------------------------------------------------------------------ */
+  --color-tag-success-bg: var(--color-green-50);   --color-tag-success-fg: var(--color-green-700);
+  --color-tag-warning-bg: var(--color-yellow-50);  --color-tag-warning-fg: var(--color-yellow-700);
+  --color-tag-danger-bg: var(--color-red-50);      --color-tag-danger-fg: var(--color-red-700);
+  --color-tag-info-bg: var(--color-blue-50);       --color-tag-info-fg: var(--color-blue-700);
+  --color-tag-neutral-bg: var(--color-neutral-100);--color-tag-neutral-fg: var(--color-neutral-700);
 
   /* 分類辨識 ( bg 100 / fg 700,來源 types/cacheLog.ts ) */
-  --tag-cat-authenticate-bg: var(--color-green-100);  --tag-cat-authenticate-fg: var(--color-green-700);
-  --tag-cat-safety-lock-bg: var(--color-yellow-100);  --tag-cat-safety-lock-fg: var(--color-yellow-700);
-  --tag-cat-dataset-bg: var(--color-blue-100);        --tag-cat-dataset-fg: var(--color-blue-700);
-  --tag-cat-collaboration-bg: var(--color-brand-100); --tag-cat-collaboration-fg: var(--color-brand-700);
-  --tag-cat-record-bg: var(--color-purple-100);       --tag-cat-record-fg: var(--color-purple-700);
-  --tag-cat-account-bg: var(--color-indigo-100);      --tag-cat-account-fg: var(--color-indigo-700);
-  --tag-cat-role-bg: var(--color-pink-100);           --tag-cat-role-fg: var(--color-pink-700);
-  --tag-cat-system-bg: var(--color-neutral-100);      --tag-cat-system-fg: var(--color-neutral-700);
-  --tag-cat-resource-access-bg: var(--color-aqua-100);--tag-cat-resource-access-fg: var(--color-aqua-700);
-  --tag-cat-operation-bg: var(--color-orange-100);    --tag-cat-operation-fg: var(--color-orange-700);
-  --tag-cat-dataset-access-bg: var(--color-sky-100);  --tag-cat-dataset-access-fg: var(--color-sky-700);
-  --tag-cat-inbox-bg: var(--color-rose-100);          --tag-cat-inbox-fg: var(--color-rose-700);
+  --color-tag-cat-authenticate-bg: var(--color-green-100);  --color-tag-cat-authenticate-fg: var(--color-green-700);
+  --color-tag-cat-safety-lock-bg: var(--color-yellow-100);  --color-tag-cat-safety-lock-fg: var(--color-yellow-700);
+  --color-tag-cat-dataset-bg: var(--color-blue-100);        --color-tag-cat-dataset-fg: var(--color-blue-700);
+  --color-tag-cat-collaboration-bg: var(--color-brand-100); --color-tag-cat-collaboration-fg: var(--color-brand-700);
+  --color-tag-cat-record-bg: var(--color-purple-100);       --color-tag-cat-record-fg: var(--color-purple-700);
+  --color-tag-cat-account-bg: var(--color-indigo-100);      --color-tag-cat-account-fg: var(--color-indigo-700);
+  --color-tag-cat-role-bg: var(--color-pink-100);           --color-tag-cat-role-fg: var(--color-pink-700);
+  --color-tag-cat-system-bg: var(--color-neutral-100);      --color-tag-cat-system-fg: var(--color-neutral-700);
+  --color-tag-cat-resource-access-bg: var(--color-aqua-100);--color-tag-cat-resource-access-fg: var(--color-aqua-700);
+  --color-tag-cat-operation-bg: var(--color-orange-100);    --color-tag-cat-operation-fg: var(--color-orange-700);
+  --color-tag-cat-dataset-access-bg: var(--color-sky-100);  --color-tag-cat-dataset-access-fg: var(--color-sky-700);
+  --color-tag-cat-inbox-bg: var(--color-rose-100);          --color-tag-cat-inbox-fg: var(--color-rose-700);
 }

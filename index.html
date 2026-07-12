@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="DCF 存取節點平台設計系統 — 首頁，快速了解技術棧與如何開始">
+<meta name="description" content="資料匯流平台設計系統 — 首頁，快速了解技術棧">
 <link rel="icon" href="favicon.png" type="image/png">
 <title>資料匯流平台設計系統</title>
 <style>
@@ -115,12 +115,7 @@
   }
   nav.toc .grp-toggle:first-child { margin-top: 0; }
   nav.toc .grp-toggle:hover { color: var(--ink); }
-  nav.toc .grp-toggle svg { width: 10px; height: 10px; flex: none; transition: transform .15s; }
-  nav.toc .grp-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
   nav.toc .grp-body { display: flex; flex-direction: column; gap: 2px; }
-  nav.toc .grp-body[hidden] { display: none; }
-  nav.toc .grp-body:not([hidden]) { animation: grp-body-in .3s ease; }
-  @keyframes grp-body-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
   nav.toc a {
     text-decoration: none; color: var(--ink); font-size: 14px; padding: 6px 12px 6px 20px; border-radius: 7px;
     display: flex; justify-content: space-between; align-items: center; transition: background .15s, color .15s;
@@ -139,30 +134,14 @@
   header.hero { padding: 64px 0 40px; border-bottom: 1px solid var(--line); }
   header.hero h1 { font-size: 40px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; margin: 0; }
   header.hero .lede { color: var(--ink-2); font-size: 16.5px; margin: 20px 0 0; }
-  .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
-  .chip { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.03em; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--ink-2); background: var(--surface); }
-  .chip.solid { background: var(--accent); color: #fff; border-color: transparent; }
 
   section.band { padding: 40px 0 0; }
-  .band-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+  .band-head { margin-bottom: 14px; }
   .band-head h2 { font-size: 27px; letter-spacing: -0.02em; font-weight: 800; margin: 0; }
-  .band-sub { color: var(--ink-2); margin: 4px 0 30px; font-size: 15px; }
-
-  .stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
-  .stack-card { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 18px 20px; box-shadow: var(--shadow); }
-  .stack-card h3 { margin: 0; font-size: 15px; letter-spacing: -0.01em; }
-  .stack-card p { margin: 8px 0 12px; font-size: 13px; color: var(--ink-2); }
-  .stack-card a { display: block; font-family: var(--font-mono); font-size: 12px; color: var(--accent-ink); text-decoration: none; }
-  .stack-card a:hover { text-decoration: underline; }
-
-  .entry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-  .entry-card { display: block; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 24px; box-shadow: var(--shadow); text-decoration: none; color: inherit; transition: border-color .15s, box-shadow .15s; }
-  .entry-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lift); }
-  .entry-card .eyebrow { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
-  .entry-card h3 { margin: 6px 0 6px; font-size: 20px; letter-spacing: -0.01em; }
-  .entry-card p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
-
-  footer { border-top: 1px solid var(--line); margin-top: 60px; padding: 30px 0 0; color: var(--ink-3); font-size: 12.5px; font-family: var(--font-mono); }
+  .stack-card { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 20px 22px; box-shadow: var(--shadow); }
+  .stack-card p { margin: 0 0 12px; font-size: 15px; color: var(--ink-2); }
+  .stack-link { display: inline-block; margin-right: 16px; font-family: var(--font-mono); font-size: 12px; color: var(--accent-ink); text-decoration: none; }
+  .stack-link:hover { text-decoration: underline; }
 
   @media (max-width: 900px) {
     aside { position: static; width: auto; height: auto; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 24px; }
@@ -184,11 +163,10 @@
       <div class="name">資料匯流平台設計系統</div>
     </a>
     <nav class="toc">
-      <button class="grp-toggle" type="button" aria-expanded="false" data-target="grp-spec" data-page="foundation.html">
+      <button class="grp-toggle" type="button" data-page="foundation.html">
         <span>設計規範</span>
-        <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
       </button>
-      <div class="grp-body" id="grp-spec" hidden>
+      <div class="grp-body" id="grp-spec">
         <a href="foundation.html#color"><span>顏色</span></a>
         <a href="foundation.html#type"><span>文字</span></a>
         <a href="foundation.html#space"><span>間距</span></a>
@@ -200,11 +178,10 @@
         <a href="foundation.html#audit" class="crit-link"><span>審計清單</span></a>
       </div>
 
-      <button class="grp-toggle" type="button" aria-expanded="false" data-target="grp-comp" data-page="component.html">
+      <button class="grp-toggle" type="button" data-page="component.html">
         <span>元件</span>
-        <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
       </button>
-      <div class="grp-body" id="grp-comp" hidden>
+      <div class="grp-body" id="grp-comp">
         <div class="grp sub">動作與表單</div>
         <a href="component.html#comp-button" class="comp-link"><span>Button</span></a>
         <a href="component.html#comp-input" class="comp-link"><span>Input</span></a>
@@ -242,76 +219,64 @@
    <div class="main-inner">
     <header class="hero">
       <h1>資料匯流平台設計系統</h1>
-      <p class="lede">DCF 存取節點平台的正式設計系統首頁，收錄了顏色、文字、間距等 Design Token 規範，以及全站元件盤點。以下先介紹目前用到的技術棧，再往下可以直接進入設計規範或元件頁。</p>
-      <div class="meta-row">
-        <span class="chip solid">正式設計系統</span>
-        <span class="chip">Vue 3 + shadcn-vue</span>
-        <span class="chip">Tailwind v4</span>
-        <span class="chip">字體 Public Sans + Noto Sans TC</span>
-        <span class="chip">更新 2026.07.12</span>
-      </div>
+      <p class="lede">所有資料匯流平台相關網站的正式設計系統首頁，收錄了顏色、文字、間距等 Design Token 規範，以及全站元件盤點。以下先介紹目前用到的技術棧。</p>
     </header>
 
-    <section class="band">
-      <div class="band-head"><h2>技術棧</h2></div>
-      <p class="band-sub">本站與 nics-dcf-access-demo 共用以下技術，每張卡片都連到官方文件。</p>
-      <div class="stack-grid">
-        <div class="stack-card">
-          <h3>Vue 3</h3>
-          <p>前端框架，全站採用 Composition API 開發。</p>
-          <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org →</a>
-        </div>
-        <div class="stack-card">
-          <h3>shadcn-vue</h3>
-          <p>UI 元件基礎，透過 CLI 把原始碼複製進專案，而不是安裝成套件，方便客製化與 token 化。</p>
-          <a href="https://www.shadcn-vue.com/" target="_blank" rel="noopener">shadcn-vue.com →</a>
-        </div>
-        <div class="stack-card">
-          <h3>Tailwind v4</h3>
-          <p>樣式引擎，Design Token 透過 <code style="font-family:var(--font-mono)">@theme</code> 區塊對應成 utility class。</p>
-          <a href="https://tailwindcss.com/" target="_blank" rel="noopener">tailwindcss.com →</a>
-        </div>
-        <div class="stack-card">
-          <h3>字體</h3>
-          <p>英文與數字用 Public Sans，中文用 Noto Sans TC。</p>
-          <a href="https://github.com/uswds/public-sans" target="_blank" rel="noopener">Public Sans →</a>
-          <a href="https://fonts.google.com/noto/specimen/Noto+Sans+TC" target="_blank" rel="noopener">Noto Sans TC →</a>
-        </div>
+    <section class="band" id="stack-vue">
+      <div class="band-head"><h2>前端框架</h2></div>
+      <div class="stack-card">
+        <p>Vue 3，全站採用 Composition API 開發。</p>
+        <a class="stack-link" href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org →</a>
       </div>
     </section>
 
-    <section class="band">
-      <div class="band-head"><h2>開始使用</h2></div>
-      <p class="band-sub">正式規範分成兩個頁面，依需求進入，也可以直接點左側的「設計規範」「元件」展開子項目。</p>
-      <div class="entry-grid">
-        <a class="entry-card" href="foundation.html">
-          <div class="eyebrow">Foundation</div>
-          <h3>設計規範</h3>
-          <p>顏色、文字、間距、圓角、陰影、頁面佈局，以及狀態色票、審計清單。</p>
-        </a>
-        <a class="entry-card" href="component.html">
-          <div class="eyebrow">Components</div>
-          <h3>元件</h3>
-          <p>全站實際引用中的元件盤點，依用途分組，逐一列出樣式規格。</p>
-        </a>
+    <section class="band" id="stack-shadcn">
+      <div class="band-head"><h2>UI 元件基礎</h2></div>
+      <div class="stack-card">
+        <p>shadcn-vue，透過 CLI 把原始碼複製進專案，而不是安裝成套件，方便客製化與 token 化。</p>
+        <a class="stack-link" href="https://www.shadcn-vue.com/" target="_blank" rel="noopener">shadcn-vue.com →</a>
       </div>
     </section>
 
-    <footer>
-      DCF Access Web 設計系統 · 正式規範 · Foundation 五章已拍板定案 · 元件盤點 2026.07.12 展開為個別項目 · 審計清單 2026.07.12 複查更新<br>
-      下一步：依定案 Token 逐步遷移 nics-dcf-access-demo 程式碼，元件盤點逐一補齊細節，最終遷移為 Storybook 作為雙方 Claude Code 的共用設計來源。
-    </footer>
+    <section class="band" id="stack-tailwind">
+      <div class="band-head"><h2>樣式引擎</h2></div>
+      <div class="stack-card">
+        <p>Tailwind v4，Design Token 透過 <code style="font-family:var(--font-mono)">@theme</code> 區塊對應成 utility class。</p>
+        <a class="stack-link" href="https://tailwindcss.com/" target="_blank" rel="noopener">tailwindcss.com →</a>
+      </div>
+    </section>
+
+    <section class="band" id="stack-font">
+      <div class="band-head"><h2>字體</h2></div>
+      <div class="stack-card">
+        <p>英文與數字用 Public Sans，中文用 Noto Sans TC。</p>
+        <a class="stack-link" href="https://github.com/uswds/public-sans" target="_blank" rel="noopener">Public Sans →</a>
+        <a class="stack-link" href="https://fonts.google.com/noto/specimen/Noto+Sans+TC" target="_blank" rel="noopener">Noto Sans TC →</a>
+      </div>
+    </section>
+
+    <section class="band" id="stack-icon">
+      <div class="band-head"><h2>圖示</h2></div>
+      <div class="stack-card">
+        <p>Phosphor Icons，全站介面圖示採用這套。</p>
+        <a class="stack-link" href="https://phosphoricons.com/" target="_blank" rel="noopener">phosphoricons.com →</a>
+      </div>
+    </section>
    </div>
   </main>
 
 <script>
-  /* 側邊欄「設計規範」「元件」切換：點自己這頁的群組不動作，點另一頁的群組就跳轉過去 */
+  /* 側邊欄「設計規範」「元件」切換：點另一頁的群組就跳轉過去，點自己這頁的群組回到頁面最上方 */
   (function () {
     var currentPage = location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.grp-toggle').forEach(function (toggle) {
       toggle.addEventListener('click', function () {
         var targetPage = toggle.getAttribute('data-page');
-        if (targetPage && targetPage !== currentPage) location.href = targetPage;
+        if (targetPage && targetPage !== currentPage) {
+          location.href = targetPage;
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       });
     });
   })();

@@ -115,12 +115,7 @@
   }
   nav.toc .grp-toggle:first-child { margin-top: 0; }
   nav.toc .grp-toggle:hover { color: var(--ink); }
-  nav.toc .grp-toggle svg { width: 10px; height: 10px; flex: none; transition: transform .15s; }
-  nav.toc .grp-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
   nav.toc .grp-body { display: flex; flex-direction: column; gap: 2px; }
-  nav.toc .grp-body[hidden] { display: none; }
-  nav.toc .grp-body:not([hidden]) { animation: grp-body-in .3s ease; }
-  @keyframes grp-body-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
   nav.toc a {
     text-decoration: none; color: var(--ink); font-size: 14px; padding: 6px 12px 6px 20px; border-radius: 7px;
     display: flex; justify-content: space-between; align-items: center; transition: background .15s, color .15s;
@@ -134,14 +129,16 @@
 
   /* ---------- main ---------- */
   main { margin-left: 240px; min-width: 0; }
-  .main-inner { max-width: 1040px; margin-left: max(24px, calc(50% - 520px - 40px)); margin-right: auto; padding: 0 clamp(24px, 4vw, 56px) 120px; }
+  .main-inner { max-width: 1040px; margin-left: max(24px, calc(50% - 520px - 40px)); margin-right: auto; padding: 0 40px 120px; }
 
   header.hero { padding: 64px 0 40px; border-bottom: 1px solid var(--line); }
   .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-ink); }
   header.hero h1 { font-size: 40px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; margin: 0; }
   header.hero .lede { color: var(--ink-2); font-size: 16.5px; margin: 20px 0 0; }
 
-  section.band { padding: 40px 0 0; scroll-margin-top: 20px; }
+  .band-list { display: flex; flex-direction: column; padding-top: 60px; }
+  section.band { padding: 0 8px; scroll-margin-top: 20px; }
+  .band-list > section.band + section.band { border-top: 1px solid var(--line); margin-top: 60px; padding-top: 60px; }
   .band-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
   .band-head h2 { font-size: 27px; letter-spacing: -0.02em; font-weight: 800; margin: 0; }
   .band-sub { color: var(--ink-2); margin: 4px 0 30px; font-size: 15px; }
@@ -299,11 +296,10 @@
       <div class="name">資料匯流平台設計系統</div>
     </a>
     <nav class="toc">
-      <button class="grp-toggle" type="button" aria-expanded="false" data-target="grp-spec" data-page="foundation.html">
+      <button class="grp-toggle" type="button" data-page="foundation.html">
         <span>設計規範</span>
-        <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
       </button>
-      <div class="grp-body" id="grp-spec" hidden>
+      <div class="grp-body" id="grp-spec">
         <a href="foundation.html#color"><span>顏色</span></a>
         <a href="foundation.html#type"><span>文字</span></a>
         <a href="foundation.html#space"><span>間距</span></a>
@@ -315,9 +311,8 @@
         <a href="foundation.html#audit" class="crit-link"><span>審計清單</span></a>
       </div>
 
-      <button class="grp-toggle" type="button" aria-expanded="true" data-target="grp-comp" data-page="component.html">
+      <button class="grp-toggle" type="button" data-page="component.html">
         <span>元件</span>
-        <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
       </button>
       <div class="grp-body" id="grp-comp">
         <div class="grp sub">動作與表單</div>
@@ -360,6 +355,7 @@
       <p class="lede">本頁盤點全站實際引用中的 UI 元件，逐一列出使用情況與樣式規格，做為前端開發與設計協作的共同依據。</p>
     </header>
 
+    <div class="band-list">
     <!-- ============ Button ============ -->
     <section class="band" id="comp-button">
       <div class="band-head"><h2>Button</h2><span class="use-b">19 檔</span></div>
@@ -593,6 +589,7 @@
       </div>
       <div class="spec-line">建議回收使用或刪除 → 審計 04，內部樣式已 token 化，引用數未變，2026.07.12 複查仍是 0 引用</div>
     </section>
+    </div>
 
     <footer>
       DCF Access Web 設計系統 · 正式規範 · Foundation 五章已拍板定案 · 元件盤點 2026.07.12 展開為個別項目 · 審計清單 2026.07.12 複查更新<br>
@@ -602,13 +599,17 @@
   </main>
 
 <script>
-  /* 側邊欄「設計規範」「元件」切換：點自己這頁的群組不動作，點另一頁的群組就跳轉過去 */
+  /* 側邊欄「設計規範」「元件」切換：點另一頁的群組就跳轉過去，點自己這頁的群組回到頁面最上方 */
   (function () {
     var currentPage = location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.grp-toggle').forEach(function (toggle) {
       toggle.addEventListener('click', function () {
         var targetPage = toggle.getAttribute('data-page');
-        if (targetPage && targetPage !== currentPage) location.href = targetPage;
+        if (targetPage && targetPage !== currentPage) {
+          location.href = targetPage;
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       });
     });
   })();

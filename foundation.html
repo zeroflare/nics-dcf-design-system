@@ -1,0 +1,1011 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DCF 存取節點平台設計系統 — 色彩、文字、間距、圓角、陰影與元件規範">
+<link rel="icon" href="favicon.png" type="image/png">
+<title>資料匯流平台設計系統</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  img, svg, video { max-width: 100%; height: auto; }
+
+  :root {
+    --font-sans: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans TC', sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+
+    /* light ground — cool slate biased toward the teal brand */
+    --bg: #eef1f5;
+    --surface: #ffffff;
+    --surface-2: #f6f8fb;
+    --ink: #0f172a;
+    --ink-2: #475569;
+    --ink-3: #8493a8;
+    --line: #d8e0ea;
+    --line-strong: #c3cfdd;
+    --accent: #0d9488;
+    --accent-ink: #0f766e;
+    --accent-wash: #f0fdfa;
+    --good: #047857;
+    --good-wash: #ecfdf5;
+    --warn: #b45309;
+    --warn-wash: #fffbeb;
+    --crit: #b91c1c;
+    --crit-wash: #fef2f2;
+    --shadow: 0 2px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05);
+    --shadow-lift: 0 8px 30px rgba(15, 23, 42, 0.10), 0 2px 6px rgba(15, 23, 42, 0.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a101c;
+      --surface: #131c2c;
+      --surface-2: #0f1725;
+      --ink: #e5eaf2;
+      --ink-2: #9fb0c6;
+      --ink-3: #62748c;
+      --line: rgba(255, 255, 255, 0.09);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --accent: #2dd4bf;
+      --accent-ink: #5eead4;
+      --accent-wash: rgba(45, 212, 191, 0.12);
+      --good: #34d399;
+      --good-wash: rgba(16, 185, 129, 0.12);
+      --warn: #fbbf24;
+      --warn-wash: rgba(245, 158, 11, 0.12);
+      --crit: #f87171;
+      --crit-wash: rgba(239, 68, 68, 0.12);
+      --shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+      --shadow-lift: 0 10px 34px rgba(0, 0, 0, 0.55);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #eef1f5; --surface: #ffffff; --surface-2: #f6f8fb;
+    --ink: #0f172a; --ink-2: #475569; --ink-3: #8493a8;
+    --line: #d8e0ea; --line-strong: #c3cfdd;
+    --accent: #0d9488; --accent-ink: #0f766e;
+    --accent-wash: #f0fdfa;
+    --good: #047857; --good-wash: #ecfdf5; --warn: #b45309; --warn-wash: #fffbeb;
+    --crit: #b91c1c; --crit-wash: #fef2f2;
+    --shadow: 0 2px 12px rgba(15,23,42,0.08), 0 1px 3px rgba(15,23,42,0.05);
+    --shadow-lift: 0 8px 30px rgba(15,23,42,0.10), 0 2px 6px rgba(15,23,42,0.06);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a101c; --surface: #131c2c; --surface-2: #0f1725;
+    --ink: #e5eaf2; --ink-2: #9fb0c6; --ink-3: #62748c;
+    --line: rgba(255,255,255,0.09); --line-strong: rgba(255,255,255,0.16);
+    --accent: #2dd4bf; --accent-ink: #5eead4;
+    --accent-wash: rgba(45, 212, 191, 0.12);
+    --good: #34d399; --good-wash: rgba(16,185,129,0.12); --warn: #fbbf24; --warn-wash: rgba(245,158,11,0.12);
+    --crit: #f87171; --crit-wash: rgba(239,68,68,0.12);
+    --shadow: 0 2px 14px rgba(0,0,0,0.4); --shadow-lift: 0 10px 34px rgba(0,0,0,0.55);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- sidebar ---------- */
+  aside {
+    position: fixed; top: 0; left: 0; width: 240px; height: 100vh;
+    background: var(--surface);
+    padding: 32px 20px 32px 28px; border-right: 1px solid var(--line);
+    overflow-y: auto;
+  }
+  .brand { display: flex; align-items: center; gap: 4px; margin-bottom: 4px; text-decoration: none; color: inherit; }
+  .brand .mark { width: 26px; height: 26px; border-radius: 7px; flex: none; }
+  .brand .name { font-weight: 800; font-size: 14px; letter-spacing: -0.01em; }
+  nav.toc { margin-top: 26px; display: flex; flex-direction: column; gap: 2px; }
+  nav.toc .grp { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin: 18px 0 6px 8px; }
+  nav.toc .grp-toggle {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    background: none; border: none; cursor: pointer; padding: 0 8px;
+    font-size: 16px; color: var(--ink);
+    margin: 18px 0 6px; font-weight: 700;
+  }
+  nav.toc .grp-toggle:first-child { margin-top: 0; }
+  nav.toc .grp-toggle:hover { color: var(--ink); }
+  nav.toc .grp-toggle svg { width: 10px; height: 10px; flex: none; transition: transform .15s; }
+  nav.toc .grp-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+  nav.toc .grp-body { display: flex; flex-direction: column; gap: 2px; }
+  nav.toc .grp-body[hidden] { display: none; }
+  nav.toc .grp-body:not([hidden]) { animation: grp-body-in .3s ease; }
+  @keyframes grp-body-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  nav.toc a {
+    text-decoration: none; color: var(--ink); font-size: 14px; padding: 6px 12px 6px 20px; border-radius: 7px;
+    display: flex; justify-content: space-between; align-items: center; transition: background .15s, color .15s;
+  }
+  nav.toc a:hover { background: var(--surface-2); color: var(--ink); }
+  nav.toc a.active { background: var(--accent-wash); color: var(--accent-ink); font-weight: 600; }
+  nav.toc a.crit-link { color: var(--crit); }
+  nav.toc a.crit-link.active { background: var(--crit-wash); color: var(--crit); }
+  nav.toc .grp.sub { font-size: 9.5px; margin: 12px 0 4px 18px; opacity: 0.7; }
+  nav.toc a.comp-link { padding-left: 22px; font-size: 14px; }
+
+  /* ---------- main ---------- */
+  main { margin-left: 240px; min-width: 0; }
+  .main-inner { max-width: 1040px; margin-left: max(24px, calc(50% - 520px - 40px)); margin-right: auto; padding: 0 clamp(24px, 4vw, 56px) 120px; }
+
+  header.hero { padding: 64px 0 40px; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-ink); }
+  header.hero h1 { font-size: 40px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; margin: 0; }
+  header.hero .lede { color: var(--ink-2); font-size: 16.5px; margin: 20px 0 0; }
+
+  section.band { padding: 40px 0 0; scroll-margin-top: 20px; }
+  .band-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+  .band-head h2 { font-size: 27px; letter-spacing: -0.02em; font-weight: 800; margin: 0; }
+  .band-sub { color: var(--ink-2); margin: 4px 0 30px; font-size: 15px; }
+
+  h3.sub { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; margin: 40px 0 4px; display: flex; align-items: center; gap: 10px; }
+  h3.sub .tag { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; color: var(--ink-3); letter-spacing: 0.04em; }
+  .sub-note { color: var(--ink-2); font-size: 14px; margin: 0 0 18px; }
+
+  /* spec table */
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 520px; }
+  th, td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; background: var(--surface-2); }
+  tbody tr:last-child td { border-bottom: none; }
+  td.mono, th.mono { font-family: var(--font-mono); font-size: 12px; }
+  td .tk { font-family: var(--font-mono); font-size: 12px; color: var(--accent-ink); }
+  .num { font-variant-numeric: tabular-nums; }
+  .use { display: inline-block; min-width: 34px; text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-3); font-family: var(--font-mono); font-size: 11.5px; }
+
+  /* token architecture ( 3 layers ) */
+  .arch { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0 0; }
+  .arch .layer { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .arch .layer .t { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+  .arch .layer h4 { margin: 6px 0 6px; font-size: 15px; letter-spacing: -0.01em; }
+  .arch .layer p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  @media (max-width: 900px) { .arch { grid-template-columns: 1fr; } }
+
+  /* color ramp */
+  .scale-scroll { overflow-x: auto; padding: 6px; margin: -6px; }
+  .scale { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; min-width: 640px; }
+  .scale.cols-11 { grid-template-columns: repeat(11, 1fr); }
+  .step .sw { height: 52px; border-radius: 8px; border: 1px solid rgba(15,23,42,0.06); }
+  .step .sw.white { border: 1px solid var(--line-strong); }
+  .step.anchor .sw { outline: 2.5px solid var(--ink); outline-offset: 2px; }
+  .step .lv { font-family: var(--font-mono); font-size: 11px; font-weight: 600; margin-top: 7px; }
+  .step .hx { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); margin-top: 1px; }
+  .step .an { display: inline-block; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.04em; margin-top: 4px; padding: 2px 6px; border-radius: 5px; background: var(--ink); color: var(--bg); white-space: nowrap; }
+  .dot { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; border: 1px solid rgba(15,23,42,0.08); }
+  .tagprev { display: inline-flex; align-items: center; font-size: 11.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .grp-row td { background: var(--surface-2); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+
+  /* decided-status badge */
+  .st { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 5px; white-space: nowrap; }
+  .st.keep { background: var(--accent-wash); color: var(--accent-ink); }
+  .st.new { background: var(--warn-wash); color: var(--warn); }
+
+  /* type specimens ( token 語意字級 / spacing / radius 共用 ) */
+  .type-list { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+  .type-row { display: grid; grid-template-columns: 170px minmax(0, 1fr) auto; gap: 18px; align-items: center; padding: 15px 18px; border-bottom: 1px solid var(--line); }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .nm { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .type-row .demo { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
+  .type-row .spec { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); text-align: right; white-space: nowrap; line-height: 1.7; }
+  .type-row .note { grid-column: 1 / -1; font-size: 12px; color: var(--ink-3); margin: -6px 0 0; }
+
+  /* spacing / radius row ( 使用次數長條 + 說明 ) */
+  .sp-row { display: grid; grid-template-columns: 64px 56px minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 11px 18px; border-bottom: 1px solid var(--line); }
+  .sp-row:last-child { border-bottom: none; }
+  .sp-row .v { font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+  .sp-row .n { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); text-align: right; }
+  .sp-row .bar { height: 12px; background: var(--accent); border-radius: 3px; }
+  .sp-row .u { font-size: 12px; color: var(--ink-2); text-align: right; }
+  @media (max-width: 720px) { .sp-row .u { display: none; } }
+
+  /* radius + shadow demo */
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .demo-tile { border: 1px solid var(--line); border-radius: 12px; padding: 18px; background: var(--surface); text-align: center; }
+  .demo-tile .box { height: 62px; background: var(--accent-wash); border: 1.5px solid var(--accent); margin: 0 auto 12px; width: 100%; }
+  .demo-tile .box.sh { background: var(--surface); border: 1px solid var(--line); }
+  .demo-tile .nm { font-weight: 600; font-size: 12.5px; }
+  .demo-tile .v { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-3); margin-top: 3px; }
+
+  /* component blocks */
+  .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .comp { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 18px; display: flex; flex-direction: column; }
+  .comp .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .comp .top .cn { font-weight: 700; font-size: 14.5px; letter-spacing: -0.01em; }
+  .comp .top .use-b { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-3); }
+  .comp .desc { color: var(--ink-2); font-size: 12.5px; margin: 0 0 12px; }
+  .comp .preview { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: auto; min-height: 60px; }
+  .comp .spec-line { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-3); margin-top: 10px; line-height: 1.7; }
+  .flag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 5px; }
+  .flag.dead { background: var(--crit-wash); color: var(--crit); }
+  .flag.unused { background: var(--warn-wash); color: var(--warn); }
+  .flag.pending { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+  .comp { scroll-margin-top: 32px; }
+
+  /* mini demo controls */
+  .btn { font-family: var(--font-sans); font-size: 13px; font-weight: 500; height: 34px; padding: 0 15px; border-radius: 8px; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 6px; cursor: default; }
+  .btn.default { background: var(--accent); color: #fff; }
+  .btn.secondary { background: #eef2f6; color: #1e293b; }
+  .btn.outline { background: transparent; border-color: var(--line-strong); color: var(--ink); box-shadow: var(--shadow); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.destructive { background: #dc2626; color: #fff; }
+  .btn.link { background: transparent; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; padding: 0; height: auto; }
+  .pill { font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 999px; border: 1px solid transparent; display: inline-flex; align-items: center; }
+  .pill.p-default { background: var(--accent); color: #fff; }
+  .pill.p-secondary { background: #eef2f6; color: #1e293b; }
+  .pill.p-destructive { background: #dc2626; color: #fff; }
+  .pill.p-outline { background: transparent; border-color: var(--line-strong); color: var(--ink); }
+  .sbadge { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; border: 1px solid; }
+  .field { height: 34px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface); padding: 0 12px; display: flex; align-items: center; color: var(--ink-3); font-size: 13px; width: 100%; }
+  .field.focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
+  .swch { width: 34px; height: 20px; border-radius: 999px; background: var(--accent); position: relative; }
+  .swch::after { content: ""; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: #fff; top: 2px; right: 2px; }
+  .swch.off { background: #cbd5e1; }
+  .swch.off::after { right: auto; left: 2px; }
+  .skel { height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--line) 0%, var(--surface-2) 50%, var(--line) 100%); }
+
+  /* audit */
+  .audit-intro { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; padding: 22px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 24px; }
+  .audit-stat { display: flex; flex-direction: column; }
+  .audit-stat .big { font-size: 30px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .audit-stat .lbl { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-top: 6px; }
+  .audit-stat.hi .big { color: var(--crit); }
+  .audit-stat.md .big { color: var(--warn); }
+  .audit-stat.lo .big { color: var(--ink-2); }
+  .audit-divider { width: 1px; align-self: stretch; background: var(--line); }
+
+  .finding { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow); }
+  .finding .fhead { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .finding .fnum { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); }
+  .finding .ftitle { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; flex: 1; }
+  .sev { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 6px; text-transform: uppercase; white-space: nowrap; }
+  .sev.hi { background: var(--crit-wash); color: var(--crit); }
+  .sev.md { background: var(--warn-wash); color: var(--warn); }
+  .sev.lo { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+  .rst { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; padding: 3px 9px; border-radius: 6px; white-space: nowrap; }
+  .rst.done { background: var(--good-wash); color: var(--good); }
+  .rst.partial { background: var(--warn-wash); color: var(--warn); }
+  .rst.open { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+  .audit-stat.done .big { color: var(--good); }
+  .finding .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .finding .col .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px; }
+  .finding .col.now .k { color: var(--crit); }
+  .finding .col.fix .k { color: var(--good); }
+  .finding .col p { margin: 0; font-size: 13.5px; color: var(--ink); }
+  .finding code { font-family: var(--font-mono); font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; color: var(--accent-ink); }
+
+  footer { border-top: 1px solid var(--line); margin-top: 60px; padding: 30px 0 0; color: var(--ink-3); font-size: 12.5px; font-family: var(--font-mono); }
+
+  @media (max-width: 900px) {
+    aside { position: static; width: auto; height: auto; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 24px; }
+    main { margin-left: 0; }
+    .main-inner { margin-left: 0; max-width: none; }
+    nav.toc { flex-flow: row wrap; }
+    nav.toc .grp { width: 100%; margin: 10px 0 2px; }
+    nav.toc .grp-toggle { width: 100%; margin: 10px 0 2px; }
+    nav.toc .grp-body { width: 100%; }
+    nav.toc a { padding: 5px 9px; }
+    .finding .cols { grid-template-columns: 1fr; gap: 12px; }
+  }
+  @media (max-width: 720px) {
+    .type-row { grid-template-columns: 1fr; gap: 6px; }
+    .type-row .spec { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+  <aside>
+    <a class="brand" href="index.html">
+      <img class="mark" src="favicon.png" alt="">
+      <div class="name">資料匯流平台設計系統</div>
+    </a>
+    <nav class="toc">
+      <button class="grp-toggle" type="button" aria-expanded="true" data-target="grp-spec" data-page="foundation.html">
+        <span>設計規範</span>
+        <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+      </button>
+      <div class="grp-body" id="grp-spec">
+        <a href="#color"><span>顏色</span></a>
+        <a href="#type"><span>文字</span></a>
+        <a href="#space"><span>間距</span></a>
+        <a href="#radius"><span>圓角</span></a>
+        <a href="#shadow"><span>陰影</span></a>
+        <a href="#layout"><span>頁面佈局</span></a>
+        <!-- 狀態色票、審計清單暫放這裡,元件盤點清點完成後刪除這兩條連結與對應章節 -->
+        <a href="#status"><span>狀態色票</span></a>
+        <a href="#audit" class="crit-link"><span>審計清單</span></a>
+      </div>
+
+      <button class="grp-toggle" type="button" aria-expanded="false" data-target="grp-comp" data-page="component.html">
+        <span>元件</span>
+        <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+      </button>
+      <div class="grp-body" id="grp-comp" hidden>
+        <div class="grp sub">動作與表單</div>
+        <a href="component.html#comp-button" class="comp-link"><span>Button</span></a>
+        <a href="component.html#comp-input" class="comp-link"><span>Input</span></a>
+        <a href="component.html#comp-switch" class="comp-link"><span>Switch</span></a>
+        <a href="component.html#comp-checkbox" class="comp-link"><span>Checkbox</span></a>
+        <a href="component.html#comp-select" class="comp-link"><span>Select</span></a>
+        <a href="component.html#comp-textarea" class="comp-link"><span>Textarea</span></a>
+        <div class="grp sub">覆蓋層</div>
+        <a href="component.html#comp-dialog" class="comp-link"><span>Dialog</span></a>
+        <a href="component.html#comp-drawer" class="comp-link"><span>Drawer</span></a>
+        <a href="component.html#comp-popover" class="comp-link"><span>Popover</span></a>
+        <a href="component.html#comp-command" class="comp-link"><span>Command</span></a>
+        <a href="component.html#comp-dropdown" class="comp-link"><span>Dropdown Menu</span></a>
+        <a href="component.html#comp-tooltip" class="comp-link"><span>Tooltip</span></a>
+        <div class="grp sub">回饋與資料</div>
+        <a href="component.html#comp-badge" class="comp-link"><span>Badge</span></a>
+        <a href="component.html#comp-skeleton" class="comp-link"><span>Skeleton</span></a>
+        <a href="component.html#comp-progress" class="comp-link"><span>Progress</span></a>
+        <a href="component.html#comp-toast" class="comp-link"><span>Sonner Toast</span></a>
+        <a href="component.html#comp-alert" class="comp-link"><span>Alert</span></a>
+        <a href="component.html#comp-card" class="comp-link"><span>Card</span></a>
+        <a href="component.html#comp-table" class="comp-link"><span>Table</span></a>
+        <a href="component.html#comp-tabs" class="comp-link"><span>Tabs</span></a>
+        <a href="component.html#comp-separator" class="comp-link"><span>Separator</span></a>
+        <a href="component.html#comp-pagination" class="comp-link"><span>Pagination</span></a>
+        <a href="component.html#comp-scrollarea" class="comp-link"><span>ScrollArea</span></a>
+        <a href="component.html#comp-collapsible" class="comp-link"><span>Collapsible</span></a>
+        <a href="component.html#comp-statusbadge" class="comp-link crit-link"><span>StatusBadge</span></a>
+        <a href="component.html#comp-statscard" class="comp-link crit-link"><span>StatsCard</span></a>
+      </div>
+    </nav>
+  </aside>
+
+  <main>
+   <div class="main-inner">
+    <header class="hero">
+      <h1>設計規範</h1>
+      <p class="lede">本頁收錄 DCF 存取節點平台正式拍板的 Design Token 規範，包含顏色、文字、間距、圓角、陰影、頁面佈局，並附上狀態色票與審計清單作為現況參考。</p>
+    </header>
+
+    <!-- ============ 01 顏色 ============ -->
+    <section class="band" id="color">
+      <div class="band-head"><h2>顏色</h2></div>
+      <p class="band-sub">Token 架構分三層：<strong>Base 層</strong>共 13 條純色階 ( 12 條各 10 階 50–900，neutral 多一階 <code style="font-family:var(--font-mono);color:var(--accent-ink)">0</code> 純白，共 11 階 )，其中 8 條為核心、5 條僅供分類辨識；<strong>Function 層</strong>只引用 Base 的階數，不產生新色值；<strong>Component 層</strong>再收斂一次給實際元件用。需求書的甲方色一律錨定在各色階的 <code style="font-family:var(--font-mono);color:var(--accent-ink)">500</code> 作為前景基準，已選取底色 <code style="font-family:var(--font-mono);color:var(--accent-ink)">#f0fdfa</code> 自然落在 brand-50。</p>
+
+      <div class="arch">
+        <div class="layer">
+          <div class="t">Layer 1 · Base</div>
+          <h4>純色階，不帶語意</h4>
+          <p>neutral · brand 之外，其餘 11 條依色相排成 red · orange · yellow · green · aqua · sky · blue · indigo · purple · pink · rose，其中 red / orange / yellow / green / blue / aqua 為核心、其餘 5 條僅供分類辨識。這一層只回答「有哪些顏色」，不回答「什麼時候用」</p>
+        </div>
+        <div class="layer">
+          <div class="t">Layer 2 · Function</div>
+          <h4>語意層，只引用 Base</h4>
+          <p>分兩組：中性骨架 ( foreground-primary/secondary、stroke、background-surface/container ) 描述頁面本身；語意色 ( success/warning/danger/info ) 只有 foreground、background、stroke 三個 slot</p>
+        </div>
+        <div class="layer">
+          <div class="t">Layer 3 · Component</div>
+          <h4>元件層，只引用 Function</h4>
+          <p>以實際元件為單位再收斂一次，例如 Tag 元件只有 background 跟 foreground 兩個 slot，指向 Function 層的語意 token</p>
+        </div>
+      </div>
+
+      <h3 class="sub">Base 色階 <span class="tag">色相</span></h3>
+      <p class="sub-note">甲方需求書六色一律錨定在 500：主操作 <code style="font-family:var(--font-mono);color:var(--accent-ink)">#0d9488</code>、已選取底 <code style="font-family:var(--font-mono);color:var(--accent-ink)">#f0fdfa</code> ( brand-50 )、警告 <code style="font-family:var(--font-mono);color:var(--accent-ink)">#f59e0b</code>、危險 <code style="font-family:var(--font-mono);color:var(--accent-ink)">#ef4444</code>、成功 <code style="font-family:var(--font-mono);color:var(--accent-ink)">#22c55e</code>、資訊 <code style="font-family:var(--font-mono);color:var(--accent-ink)">#3b82f6</code>。</p>
+
+      <h3 class="sub">neutral</h3>
+      <div class="scale-scroll"><div class="scale cols-11">
+        <div class="step"><div class="sw white" style="background:#ffffff"></div><div class="lv">0</div><div class="hx">#ffffff</div></div>
+        <div class="step"><div class="sw" style="background:#f8fafc"></div><div class="lv">50</div><div class="hx">#f8fafc</div></div>
+        <div class="step"><div class="sw" style="background:#f1f5f9"></div><div class="lv">100</div><div class="hx">#f1f5f9</div></div>
+        <div class="step"><div class="sw" style="background:#e2e8f0"></div><div class="lv">200</div><div class="hx">#e2e8f0</div></div>
+        <div class="step"><div class="sw" style="background:#cbd5e1"></div><div class="lv">300</div><div class="hx">#cbd5e1</div></div>
+        <div class="step"><div class="sw" style="background:#94a3b8"></div><div class="lv">400</div><div class="hx">#94a3b8</div></div>
+        <div class="step"><div class="sw" style="background:#64748b"></div><div class="lv">500</div><div class="hx">#64748b</div></div>
+        <div class="step"><div class="sw" style="background:#475569"></div><div class="lv">600</div><div class="hx">#475569</div></div>
+        <div class="step"><div class="sw" style="background:#334155"></div><div class="lv">700</div><div class="hx">#334155</div></div>
+        <div class="step"><div class="sw" style="background:#1e293b"></div><div class="lv">800</div><div class="hx">#1e293b</div></div>
+        <div class="step"><div class="sw" style="background:#0f172a"></div><div class="lv">900</div><div class="hx">#0f172a</div></div>
+      </div></div>
+
+      <h3 class="sub">brand</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step anchor"><div class="sw" style="background:#f0fdfa"></div><div class="lv">50</div><div class="hx">#f0fdfa</div><span class="an">已選取底</span></div>
+        <div class="step"><div class="sw" style="background:#ccfbf1"></div><div class="lv">100</div><div class="hx">#ccfbf1</div></div>
+        <div class="step"><div class="sw" style="background:#99f6e4"></div><div class="lv">200</div><div class="hx">#99f6e4</div></div>
+        <div class="step"><div class="sw" style="background:#2dd4bf"></div><div class="lv">300</div><div class="hx">#2dd4bf</div></div>
+        <div class="step"><div class="sw" style="background:#14b8a6"></div><div class="lv">400</div><div class="hx">#14b8a6</div></div>
+        <div class="step anchor"><div class="sw" style="background:#0d9488"></div><div class="lv">500</div><div class="hx">#0d9488</div><span class="an">主操作</span></div>
+        <div class="step"><div class="sw" style="background:#0f766e"></div><div class="lv">600</div><div class="hx">#0f766e</div></div>
+        <div class="step"><div class="sw" style="background:#115e59"></div><div class="lv">700</div><div class="hx">#115e59</div></div>
+        <div class="step"><div class="sw" style="background:#134e4a"></div><div class="lv">800</div><div class="hx">#134e4a</div></div>
+        <div class="step"><div class="sw" style="background:#042f2e"></div><div class="lv">900</div><div class="hx">#042f2e</div></div>
+      </div></div>
+
+      <h3 class="sub">red</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#fef2f2"></div><div class="lv">50</div><div class="hx">#fef2f2</div></div>
+        <div class="step"><div class="sw" style="background:#fee2e2"></div><div class="lv">100</div><div class="hx">#fee2e2</div></div>
+        <div class="step"><div class="sw" style="background:#fecaca"></div><div class="lv">200</div><div class="hx">#fecaca</div></div>
+        <div class="step"><div class="sw" style="background:#fca5a5"></div><div class="lv">300</div><div class="hx">#fca5a5</div></div>
+        <div class="step"><div class="sw" style="background:#f87171"></div><div class="lv">400</div><div class="hx">#f87171</div></div>
+        <div class="step anchor"><div class="sw" style="background:#ef4444"></div><div class="lv">500</div><div class="hx">#ef4444</div><span class="an">危險</span></div>
+        <div class="step"><div class="sw" style="background:#dc2626"></div><div class="lv">600</div><div class="hx">#dc2626</div></div>
+        <div class="step"><div class="sw" style="background:#b91c1c"></div><div class="lv">700</div><div class="hx">#b91c1c</div></div>
+        <div class="step"><div class="sw" style="background:#991b1b"></div><div class="lv">800</div><div class="hx">#991b1b</div></div>
+        <div class="step"><div class="sw" style="background:#7f1d1d"></div><div class="lv">900</div><div class="hx">#7f1d1d</div></div>
+      </div></div>
+
+      <h3 class="sub">orange</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#fff7ed"></div><div class="lv">50</div><div class="hx">#fff7ed</div></div>
+        <div class="step"><div class="sw" style="background:#ffedd5"></div><div class="lv">100</div><div class="hx">#ffedd5</div></div>
+        <div class="step"><div class="sw" style="background:#fed7aa"></div><div class="lv">200</div><div class="hx">#fed7aa</div></div>
+        <div class="step"><div class="sw" style="background:#fdba74"></div><div class="lv">300</div><div class="hx">#fdba74</div></div>
+        <div class="step"><div class="sw" style="background:#fb923c"></div><div class="lv">400</div><div class="hx">#fb923c</div></div>
+        <div class="step"><div class="sw" style="background:#f97316"></div><div class="lv">500</div><div class="hx">#f97316</div></div>
+        <div class="step"><div class="sw" style="background:#ea580c"></div><div class="lv">600</div><div class="hx">#ea580c</div></div>
+        <div class="step"><div class="sw" style="background:#c2410c"></div><div class="lv">700</div><div class="hx">#c2410c</div></div>
+        <div class="step"><div class="sw" style="background:#9a3412"></div><div class="lv">800</div><div class="hx">#9a3412</div></div>
+        <div class="step"><div class="sw" style="background:#7c2d12"></div><div class="lv">900</div><div class="hx">#7c2d12</div></div>
+      </div></div>
+
+      <h3 class="sub">yellow</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#fffbeb"></div><div class="lv">50</div><div class="hx">#fffbeb</div></div>
+        <div class="step"><div class="sw" style="background:#fef3c7"></div><div class="lv">100</div><div class="hx">#fef3c7</div></div>
+        <div class="step"><div class="sw" style="background:#fde68a"></div><div class="lv">200</div><div class="hx">#fde68a</div></div>
+        <div class="step"><div class="sw" style="background:#fcd34d"></div><div class="lv">300</div><div class="hx">#fcd34d</div></div>
+        <div class="step"><div class="sw" style="background:#fbbf24"></div><div class="lv">400</div><div class="hx">#fbbf24</div></div>
+        <div class="step anchor"><div class="sw" style="background:#f59e0b"></div><div class="lv">500</div><div class="hx">#f59e0b</div><span class="an">警告</span></div>
+        <div class="step"><div class="sw" style="background:#d97706"></div><div class="lv">600</div><div class="hx">#d97706</div></div>
+        <div class="step"><div class="sw" style="background:#b45309"></div><div class="lv">700</div><div class="hx">#b45309</div></div>
+        <div class="step"><div class="sw" style="background:#92400e"></div><div class="lv">800</div><div class="hx">#92400e</div></div>
+        <div class="step"><div class="sw" style="background:#78350f"></div><div class="lv">900</div><div class="hx">#78350f</div></div>
+      </div></div>
+
+      <h3 class="sub">green</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#f0fdf4"></div><div class="lv">50</div><div class="hx">#f0fdf4</div></div>
+        <div class="step"><div class="sw" style="background:#dcfce7"></div><div class="lv">100</div><div class="hx">#dcfce7</div></div>
+        <div class="step"><div class="sw" style="background:#bbf7d0"></div><div class="lv">200</div><div class="hx">#bbf7d0</div></div>
+        <div class="step"><div class="sw" style="background:#86efac"></div><div class="lv">300</div><div class="hx">#86efac</div></div>
+        <div class="step"><div class="sw" style="background:#4ade80"></div><div class="lv">400</div><div class="hx">#4ade80</div></div>
+        <div class="step anchor"><div class="sw" style="background:#22c55e"></div><div class="lv">500</div><div class="hx">#22c55e</div><span class="an">成功</span></div>
+        <div class="step"><div class="sw" style="background:#16a34a"></div><div class="lv">600</div><div class="hx">#16a34a</div></div>
+        <div class="step"><div class="sw" style="background:#15803d"></div><div class="lv">700</div><div class="hx">#15803d</div></div>
+        <div class="step"><div class="sw" style="background:#166534"></div><div class="lv">800</div><div class="hx">#166534</div></div>
+        <div class="step"><div class="sw" style="background:#14532d"></div><div class="lv">900</div><div class="hx">#14532d</div></div>
+      </div></div>
+
+      <h3 class="sub">aqua</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#ecfeff"></div><div class="lv">50</div><div class="hx">#ecfeff</div></div>
+        <div class="step"><div class="sw" style="background:#cffafe"></div><div class="lv">100</div><div class="hx">#cffafe</div></div>
+        <div class="step"><div class="sw" style="background:#a5f3fc"></div><div class="lv">200</div><div class="hx">#a5f3fc</div></div>
+        <div class="step"><div class="sw" style="background:#67e8f9"></div><div class="lv">300</div><div class="hx">#67e8f9</div></div>
+        <div class="step"><div class="sw" style="background:#22d3ee"></div><div class="lv">400</div><div class="hx">#22d3ee</div></div>
+        <div class="step"><div class="sw" style="background:#06b6d4"></div><div class="lv">500</div><div class="hx">#06b6d4</div></div>
+        <div class="step"><div class="sw" style="background:#0891b2"></div><div class="lv">600</div><div class="hx">#0891b2</div></div>
+        <div class="step"><div class="sw" style="background:#0e7490"></div><div class="lv">700</div><div class="hx">#0e7490</div></div>
+        <div class="step"><div class="sw" style="background:#155e75"></div><div class="lv">800</div><div class="hx">#155e75</div></div>
+        <div class="step"><div class="sw" style="background:#164e63"></div><div class="lv">900</div><div class="hx">#164e63</div></div>
+      </div></div>
+
+      <h3 class="sub">sky</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#f0f9ff"></div><div class="lv">50</div><div class="hx">#f0f9ff</div></div>
+        <div class="step"><div class="sw" style="background:#e0f2fe"></div><div class="lv">100</div><div class="hx">#e0f2fe</div></div>
+        <div class="step"><div class="sw" style="background:#bae6fd"></div><div class="lv">200</div><div class="hx">#bae6fd</div></div>
+        <div class="step"><div class="sw" style="background:#7dd3fc"></div><div class="lv">300</div><div class="hx">#7dd3fc</div></div>
+        <div class="step"><div class="sw" style="background:#38bdf8"></div><div class="lv">400</div><div class="hx">#38bdf8</div></div>
+        <div class="step"><div class="sw" style="background:#0ea5e9"></div><div class="lv">500</div><div class="hx">#0ea5e9</div></div>
+        <div class="step"><div class="sw" style="background:#0284c7"></div><div class="lv">600</div><div class="hx">#0284c7</div></div>
+        <div class="step"><div class="sw" style="background:#0369a1"></div><div class="lv">700</div><div class="hx">#0369a1</div></div>
+        <div class="step"><div class="sw" style="background:#075985"></div><div class="lv">800</div><div class="hx">#075985</div></div>
+        <div class="step"><div class="sw" style="background:#0c4a6e"></div><div class="lv">900</div><div class="hx">#0c4a6e</div></div>
+      </div></div>
+
+      <h3 class="sub">blue</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#eff6ff"></div><div class="lv">50</div><div class="hx">#eff6ff</div></div>
+        <div class="step"><div class="sw" style="background:#dbeafe"></div><div class="lv">100</div><div class="hx">#dbeafe</div></div>
+        <div class="step"><div class="sw" style="background:#bfdbfe"></div><div class="lv">200</div><div class="hx">#bfdbfe</div></div>
+        <div class="step"><div class="sw" style="background:#93c5fd"></div><div class="lv">300</div><div class="hx">#93c5fd</div></div>
+        <div class="step"><div class="sw" style="background:#60a5fa"></div><div class="lv">400</div><div class="hx">#60a5fa</div></div>
+        <div class="step anchor"><div class="sw" style="background:#3b82f6"></div><div class="lv">500</div><div class="hx">#3b82f6</div><span class="an">資訊</span></div>
+        <div class="step"><div class="sw" style="background:#2563eb"></div><div class="lv">600</div><div class="hx">#2563eb</div></div>
+        <div class="step"><div class="sw" style="background:#1d4ed8"></div><div class="lv">700</div><div class="hx">#1d4ed8</div></div>
+        <div class="step"><div class="sw" style="background:#1e40af"></div><div class="lv">800</div><div class="hx">#1e40af</div></div>
+        <div class="step"><div class="sw" style="background:#1e3a8a"></div><div class="lv">900</div><div class="hx">#1e3a8a</div></div>
+      </div></div>
+
+      <h3 class="sub">indigo</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#eef2ff"></div><div class="lv">50</div><div class="hx">#eef2ff</div></div>
+        <div class="step"><div class="sw" style="background:#e0e7ff"></div><div class="lv">100</div><div class="hx">#e0e7ff</div></div>
+        <div class="step"><div class="sw" style="background:#c7d2fe"></div><div class="lv">200</div><div class="hx">#c7d2fe</div></div>
+        <div class="step"><div class="sw" style="background:#a5b4fc"></div><div class="lv">300</div><div class="hx">#a5b4fc</div></div>
+        <div class="step"><div class="sw" style="background:#818cf8"></div><div class="lv">400</div><div class="hx">#818cf8</div></div>
+        <div class="step"><div class="sw" style="background:#6366f1"></div><div class="lv">500</div><div class="hx">#6366f1</div></div>
+        <div class="step"><div class="sw" style="background:#4f46e5"></div><div class="lv">600</div><div class="hx">#4f46e5</div></div>
+        <div class="step"><div class="sw" style="background:#4338ca"></div><div class="lv">700</div><div class="hx">#4338ca</div></div>
+        <div class="step"><div class="sw" style="background:#3730a3"></div><div class="lv">800</div><div class="hx">#3730a3</div></div>
+        <div class="step"><div class="sw" style="background:#312e81"></div><div class="lv">900</div><div class="hx">#312e81</div></div>
+      </div></div>
+
+      <h3 class="sub">purple</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#faf5ff"></div><div class="lv">50</div><div class="hx">#faf5ff</div></div>
+        <div class="step"><div class="sw" style="background:#f3e8ff"></div><div class="lv">100</div><div class="hx">#f3e8ff</div></div>
+        <div class="step"><div class="sw" style="background:#e9d5ff"></div><div class="lv">200</div><div class="hx">#e9d5ff</div></div>
+        <div class="step"><div class="sw" style="background:#d8b4fe"></div><div class="lv">300</div><div class="hx">#d8b4fe</div></div>
+        <div class="step"><div class="sw" style="background:#c084fc"></div><div class="lv">400</div><div class="hx">#c084fc</div></div>
+        <div class="step"><div class="sw" style="background:#a855f7"></div><div class="lv">500</div><div class="hx">#a855f7</div></div>
+        <div class="step"><div class="sw" style="background:#9333ea"></div><div class="lv">600</div><div class="hx">#9333ea</div></div>
+        <div class="step"><div class="sw" style="background:#7e22ce"></div><div class="lv">700</div><div class="hx">#7e22ce</div></div>
+        <div class="step"><div class="sw" style="background:#6b21a8"></div><div class="lv">800</div><div class="hx">#6b21a8</div></div>
+        <div class="step"><div class="sw" style="background:#581c87"></div><div class="lv">900</div><div class="hx">#581c87</div></div>
+      </div></div>
+
+      <h3 class="sub">pink</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#fdf2f8"></div><div class="lv">50</div><div class="hx">#fdf2f8</div></div>
+        <div class="step"><div class="sw" style="background:#fce7f3"></div><div class="lv">100</div><div class="hx">#fce7f3</div></div>
+        <div class="step"><div class="sw" style="background:#fbcfe8"></div><div class="lv">200</div><div class="hx">#fbcfe8</div></div>
+        <div class="step"><div class="sw" style="background:#f9a8d4"></div><div class="lv">300</div><div class="hx">#f9a8d4</div></div>
+        <div class="step"><div class="sw" style="background:#f472b6"></div><div class="lv">400</div><div class="hx">#f472b6</div></div>
+        <div class="step"><div class="sw" style="background:#ec4899"></div><div class="lv">500</div><div class="hx">#ec4899</div></div>
+        <div class="step"><div class="sw" style="background:#db2777"></div><div class="lv">600</div><div class="hx">#db2777</div></div>
+        <div class="step"><div class="sw" style="background:#be185d"></div><div class="lv">700</div><div class="hx">#be185d</div></div>
+        <div class="step"><div class="sw" style="background:#9d174d"></div><div class="lv">800</div><div class="hx">#9d174d</div></div>
+        <div class="step"><div class="sw" style="background:#831843"></div><div class="lv">900</div><div class="hx">#831843</div></div>
+      </div></div>
+
+      <h3 class="sub">rose</h3>
+      <div class="scale-scroll"><div class="scale">
+        <div class="step"><div class="sw" style="background:#fff1f2"></div><div class="lv">50</div><div class="hx">#fff1f2</div></div>
+        <div class="step"><div class="sw" style="background:#ffe4e6"></div><div class="lv">100</div><div class="hx">#ffe4e6</div></div>
+        <div class="step"><div class="sw" style="background:#fecdd3"></div><div class="lv">200</div><div class="hx">#fecdd3</div></div>
+        <div class="step"><div class="sw" style="background:#fda4af"></div><div class="lv">300</div><div class="hx">#fda4af</div></div>
+        <div class="step"><div class="sw" style="background:#fb7185"></div><div class="lv">400</div><div class="hx">#fb7185</div></div>
+        <div class="step"><div class="sw" style="background:#f43f5e"></div><div class="lv">500</div><div class="hx">#f43f5e</div></div>
+        <div class="step"><div class="sw" style="background:#e11d48"></div><div class="lv">600</div><div class="hx">#e11d48</div></div>
+        <div class="step"><div class="sw" style="background:#be123c"></div><div class="lv">700</div><div class="hx">#be123c</div></div>
+        <div class="step"><div class="sw" style="background:#9f1239"></div><div class="lv">800</div><div class="hx">#9f1239</div></div>
+        <div class="step"><div class="sw" style="background:#881337"></div><div class="lv">900</div><div class="hx">#881337</div></div>
+      </div></div>
+
+      <h3 class="sub">Function 層 · 中性骨架</h3>
+      <p class="sub-note">描述頁面本身的中性色，不含任何語意。foreground 分 primary / secondary 涵蓋文字與圖示，線條獨立為 stroke，background 再分 surface ( 頁面底層 ) 與 container ( 疊在背景上的卡片、元件、區塊 )</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Token</th><th>用途</th><th>Base 對應</th><th>色塊</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">foreground-primary</td><td>主要文字 / 圖示</td><td class="mono">neutral-900</td><td class="mono"><span class="dot" style="background:#0f172a"></span>#0f172a</td></tr>
+            <tr><td class="mono">foreground-secondary</td><td>次要文字 / 圖示</td><td class="mono">neutral-500</td><td class="mono"><span class="dot" style="background:#64748b"></span>#64748b</td></tr>
+            <tr><td class="mono">stroke</td><td>邊框 / 分隔線</td><td class="mono">neutral-300</td><td class="mono"><span class="dot" style="background:#cbd5e1"></span>#cbd5e1</td></tr>
+            <tr><td class="mono">background-surface-primary</td><td>頁面底層背景</td><td class="mono">neutral-100</td><td class="mono"><span class="dot" style="background:#f1f5f9"></span>#f1f5f9</td></tr>
+            <tr><td class="mono">background-container-surface</td><td>卡片本身 ( 白 )</td><td class="mono">neutral-0</td><td class="mono"><span class="dot" style="background:#ffffff"></span>#ffffff</td></tr>
+            <tr><td class="mono">background-container-subtle</td><td>卡片上的輕量區隔</td><td class="mono">neutral-50</td><td class="mono"><span class="dot" style="background:#f8fafc"></span>#f8fafc</td></tr>
+            <tr><td class="mono">background-container-variant</td><td>卡片上的元件 ( 輸入框等 )</td><td class="mono">neutral-100</td><td class="mono"><span class="dot" style="background:#f1f5f9"></span>#f1f5f9</td></tr>
+            <tr><td class="mono">background-container-high</td><td>比 variant 更重的強調區塊</td><td class="mono">neutral-200</td><td class="mono"><span class="dot" style="background:#e2e8f0"></span>#e2e8f0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sub-note" style="margin-top:14px">一個提醒：<code style="font-family:var(--font-mono);color:var(--accent-ink)">background-surface-primary</code> 跟 <code style="font-family:var(--font-mono);color:var(--accent-ink)">background-container-variant</code> 剛好都落在 neutral-100，是因為 R 現況的頁面背景色本來就跟次要元件背景很接近，不是重複定義</p>
+
+      <h3 class="sub">Function 層 · 語意色</h3>
+      <p class="sub-note">每個語意只有三個 slot：foreground ( 700，文字與圖示皆用這個，對比才夠 )、background ( 50，淺底 )、stroke ( 邊框 )，不套用中性骨架那套 container 階層</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>語意</th><th>foreground</th><th>background</th><th>stroke</th></tr></thead>
+          <tbody>
+            <tr><td>primary 主操作</td><td class="mono"><span class="dot" style="background:#115e59"></span>brand-700</td><td class="mono"><span class="dot" style="background:#f0fdfa"></span>brand-50</td><td class="mono"><span class="dot" style="background:#99f6e4"></span>brand-200</td></tr>
+            <tr><td>selected 已選取</td><td class="mono">—</td><td class="mono"><span class="dot" style="background:#f0fdfa"></span>brand-50</td><td class="mono"><span class="dot" style="background:#99f6e4"></span>brand-200</td></tr>
+            <tr><td>success 成功</td><td class="mono"><span class="dot" style="background:#15803d"></span>green-700</td><td class="mono"><span class="dot" style="background:#f0fdf4"></span>green-50</td><td class="mono"><span class="dot" style="background:#dcfce7"></span>green-100</td></tr>
+            <tr><td>warning 警告</td><td class="mono"><span class="dot" style="background:#b45309"></span>yellow-700</td><td class="mono"><span class="dot" style="background:#fffbeb"></span>yellow-50</td><td class="mono"><span class="dot" style="background:#fef3c7"></span>yellow-100</td></tr>
+            <tr><td>danger 危險 / 錯誤</td><td class="mono"><span class="dot" style="background:#b91c1c"></span>red-700</td><td class="mono"><span class="dot" style="background:#fef2f2"></span>red-50</td><td class="mono"><span class="dot" style="background:#fee2e2"></span>red-100</td></tr>
+            <tr><td>info 資訊</td><td class="mono"><span class="dot" style="background:#1d4ed8"></span>blue-700</td><td class="mono"><span class="dot" style="background:#eff6ff"></span>blue-50</td><td class="mono"><span class="dot" style="background:#dbeafe"></span>blue-100</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub">Component 層 · Tag</h3>
+      <p class="sub-note">Tag 只有 background 跟 foreground 兩個 slot，全部指向 Function 層。分兩組：語意 5 種底色淺 ( 50 )、分類辨識 12 種底色略深 ( 100 )，這個深淺差異本身就是規則，用來區分「這是狀態」還是「這是分類」</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Tag</th><th>background</th><th>foreground</th><th>預覽</th></tr></thead>
+          <tbody>
+            <tr class="grp-row"><td colspan="4">語意狀態 · 5</td></tr>
+            <tr><td>tag-success</td><td class="mono">green-50</td><td class="mono">green-700</td><td><span class="tagprev" style="background:#f0fdf4;color:#15803d">成功</span></td></tr>
+            <tr><td>tag-warning</td><td class="mono">yellow-50</td><td class="mono">yellow-700</td><td><span class="tagprev" style="background:#fffbeb;color:#b45309">警告</span></td></tr>
+            <tr><td>tag-danger</td><td class="mono">red-50</td><td class="mono">red-700</td><td><span class="tagprev" style="background:#fef2f2;color:#b91c1c">危險</span></td></tr>
+            <tr><td>tag-info</td><td class="mono">blue-50</td><td class="mono">blue-700</td><td><span class="tagprev" style="background:#eff6ff;color:#1d4ed8">資訊</span></td></tr>
+            <tr><td>tag-neutral</td><td class="mono">neutral-100</td><td class="mono">neutral-700</td><td><span class="tagprev" style="background:#f1f5f9;color:#334155">中性 / 停用</span></td></tr>
+            <tr class="grp-row"><td colspan="4">分類辨識 · 12 ( 來源 types/cacheLog.ts )</td></tr>
+            <tr><td>tag-認證</td><td class="mono">green-100</td><td class="mono">green-700</td><td><span class="tagprev" style="background:#dcfce7;color:#15803d">認證</span></td></tr>
+            <tr><td>tag-安全鎖</td><td class="mono">yellow-100</td><td class="mono">yellow-700</td><td><span class="tagprev" style="background:#fef3c7;color:#b45309">安全鎖</span></td></tr>
+            <tr><td>tag-資料集</td><td class="mono">blue-100</td><td class="mono">blue-700</td><td><span class="tagprev" style="background:#dbeafe;color:#1d4ed8">資料集</span></td></tr>
+            <tr><td>tag-協作</td><td class="mono">brand-100</td><td class="mono">brand-700</td><td><span class="tagprev" style="background:#ccfbf1;color:#115e59">協作</span></td></tr>
+            <tr><td>tag-紀錄</td><td class="mono">purple-100</td><td class="mono">purple-700</td><td><span class="tagprev" style="background:#f3e8ff;color:#7e22ce">紀錄</span></td></tr>
+            <tr><td>tag-帳號</td><td class="mono">indigo-100</td><td class="mono">indigo-700</td><td><span class="tagprev" style="background:#e0e7ff;color:#4338ca">帳號</span></td></tr>
+            <tr><td>tag-角色</td><td class="mono">pink-100</td><td class="mono">pink-700</td><td><span class="tagprev" style="background:#fce7f3;color:#be185d">角色</span></td></tr>
+            <tr><td>tag-系統</td><td class="mono">neutral-100</td><td class="mono">neutral-700</td><td><span class="tagprev" style="background:#f1f5f9;color:#334155">系統</span></td></tr>
+            <tr><td>tag-資源存取</td><td class="mono">aqua-100</td><td class="mono">aqua-700</td><td><span class="tagprev" style="background:#cffafe;color:#0e7490">資源存取</span></td></tr>
+            <tr><td>tag-操作</td><td class="mono">orange-100</td><td class="mono">orange-700</td><td><span class="tagprev" style="background:#ffedd5;color:#c2410c">操作</span></td></tr>
+            <tr><td>tag-資料集存取</td><td class="mono">sky-100</td><td class="mono">sky-700</td><td><span class="tagprev" style="background:#e0f2fe;color:#0369a1">資料集存取</span></td></tr>
+            <tr><td>tag-收件匣</td><td class="mono">rose-100</td><td class="mono">rose-700</td><td><span class="tagprev" style="background:#ffe4e6;color:#be123c">收件匣</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sub-note" style="margin-top:14px">tag-neutral ( 語意 ) 跟 tag-系統 ( 分類 ) 剛好用同一組值，因為 neutral 沒有夠明顯的 50 階可用，兩者都直接採 100，屬於唯一例外</p>
+    </section>
+
+    <!-- ============ 02 文字 ============ -->
+    <section class="band" id="type">
+      <div class="band-head"><h2>文字</h2></div>
+      <p class="band-sub">語意化命名取代 Tailwind 原生字級名。<span class="st keep">✓ 現況即規範</span> 表示程式碼已是這樣，只需抽成 token；<span class="st new">★ 新規則</span> 表示需修改程式碼才生效。字級採兩軌制：閱讀內容走 Body1 ( 16px )，密集表格走 Body2 ( 14px )。</p>
+
+      <h3 class="sub">字體家族 <span class="tag">Font Family</span></h3>
+      <p class="sub-note">中文與英文分別指定，不再依賴系統預設。現況只載入了 Public Sans ( 無中文字符 )，且 fallback 誤寫成無中文的 <code style="font-family:var(--font-mono);color:var(--accent-ink)">Noto Sans</code>，導致全站中文實際上是各作業系統的預設字體在顯示。</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>角色</th><th>字體</th><th>字重</th><th>狀態</th></tr></thead>
+          <tbody>
+            <tr><td>中文</td><td class="mono">Noto Sans TC</td><td class="mono">400 / 500 / 700</td><td><span class="st new">★ 新規則 · 需載入字體並修正 fallback</span></td></tr>
+            <tr><td>英文 / 數字</td><td class="mono">Public Sans</td><td class="mono">400 / 500 / 700</td><td><span class="st new">★ 載入字重改為 400 / 500 / 700 ( 現況含 600 )</span></td></tr>
+            <tr><td>等寬 ( Code )</td><td class="mono">ui-monospace 系統堆疊</td><td class="mono">400</td><td><span class="st keep">✓ 現況 font-mono</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sub">字級語意 <span class="tag">Type Scale</span></h3>
+      <p class="sub-note">行高規則：<strong>標題一律 1.3、內文一律 1.5</strong>，Button / Tag 為 100%，Code 編輯器 2.0。字重規則：<strong>文字內容只有 400 / 700 兩檔，500 為 Button / Tag 元件專屬</strong>，600 廢除，現況 86 處 font-semibold ( 含 Subtitle ) 一律升為 700。預覽受平台限制以系統字渲染，正式字體以本表為準。</p>
+      <div class="type-list">
+        <div class="type-row">
+          <span class="nm">Title1 <span class="st new">★</span></span>
+          <span class="demo" style="font-size:30px;font-weight:700;line-height:1.3">節點狀態總覽</span>
+          <span class="spec">30px / 700 / lh 1.3</span>
+          <p class="note">頁面主標題，一頁一個。行高由現況 1.2 改 1.3；現況 4 處有 1 處誤用 font-black ( 900 )，收斂為 700</p>
+        </div>
+        <div class="type-row">
+          <span class="nm">Title2 <span class="st new">★</span></span>
+          <span class="demo" style="font-size:20px;font-weight:700;line-height:1.3">資料來源管理</span>
+          <span class="spec">20px / 700 / lh 1.3</span>
+          <p class="note">卡片 / 區塊主標題。行高由現況 1.4 改 1.3</p>
+        </div>
+        <div class="type-row">
+          <span class="nm">Subtitle <span class="st new">★</span></span>
+          <span class="demo" style="font-size:18px;font-weight:700;line-height:1.3">欄位對應設定</span>
+          <span class="spec">18px / 700 / lh 1.3</span>
+          <p class="note">字重由現況 600 升為 700、行高由 1.56 改 1.3。Dialog 標題不另立 token，直接套用 Subtitle，現況的 leading-none 需移除</p>
+        </div>
+        <div class="type-row">
+          <span class="nm">Body1 <span class="st new">★</span></span>
+          <span class="demo" style="font-size:16px;line-height:1.5"><span style="font-weight:400">核准後，對方節點即可依欄位對應存取</span><span style="font-weight:700">指定資料集</span></span>
+          <span class="spec">16px / 400 · 700 / lh 1.5</span>
+          <p class="note">升級為主內文字級：一般內文、表單標籤、說明文字，含 regular 與 bold 兩種字重。現況 6 處 leading-relaxed 長段落收斂併回此語意</p>
+        </div>
+        <div class="type-row">
+          <span class="nm">Body2 <span class="st new">★</span></span>
+          <span class="demo" style="font-size:14px;line-height:1.5"><span style="font-weight:400">用於密集表格與紀錄列表的</span><span style="font-weight:700">內容文字</span></span>
+          <span class="spec">14px / 400 · 700 / lh 1.5</span>
+          <p class="note">密集表格 / 紀錄列表專用，含 regular 與 bold 兩種字重。行高由現況 1.43 改 1.5</p>
+        </div>
+        <div class="type-row">
+          <span class="nm">Caption <span class="st new">★</span></span>
+          <span class="demo" style="font-size:12px;font-weight:400;line-height:1.5;color:var(--ink-3)">最後更新於 2026.07.06 14:32</span>
+          <span class="spec">12px / 400 / lh 1.5</span>
+          <p class="note">僅限次要輔助標註，行高由現況 1.33 改 1.5。現況 138 處 text-xs 中，承載實質資訊者應升級為 Body2</p>
+        </div>
+        <div class="type-row">
+          <span class="nm">Button <span class="st new">★</span></span>
+          <span class="demo"><span style="display:inline-flex;align-items:center;font-size:14px;font-weight:500;line-height:1;background:var(--accent);color:#fff;padding:9px 16px;border-radius:8px">核准請求</span></span>
+          <span class="spec">14px / 500 / lh 100%</span>
+          <p class="note">現況 Button 元件未設行高，吃預設 1.43，需在元件補 leading-none</p>
+        </div>
+        <div class="type-row">
+          <span class="nm">Tag <span class="st new">★</span></span>
+          <span class="demo"><span style="display:inline-flex;align-items:center;font-size:12px;font-weight:500;line-height:1;background:#f0fdf4;color:#15803d;padding:5px 10px;border-radius:999px">已核准</span></span>
+          <span class="spec">12px / 500 / lh 100%</span>
+          <p class="note">現況 Badge 元件未設行高，吃預設 1.33，需在元件補 leading-none</p>
+        </div>
+        <div class="type-row">
+          <span class="nm">Code <span class="st keep">✓</span></span>
+          <span class="demo" style="font-family:var(--font-mono);font-size:12px;line-height:2">dataset_id: tpe-edu-001</span>
+          <span class="spec">12px / mono / lh 24px ( 2.0 )</span>
+          <p class="note">YAML 編輯器專用 ( CreateDatasetForm、DatasetYamlTab )，獨立語意不併入 Caption</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 間距 ============ -->
+    <section class="band" id="space">
+      <div class="band-head"><h2>間距</h2></div>
+      <p class="band-sub">保留 10 階，右欄為現況真實使用次數。<strong>10px 為唯一禁用的常用值</strong>：表格儲存格垂直內距升為 12px，與水平 12px 四邊對齊。6px / 20px 經阿暖拍板沿用保留；96px 為空狀態大留白，個案沿用。尺寸類 ( w-* / h-* / size-* ) 不受間距規則管轄</p>
+      <div class="type-list">
+        <div class="sp-row"><span class="v">2px</span><span class="n">26 次</span><span class="bar" style="width:2px"></span><span class="u">微型元件：Tag 垂直內距、緊密間隙</span></div>
+        <div class="sp-row"><span class="v">4px</span><span class="n">94 次</span><span class="bar" style="width:4px"></span><span class="u">最小間隙：icon 與文字</span></div>
+        <div class="sp-row"><span class="v">6px</span><span class="n">60 次</span><span class="bar" style="width:6px"></span><span class="u">icon 間隙、小元件內距</span></div>
+        <div class="sp-row"><span class="v">8px</span><span class="n">191 次</span><span class="bar" style="width:8px"></span><span class="u">元件內間隙主力</span></div>
+        <div class="sp-row"><span class="v">12px</span><span class="n">179 次</span><span class="bar" style="width:12px"></span><span class="u">表格儲存格、元件內距</span></div>
+        <div class="sp-row"><span class="v">16px</span><span class="n">228 次</span><span class="bar" style="width:16px"></span><span class="u">卡片內距、群組間距主力</span></div>
+        <div class="sp-row"><span class="v">20px</span><span class="n">22 次</span><span class="bar" style="width:20px"></span><span class="u">卡片內距 ( 中間值 )</span></div>
+        <div class="sp-row"><span class="v">24px</span><span class="n">125 次</span><span class="bar" style="width:24px"></span><span class="u">卡片留白、區塊間距</span></div>
+        <div class="sp-row"><span class="v">32px</span><span class="n">36 次</span><span class="bar" style="width:32px"></span><span class="u">區塊分隔</span></div>
+        <div class="sp-row"><span class="v">48px</span><span class="n">9 次</span><span class="bar" style="width:48px"></span><span class="u">頁面級留白</span></div>
+      </div>
+
+      <h3 class="sub">收斂對照 <span class="tag">禁用值吸附</span></h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>現況值</th><th>次數</th><th>吸附目標</th><th>狀態</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">10px ( *-2.5 )</td><td class="mono">50</td><td>表格儲存格 → 12px；其餘依場景 8px 或 12px</td><td><span class="st new">★ 已拍板禁用</span></td></tr>
+            <tr><td class="mono">28 / 36 / 40 / 56px</td><td class="mono">8</td><td>零星值，各自吸附最近的保留階 ( 24 / 32 / 48 )</td><td><span class="st new">★ 禁用</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ 04 圓角 ============ -->
+    <section class="band" id="radius">
+      <div class="band-head"><h2>圓角</h2></div>
+      <p class="band-sub">四檔制 ( 阿暖拍板 )：<strong>sm 4 / md 8 / lg 16 / full</strong>，xl 以上檔位廢除。現況 shadcn 推導制實際渲染為 6 / 8 / 10 / 14，收斂後按鈕 ( 現況實際 8px ) 對到 md 零視覺變化，選單項 6→4、卡片 10→8、面板 14→16 微調 <span class="st new">★ 需改 style.css 並重排檔位</span></p>
+      <div class="type-list">
+        <div class="sp-row">
+          <span class="v">sm</span><span class="n">4px</span>
+          <span style="justify-self:start"><span style="display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border-radius:4px;padding:7px 12px;font-size:12.5px;color:var(--ink)">選單項目 ( hover 態 )</span></span>
+          <span class="u">下拉選單項、checkbox · 承接現況 sm 7 處<br>DropdownMenuItem / SelectItem / CommandItem</span>
+        </div>
+        <div class="sp-row">
+          <span class="v">md</span><span class="n">8px</span>
+          <span style="justify-self:start;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <span style="display:inline-flex;align-items:center;background:var(--accent);color:#fff;border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:500">核准請求</span>
+            <span style="display:inline-flex;align-items:center;border:1px solid var(--line-strong);border-radius:8px;padding:7px 12px;font-size:12.5px;color:var(--ink-3);min-width:90px">輸入內容</span>
+            <span style="display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:8px 14px;font-size:12.5px"><span style="font-weight:700">統計卡片</span></span>
+          </span>
+          <span class="u">按鈕、輸入框、卡片、Dialog · 承接現況 md 70 + lg 36 處<br>Button / Input / SelectTrigger / OverviewView 卡片 / DialogContent</span>
+        </div>
+        <div class="sp-row">
+          <span class="v">lg</span><span class="n">16px</span>
+          <span style="justify-self:start"><span style="display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 20px 14px;font-size:12.5px;min-width:170px"><span style="font-weight:700">詳情面板</span><br><span style="color:var(--ink-3)">表格外框、大型容器</span></span></span>
+          <span class="u">詳情面板與表格外框 · 承接現況 xl 28 處<br>RequestDetailPanel / 資料集表格容器</span>
+        </div>
+        <div class="sp-row">
+          <span class="v">full</span><span class="n">膠囊</span>
+          <span style="justify-self:start;display:flex;align-items:center;gap:10px">
+            <span style="width:8px;height:8px;border-radius:999px;background:var(--accent)"></span>
+            <span style="width:72px;height:8px;border-radius:999px;background:var(--surface-2);overflow:hidden;display:inline-block"><span style="display:block;width:60%;height:100%;border-radius:999px;background:var(--accent)"></span></span>
+            <span style="display:inline-flex;align-items:center;background:var(--accent-wash);color:var(--accent-ink);border-radius:999px;padding:3px 10px;font-size:11px;font-weight:500">已核准</span>
+          </span>
+          <span class="u">狀態圓點、進度條、Badge · 承接現況 full 47 處<br>OverviewView / ResourceBar / AppNav 通知數</span>
+        </div>
+      </div>
+      <p class="sub-note" style="margin-top:14px">硬寫值收斂：<code style="font-family:var(--font-mono);color:var(--accent-ink)">rounded-[4px]</code> 與 <code style="font-family:var(--font-mono);color:var(--accent-ink)">rounded-[2px]</code> 各 1 處吸附至 sm。現況的 rounded-xl 全部改寫為新 lg；RequestDetailPanel 的核准 / 駁回大按鈕現況用 xl 與全站按鈕不一致，收斂時按鈕一律 md</p>
+    </section>
+
+    <!-- ============ 05 陰影 ============ -->
+    <section class="band" id="shadow">
+      <div class="band-head"><h2>陰影</h2></div>
+      <p class="band-sub"><code style="font-family:var(--font-mono);color:var(--accent-ink)">--shadow-sm</code> 有被客製為柔和的雙層陰影，是卡片的主要用法；其餘 xs / md / lg / xl 沿用 Tailwind 預設。</p>
+      <div class="demo-grid">
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 1px 2px rgba(0,0,0,0.05)"></div><div class="nm">xs</div><div class="v">Tailwind 預設 · 使用 5</div></div>
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 2px 12px rgba(0,0,0,0.08),0 1px 3px rgba(0,0,0,0.05)"></div><div class="nm">sm</div><div class="v">客製卡片主力 · 使用 22</div></div>
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -2px rgba(0,0,0,0.1)"></div><div class="nm">md</div><div class="v">Tailwind 預設 · 使用 3</div></div>
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1)"></div><div class="nm">lg</div><div class="v">Tailwind 預設 · 使用 4</div></div>
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 20px 25px -5px rgba(0,0,0,0.1),0 8px 10px -6px rgba(0,0,0,0.1)"></div><div class="nm">xl</div><div class="v">Tailwind 預設 · 使用 1</div></div>
+      </div>
+    </section>
+    <!-- ============ 06 頁面佈局 ============ -->
+    <section class="band" id="layout">
+      <div class="band-head"><h2>頁面佈局</h2></div>
+      <p class="band-sub">佈局類元件跟顏色 / 文字這些 token 不同層次，但同樣是跨頁面共用的結構規範，所以收在設計規範底下，不算在下方的元件盤點裡。</p>
+      <div class="comp-grid">
+        <div class="comp" id="comp-masterdetail">
+          <div class="top"><span class="cn">MasterDetailLayout</span><span class="use-b">2 檔</span></div>
+          <p class="desc">左列表右詳情的雙欄版型，資料來源與紀錄頁的主結構。</p>
+          <div class="preview" style="padding:10px">
+            <div style="display:flex;gap:8px;width:100%;height:60px">
+              <div style="width:38%;background:var(--surface-2);border:1px solid var(--line);border-radius:8px"></div>
+              <div style="flex:1;background:var(--surface-2);border:1px solid var(--line);border-radius:8px"></div>
+            </div>
+          </div>
+          <div class="spec-line">AppNav(1) · AppFooter(1) · ResourceBar(1) · ContextLogsPanel(1)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 狀態色票 ============ -->
+    <section class="band" id="status">
+      <div class="band-head"><h2>狀態色票</h2></div>
+      <p class="band-sub">狀態色目前定義於 <code style="font-family:var(--font-mono);color:var(--accent-ink)">StatusBadge.vue</code> 的對照表，尚未進入 token 系統。這裡如實呈現兩組不同的用色邏輯，正是最需要收斂的部分。</p>
+
+      <h3 class="sub">語意狀態 <span class="tag">bg-50 / text-700 · 淺底</span></h3>
+      <p class="sub-note">用於資料狀態、審核結果、敏感度、憑證狀態。四種語意：綠 ( 正常 / 成功 )、琥珀 ( 警示 / 待確認 )、紅 ( 錯誤 / 高風險 )、灰 ( 中性 / 停用 )。</p>
+      <div class="preview" style="display:flex;flex-wrap:wrap;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px">
+        <span class="sbadge" style="background:#ecfdf5;color:#047857;border-color:#d1fae5">有資料 / 已核准</span>
+        <span class="sbadge" style="background:#ecfdf5;color:#047857;border-color:#d1fae5">成功 / 有效</span>
+        <span class="sbadge" style="background:#fffbeb;color:#b45309;border-color:#fef3c7">待確認 / 敏感</span>
+        <span class="sbadge" style="background:#fffbeb;color:#b45309;border-color:#fef3c7">即將到期</span>
+        <span class="sbadge" style="background:#fef2f2;color:#b91c1c;border-color:#fee2e2">無法存取 / 失敗</span>
+        <span class="sbadge" style="background:#fef2f2;color:#b91c1c;border-color:#fee2e2">高敏感 / 已過期</span>
+        <span class="sbadge" style="background:#f1f5f9;color:#475569;border-color:#e2e8f0">無資料 / 已駁回</span>
+        <span class="sbadge" style="background:#f1f5f9;color:#475569;border-color:#e2e8f0">一般</span>
+      </div>
+
+      <h3 class="sub">分類標籤 <span class="tag">bg-100 / text-700 · 較深底</span></h3>
+      <p class="sub-note">用於紀錄查詢的類別 ( CacheLogCategory )。這組刻意用了 12 種不同色相做辨識，底色階與上方語意色不同 ( -100 而非 -50 )，形成兩套深淺規則 → 審計 04。</p>
+      <div class="preview" style="display:flex;flex-wrap:wrap;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px">
+        <span class="sbadge" style="background:#dcfce7;color:#15803d;border-color:#bbf7d0">認證</span>
+        <span class="sbadge" style="background:#fef3c7;color:#b45309;border-color:#fde68a">安全鎖</span>
+        <span class="sbadge" style="background:#dbeafe;color:#1d4ed8;border-color:#bfdbfe">資料集</span>
+        <span class="sbadge" style="background:#ccfbf1;color:#0f766e;border-color:#99f6e4">協作</span>
+        <span class="sbadge" style="background:#f3e8ff;color:#7e22ce;border-color:#e9d5ff">紀錄</span>
+        <span class="sbadge" style="background:#e0e7ff;color:#4338ca;border-color:#c7d2fe">帳號</span>
+        <span class="sbadge" style="background:#fce7f3;color:#be185d;border-color:#fbcfe8">角色</span>
+        <span class="sbadge" style="background:#f1f5f9;color:#475569;border-color:#e2e8f0">系統</span>
+        <span class="sbadge" style="background:#cffafe;color:#0e7490;border-color:#a5f3fc">資源存取</span>
+        <span class="sbadge" style="background:#ffedd5;color:#c2410c;border-color:#fed7aa">操作</span>
+        <span class="sbadge" style="background:#e0f2fe;color:#0369a1;border-color:#bae6fd">資料集存取</span>
+        <span class="sbadge" style="background:#ffe4e6;color:#be123c;border-color:#fecdd5">收件匣</span>
+      </div>
+    </section>
+
+    <!-- ============ 審計清單 ============ -->
+    <section class="band" id="audit">
+      <div class="band-head"><h2>審計清單</h2></div>
+      <p class="band-sub">最初從程式碼盤點出的 11 條相似行為卻樣式分歧、或繞過設計系統的項目，<strong>2026.07.12 逐條複查目前 nics-dcf-access-demo 的實際狀態</strong>，更新每條的處理進度。嚴重度 ( 高/中/低 ) 是原始盤點時的影響範圍評估，不隨複查改變；新增的處理狀態 ( 已解決/部分改善/未處理 ) 才是本次複查的結果。</p>
+
+      <div class="audit-intro">
+        <div class="audit-stat done"><span class="big">2</span><span class="lbl">已解決</span></div>
+        <div class="audit-divider"></div>
+        <div class="audit-stat md"><span class="big">3</span><span class="lbl">部分改善</span></div>
+        <div class="audit-divider"></div>
+        <div class="audit-stat hi"><span class="big">6</span><span class="lbl">未處理</span></div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">01</span><span class="ftitle">未落實需求書指定的官方色票</span><span class="sev hi">高</span><span class="rst partial">部分改善</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>--primary</code> 已對齊 brand-500 <code>#0d9488</code>；但 <code>--destructive</code> 仍是舊值 <code>oklch(0.577 0.245 27.325)</code>，尚未對齊需求書的危險色 <code>#ef4444</code>。<code>--success</code> / <code>--warning</code> / <code>--info</code> / <code>--selected</code> 已經在 <code>@nics/design-tokens</code> 定義好且可用，但目前只有總覽頁在採用。</p></div>
+          <div class="col fix"><div class="k">建議</div><p><code>--destructive</code> 對齊 red-500；其餘語意 token 隨頁面遷移逐步擴大採用範圍。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">02</span><span class="ftitle">兩套顏色系統並行，token 幾乎未被採用</span><span class="sev hi">高</span><span class="rst open">未處理</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p>Token 系統本身已完整落地且驗證可用 ( 已發布 <code>@nics/design-tokens</code>、跨 repo 安裝測試通過 )，但頁面採用進度仍低：全站還有 <strong>36 個檔案</strong>直接寫 raw Tailwind 色階，只有總覽頁相關 4 個檔案 ( OverviewView、PendingRequestsCard、RecentOperationsCard、cacheLog.ts ) 換成語意 token。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>維持原建議，依頁面逐步遷移，一次一頁驗收。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">03</span><span class="ftitle">狀態語意色未 token 化</span><span class="sev hi">高</span><span class="rst partial">部分改善</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>success</code> / <code>warning</code> / <code>danger</code> / <code>info</code> 語意 token 已經定義好且總覽頁已採用，不再是「無單一來源」；但用錯的 <code>emerald</code> 成功色仍殘留在 <strong>13 個檔案</strong>裡未換成 <code>green</code>。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>剩餘 13 個檔案的 emerald → green 收斂，並隨頁面遷移擴大語意 token 採用範圍。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">04</span><span class="ftitle">共用元件淪為死程式碼</span><span class="sev hi">高</span><span class="rst open">未處理</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>StatusBadge.vue</code> 與 <code>StatsCard.vue</code> 複查後仍是 0 引用，狀態未變。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>維持原建議，擇一：讓頁面改用共用元件並補齊 props，或直接刪除避免誤導。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">05</span><span class="ftitle">狀態色混用兩種深淺規則</span><span class="sev md">中</span><span class="rst done">已解決</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p>這個深淺差異現在是<strong>刻意設計的規則</strong>，已寫入 Foundation 顏色章節：Function 層語意色統一 50 底，Component 層 Tag 分兩組 ( 語意 5 種用 50 底、分類 12 種用 100 底 )，深淺差異本身就是「狀態 vs 分類」的區分依據。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>無，已透過 Foundation token 決策解決，不再視為待修的不一致。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">06</span><span class="ftitle">Badge 有兩種形狀</span><span class="sev md">中</span><span class="rst open">未處理</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p>shadcn 的 Badge 仍是 <code>rounded-full</code> 膠囊，StatusBadge 仍是 <code>rounded</code> 方角，狀態未變。但因為 StatusBadge 是死碼 ( 見 04 )，這個不一致目前沒有真的出現在任何上線頁面。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>此項跟著 04 一起處理：若刪除 StatusBadge 則自動解決；若決定復活使用，需一併修正形狀。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">07</span><span class="ftitle">文字灰階用了多種 slate</span><span class="sev md">中</span><span class="rst open">未處理</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p>複查後實際是 <strong>7 種</strong>深淺並用 ( 300 / 400 / 500 / 600 / 700 / 800 / 900 )，比原始盤點的 6 種還多一階，狀態未改善。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>維持原建議，收斂為 3 階：主要 / 次要 / 輔助。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">08</span><span class="ftitle">深色模式實際失效</span><span class="sev md">中</span><span class="rst open">未處理</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p>仍有 7 個檔案使用 <code>dark:</code> variant，尚未做過針對深色模式的專門檢視與修正，狀態未變。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>維持原建議：頁面改走 token 讓 dark mode 生效，或短期內明確宣告只支援 light。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">09</span><span class="ftitle">4 處寫死 hex 色</span><span class="sev lo">低</span><span class="rst done">已解決</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p>原本標記的 4 個寫死 hex 色 ( <code>#f3fefa</code> / <code>#6ad7b4</code> / <code>#f1f5f9</code> / <code>#f8fafc</code> ) 在程式碼裡已經完全查不到，隨總覽頁 token 遷移一併清除。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>無，已解決；後續遷移其他頁面時留意是否有新的硬寫值出現。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">10</span><span class="ftitle">圓角出現 magic number</span><span class="sev lo">低</span><span class="rst partial">部分改善</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>style.css</code> 的 <code>--radius</code> 推導覆寫已移除，改成四檔固定值 ( 4 / 8 / 16，+ 暫時 xl 相容別名 )。剩餘 <code>rounded-[4px]</code> ( Checkbox )、<code>rounded-[2px]</code> ( Tooltip ) 兩處硬寫值仍在，但都位於 shadcn-vue 自動生成的 <code>components/ui</code> 元件內部。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>這兩處屬於 vendor 生成檔案，不建議手動修改；若要收斂，建議透過 shadcn-vue CLI 重新產生或改用 theme 變數覆寫，而非直接編輯生成檔案。</p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="fhead"><span class="fnum">11</span><span class="ftitle">邊框用了三種 slate</span><span class="sev lo">低</span><span class="rst open">未處理</span></div>
+        <div class="cols">
+          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>border-slate-100 / 200 / 300</code> 三種仍並用，狀態未變。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>維持原建議，統一走 <code>--border</code>，僅特例才另訂一個 token。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      DCF Access Web 設計系統 · 正式規範 · Foundation 五章已拍板定案 · 元件盤點 2026.07.12 展開為個別項目 · 審計清單 2026.07.12 複查更新<br>
+      下一步：依定案 Token 逐步遷移 nics-dcf-access-demo 程式碼，元件盤點逐一補齊細節，最終遷移為 Storybook 作為雙方 Claude Code 的共用設計來源。
+    </footer>
+   </div>
+  </main>
+
+<script>
+  /* 側邊欄「設計規範」「元件」切換：點自己這頁的群組不動作，點另一頁的群組就跳轉過去 */
+  (function () {
+    var currentPage = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.grp-toggle').forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        var targetPage = toggle.getAttribute('data-page');
+        if (targetPage && targetPage !== currentPage) location.href = targetPage;
+      });
+    });
+  })();
+
+  /* scrollspy：章節頂部進入視窗頂 32px 內時，亮起側欄對應連結 */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+    var pairs = links
+      .map(function (a) { return { link: a, sec: document.getElementById(a.getAttribute('href').slice(1)) }; })
+      .filter(function (p) { return p.sec; })
+      .sort(function (a, b) { return a.sec.offsetTop - b.sec.offsetTop; });
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var current = null;
+      for (var i = 0; i < pairs.length; i++) {
+        if (pairs[i].sec.getBoundingClientRect().top <= 32) current = pairs[i];
+      }
+      /* 捲到頁面最底時，保底亮起最後一章 */
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) {
+        current = pairs[pairs.length - 1];
+      }
+      pairs.forEach(function (p) {
+        p.link.classList.toggle('active', p === current);
+      });
+    }
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+</script>
+
+</body></html>

@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="DCF 存取節點平台設計系統 — 色彩、文字、間距、圓角、陰影與元件規範">
+<link rel="icon" href="favicon.png" type="image/png">
+<title>資料匯流平台設計系統</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  img, svg, video { max-width: 100%; height: auto; }
+
+  :root {
+    --font-sans: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans TC', sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+
+    /* light ground — cool slate biased toward the teal brand */
+    --bg: #eef1f5;
+    --surface: #ffffff;
+    --surface-2: #f6f8fb;
+    --ink: #0f172a;
+    --ink-2: #475569;
+    --ink-3: #8493a8;
+    --line: #d8e0ea;
+    --line-strong: #c3cfdd;
+    --accent: #0d9488;
+    --accent-ink: #0f766e;
+    --accent-wash: #f0fdfa;
+    --good: #047857;
+    --good-wash: #ecfdf5;
+    --warn: #b45309;
+    --warn-wash: #fffbeb;
+    --crit: #b91c1c;
+    --crit-wash: #fef2f2;
+    --shadow: 0 2px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05);
+    --shadow-lift: 0 8px 30px rgba(15, 23, 42, 0.10), 0 2px 6px rgba(15, 23, 42, 0.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a101c;
+      --surface: #131c2c;
+      --surface-2: #0f1725;
+      --ink: #e5eaf2;
+      --ink-2: #9fb0c6;
+      --ink-3: #62748c;
+      --line: rgba(255, 255, 255, 0.09);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --accent: #2dd4bf;
+      --accent-ink: #5eead4;
+      --accent-wash: rgba(45, 212, 191, 0.12);
+      --good: #34d399;
+      --good-wash: rgba(16, 185, 129, 0.12);
+      --warn: #fbbf24;
+      --warn-wash: rgba(245, 158, 11, 0.12);
+      --crit: #f87171;
+      --crit-wash: rgba(239, 68, 68, 0.12);
+      --shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+      --shadow-lift: 0 10px 34px rgba(0, 0, 0, 0.55);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #eef1f5; --surface: #ffffff; --surface-2: #f6f8fb;
+    --ink: #0f172a; --ink-2: #475569; --ink-3: #8493a8;
+    --line: #d8e0ea; --line-strong: #c3cfdd;
+    --accent: #0d9488; --accent-ink: #0f766e;
+    --accent-wash: #f0fdfa;
+    --good: #047857; --good-wash: #ecfdf5; --warn: #b45309; --warn-wash: #fffbeb;
+    --crit: #b91c1c; --crit-wash: #fef2f2;
+    --shadow: 0 2px 12px rgba(15,23,42,0.08), 0 1px 3px rgba(15,23,42,0.05);
+    --shadow-lift: 0 8px 30px rgba(15,23,42,0.10), 0 2px 6px rgba(15,23,42,0.06);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a101c; --surface: #131c2c; --surface-2: #0f1725;
+    --ink: #e5eaf2; --ink-2: #9fb0c6; --ink-3: #62748c;
+    --line: rgba(255,255,255,0.09); --line-strong: rgba(255,255,255,0.16);
+    --accent: #2dd4bf; --accent-ink: #5eead4;
+    --accent-wash: rgba(45, 212, 191, 0.12);
+    --good: #34d399; --good-wash: rgba(16,185,129,0.12); --warn: #fbbf24; --warn-wash: rgba(245,158,11,0.12);
+    --crit: #f87171; --crit-wash: rgba(239,68,68,0.12);
+    --shadow: 0 2px 14px rgba(0,0,0,0.4); --shadow-lift: 0 10px 34px rgba(0,0,0,0.55);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- sidebar ---------- */
+  aside {
+    position: fixed; top: 0; left: 0; width: 240px; height: 100vh;
+    background: var(--surface);
+    padding: 32px 20px 32px 28px; border-right: 1px solid var(--line);
+    overflow-y: auto;
+  }
+  .brand { display: flex; align-items: center; gap: 4px; margin-bottom: 4px; text-decoration: none; color: inherit; }
+  .brand .mark { width: 26px; height: 26px; border-radius: 7px; flex: none; }
+  .brand .name { font-weight: 800; font-size: 14px; letter-spacing: -0.01em; }
+  nav.toc { margin-top: 26px; display: flex; flex-direction: column; gap: 2px; }
+  nav.toc .grp { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin: 18px 0 6px 8px; }
+  nav.toc .grp-toggle {
+    display: flex; align-items: center; justify-content: space-between; width: 100%;
+    background: none; border: none; cursor: pointer; padding: 0 8px;
+    font-size: 16px; color: var(--ink);
+    margin: 18px 0 6px; font-weight: 700;
+  }
+  nav.toc .grp-toggle:first-child { margin-top: 0; }
+  nav.toc .grp-toggle:hover { color: var(--ink); }
+  nav.toc .grp-toggle svg { width: 10px; height: 10px; flex: none; transition: transform .15s; }
+  nav.toc .grp-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+  nav.toc .grp-body { display: flex; flex-direction: column; gap: 2px; }
+  nav.toc .grp-body[hidden] { display: none; }
+  nav.toc .grp-body:not([hidden]) { animation: grp-body-in .3s ease; }
+  @keyframes grp-body-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  nav.toc a {
+    text-decoration: none; color: var(--ink); font-size: 14px; padding: 6px 12px 6px 20px; border-radius: 7px;
+    display: flex; justify-content: space-between; align-items: center; transition: background .15s, color .15s;
+  }
+  nav.toc a:hover { background: var(--surface-2); color: var(--ink); }
+  nav.toc a.active { background: var(--accent-wash); color: var(--accent-ink); font-weight: 600; }
+  nav.toc a.crit-link { color: var(--crit); }
+  nav.toc a.crit-link.active { background: var(--crit-wash); color: var(--crit); }
+  nav.toc .grp.sub { font-size: 9.5px; margin: 12px 0 4px 18px; opacity: 0.7; }
+  nav.toc a.comp-link { padding-left: 22px; font-size: 14px; }
+
+  /* ---------- main ---------- */
+  main { margin-left: 240px; min-width: 0; }
+  .main-inner { max-width: 1040px; margin-left: max(24px, calc(50% - 520px - 40px)); margin-right: auto; padding: 0 clamp(24px, 4vw, 56px) 120px; }
+
+  header.hero { padding: 64px 0 40px; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-ink); }
+  header.hero h1 { font-size: 40px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; margin: 0; }
+  header.hero .lede { color: var(--ink-2); font-size: 16.5px; margin: 20px 0 0; }
+
+  section.band { padding: 40px 0 0; scroll-margin-top: 20px; }
+  .band-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
+  .band-head h2 { font-size: 27px; letter-spacing: -0.02em; font-weight: 800; margin: 0; }
+  .band-sub { color: var(--ink-2); margin: 4px 0 30px; font-size: 15px; }
+
+  /* spec table */
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 520px; }
+  th, td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; background: var(--surface-2); }
+  tbody tr:last-child td { border-bottom: none; }
+  td.mono, th.mono { font-family: var(--font-mono); font-size: 12px; }
+  td .tk { font-family: var(--font-mono); font-size: 12px; color: var(--accent-ink); }
+  .num { font-variant-numeric: tabular-nums; }
+  .use { display: inline-block; min-width: 34px; text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-3); font-family: var(--font-mono); font-size: 11.5px; }
+
+  /* token architecture ( 3 layers ) */
+  .arch { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 28px 0 0; }
+  .arch .layer { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .arch .layer .t { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
+  .arch .layer h4 { margin: 6px 0 6px; font-size: 15px; letter-spacing: -0.01em; }
+  .arch .layer p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  @media (max-width: 900px) { .arch { grid-template-columns: 1fr; } }
+
+  /* color ramp */
+  .scale-scroll { overflow-x: auto; padding: 6px; margin: -6px; }
+  .scale { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; min-width: 640px; }
+  .scale.cols-11 { grid-template-columns: repeat(11, 1fr); }
+  .step .sw { height: 52px; border-radius: 8px; border: 1px solid rgba(15,23,42,0.06); }
+  .step .sw.white { border: 1px solid var(--line-strong); }
+  .step.anchor .sw { outline: 2.5px solid var(--ink); outline-offset: 2px; }
+  .step .lv { font-family: var(--font-mono); font-size: 11px; font-weight: 600; margin-top: 7px; }
+  .step .hx { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3); margin-top: 1px; }
+  .step .an { display: inline-block; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.04em; margin-top: 4px; padding: 2px 6px; border-radius: 5px; background: var(--ink); color: var(--bg); white-space: nowrap; }
+  .dot { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; border: 1px solid rgba(15,23,42,0.08); }
+  .tagprev { display: inline-flex; align-items: center; font-size: 11.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .grp-row td { background: var(--surface-2); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+
+  /* decided-status badge */
+  .st { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 5px; white-space: nowrap; }
+  .st.keep { background: var(--accent-wash); color: var(--accent-ink); }
+  .st.new { background: var(--warn-wash); color: var(--warn); }
+
+  /* type specimens ( token 語意字級 / spacing / radius 共用 ) */
+  .type-list { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+  .type-row { display: grid; grid-template-columns: 170px minmax(0, 1fr) auto; gap: 18px; align-items: center; padding: 15px 18px; border-bottom: 1px solid var(--line); }
+  .type-row:last-child { border-bottom: none; }
+  .type-row .nm { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .type-row .demo { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
+  .type-row .spec { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); text-align: right; white-space: nowrap; line-height: 1.7; }
+  .type-row .note { grid-column: 1 / -1; font-size: 12px; color: var(--ink-3); margin: -6px 0 0; }
+
+  /* spacing / radius row ( 使用次數長條 + 說明 ) */
+  .sp-row { display: grid; grid-template-columns: 64px 56px minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 11px 18px; border-bottom: 1px solid var(--line); }
+  .sp-row:last-child { border-bottom: none; }
+  .sp-row .v { font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+  .sp-row .n { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); text-align: right; }
+  .sp-row .bar { height: 12px; background: var(--accent); border-radius: 3px; }
+  .sp-row .u { font-size: 12px; color: var(--ink-2); text-align: right; }
+  @media (max-width: 720px) { .sp-row .u { display: none; } }
+
+  /* radius + shadow demo */
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+  .demo-tile { border: 1px solid var(--line); border-radius: 12px; padding: 18px; background: var(--surface); text-align: center; }
+  .demo-tile .box { height: 62px; background: var(--accent-wash); border: 1.5px solid var(--accent); margin: 0 auto 12px; width: 100%; }
+  .demo-tile .box.sh { background: var(--surface); border: 1px solid var(--line); }
+  .demo-tile .nm { font-weight: 600; font-size: 12.5px; }
+  .demo-tile .v { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-3); margin-top: 3px; }
+
+  /* component sections ( 每個元件獨立一塊，跟 Foundation 的 band 同層級 ) */
+  .band-head .use-b { margin-left: auto; font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); }
+  .band-head .flag { margin-left: auto; }
+  .preview { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; min-height: 70px; }
+  .spec-line { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); margin-top: 12px; line-height: 1.7; }
+  .flag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 5px; white-space: nowrap; }
+  .flag.dead { background: var(--crit-wash); color: var(--crit); }
+  .flag.unused { background: var(--warn-wash); color: var(--warn); }
+  .flag.pending { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+
+  /* mini demo controls */
+  .btn { font-family: var(--font-sans); font-size: 13px; font-weight: 500; height: 34px; padding: 0 15px; border-radius: 8px; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 6px; cursor: default; }
+  .btn.default { background: var(--accent); color: #fff; }
+  .btn.secondary { background: #eef2f6; color: #1e293b; }
+  .btn.outline { background: transparent; border-color: var(--line-strong); color: var(--ink); box-shadow: var(--shadow); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.destructive { background: #dc2626; color: #fff; }
+  .btn.link { background: transparent; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; padding: 0; height: auto; }
+  .pill { font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 999px; border: 1px solid transparent; display: inline-flex; align-items: center; }
+  .pill.p-default { background: var(--accent); color: #fff; }
+  .pill.p-secondary { background: #eef2f6; color: #1e293b; }
+  .pill.p-destructive { background: #dc2626; color: #fff; }
+  .pill.p-outline { background: transparent; border-color: var(--line-strong); color: var(--ink); }
+  .sbadge { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; border: 1px solid; }
+  .field { height: 34px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface); padding: 0 12px; display: flex; align-items: center; color: var(--ink-3); font-size: 13px; width: 100%; }
+  .field.focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
+  .swch { width: 34px; height: 20px; border-radius: 999px; background: var(--accent); position: relative; }
+  .swch::after { content: ""; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: #fff; top: 2px; right: 2px; }
+  .swch.off { background: #cbd5e1; }
+  .swch.off::after { right: auto; left: 2px; }
+  .skel { height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--line) 0%, var(--surface-2) 50%, var(--line) 100%); }
+
+  /* audit */
+  .audit-intro { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; padding: 22px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 24px; }
+  .audit-stat { display: flex; flex-direction: column; }
+  .audit-stat .big { font-size: 30px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .audit-stat .lbl { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-top: 6px; }
+  .audit-stat.hi .big { color: var(--crit); }
+  .audit-stat.md .big { color: var(--warn); }
+  .audit-stat.lo .big { color: var(--ink-2); }
+  .audit-divider { width: 1px; align-self: stretch; background: var(--line); }
+
+  .finding { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow); }
+  .finding .fhead { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .finding .fnum { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); }
+  .finding .ftitle { font-weight: 700; font-size: 16px; letter-spacing: -0.01em; flex: 1; }
+  .sev { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; padding: 3px 9px; border-radius: 6px; text-transform: uppercase; white-space: nowrap; }
+  .sev.hi { background: var(--crit-wash); color: var(--crit); }
+  .sev.md { background: var(--warn-wash); color: var(--warn); }
+  .sev.lo { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+  .rst { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; padding: 3px 9px; border-radius: 6px; white-space: nowrap; }
+  .rst.done { background: var(--good-wash); color: var(--good); }
+  .rst.partial { background: var(--warn-wash); color: var(--warn); }
+  .rst.open { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+  .audit-stat.done .big { color: var(--good); }
+  .finding .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .finding .col .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px; }
+  .finding .col.now .k { color: var(--crit); }
+  .finding .col.fix .k { color: var(--good); }
+  .finding .col p { margin: 0; font-size: 13.5px; color: var(--ink); }
+  .finding code { font-family: var(--font-mono); font-size: 12px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; color: var(--accent-ink); }
+
+  footer { border-top: 1px solid var(--line); margin-top: 60px; padding: 30px 0 0; color: var(--ink-3); font-size: 12.5px; font-family: var(--font-mono); }
+
+  @media (max-width: 900px) {
+    aside { position: static; width: auto; height: auto; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 24px; }
+    main { margin-left: 0; }
+    .main-inner { margin-left: 0; max-width: none; }
+    nav.toc { flex-flow: row wrap; }
+    nav.toc .grp { width: 100%; margin: 10px 0 2px; }
+    nav.toc .grp-toggle { width: 100%; margin: 10px 0 2px; }
+    nav.toc .grp-body { width: 100%; }
+    nav.toc a { padding: 5px 9px; }
+    .finding .cols { grid-template-columns: 1fr; gap: 12px; }
+  }
+  @media (max-width: 720px) {
+    .type-row { grid-template-columns: 1fr; gap: 6px; }
+    .type-row .spec { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+  <aside>
+    <a class="brand" href="index.html">
+      <img class="mark" src="favicon.png" alt="">
+      <div class="name">資料匯流平台設計系統</div>
+    </a>
+    <nav class="toc">
+      <button class="grp-toggle" type="button" aria-expanded="false" data-target="grp-spec" data-page="foundation.html">
+        <span>設計規範</span>
+        <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+      </button>
+      <div class="grp-body" id="grp-spec" hidden>
+        <a href="foundation.html#color"><span>顏色</span></a>
+        <a href="foundation.html#type"><span>文字</span></a>
+        <a href="foundation.html#space"><span>間距</span></a>
+        <a href="foundation.html#radius"><span>圓角</span></a>
+        <a href="foundation.html#shadow"><span>陰影</span></a>
+        <a href="foundation.html#layout"><span>頁面佈局</span></a>
+        <!-- 狀態色票、審計清單暫放這裡,元件盤點清點完成後刪除這兩條連結與對應章節 -->
+        <a href="foundation.html#status"><span>狀態色票</span></a>
+        <a href="foundation.html#audit" class="crit-link"><span>審計清單</span></a>
+      </div>
+
+      <button class="grp-toggle" type="button" aria-expanded="true" data-target="grp-comp" data-page="component.html">
+        <span>元件</span>
+        <svg viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+      </button>
+      <div class="grp-body" id="grp-comp">
+        <div class="grp sub">動作與表單</div>
+        <a href="#comp-button" class="comp-link"><span>Button</span></a>
+        <a href="#comp-input" class="comp-link"><span>Input</span></a>
+        <a href="#comp-switch" class="comp-link"><span>Switch</span></a>
+        <a href="#comp-checkbox" class="comp-link"><span>Checkbox</span></a>
+        <a href="#comp-select" class="comp-link"><span>Select</span></a>
+        <a href="#comp-textarea" class="comp-link"><span>Textarea</span></a>
+        <div class="grp sub">覆蓋層</div>
+        <a href="#comp-dialog" class="comp-link"><span>Dialog</span></a>
+        <a href="#comp-drawer" class="comp-link"><span>Drawer</span></a>
+        <a href="#comp-popover" class="comp-link"><span>Popover</span></a>
+        <a href="#comp-command" class="comp-link"><span>Command</span></a>
+        <a href="#comp-dropdown" class="comp-link"><span>Dropdown Menu</span></a>
+        <a href="#comp-tooltip" class="comp-link"><span>Tooltip</span></a>
+        <div class="grp sub">回饋與資料</div>
+        <a href="#comp-badge" class="comp-link"><span>Badge</span></a>
+        <a href="#comp-skeleton" class="comp-link"><span>Skeleton</span></a>
+        <a href="#comp-progress" class="comp-link"><span>Progress</span></a>
+        <a href="#comp-toast" class="comp-link"><span>Sonner Toast</span></a>
+        <a href="#comp-alert" class="comp-link"><span>Alert</span></a>
+        <a href="#comp-card" class="comp-link"><span>Card</span></a>
+        <a href="#comp-table" class="comp-link"><span>Table</span></a>
+        <a href="#comp-tabs" class="comp-link"><span>Tabs</span></a>
+        <a href="#comp-separator" class="comp-link"><span>Separator</span></a>
+        <a href="#comp-pagination" class="comp-link"><span>Pagination</span></a>
+        <a href="#comp-scrollarea" class="comp-link"><span>ScrollArea</span></a>
+        <a href="#comp-collapsible" class="comp-link"><span>Collapsible</span></a>
+        <a href="#comp-statusbadge" class="comp-link crit-link"><span>StatusBadge</span></a>
+        <a href="#comp-statscard" class="comp-link crit-link"><span>StatsCard</span></a>
+      </div>
+    </nav>
+  </aside>
+
+  <main>
+   <div class="main-inner">
+    <header class="hero">
+      <h1>元件</h1>
+      <p class="lede">本頁盤點全站實際引用中的 UI 元件，逐一列出使用情況與樣式規格，做為前端開發與設計協作的共同依據。</p>
+    </header>
+
+    <!-- ============ Button ============ -->
+    <section class="band" id="comp-button">
+      <div class="band-head"><h2>Button</h2><span class="use-b">19 檔</span></div>
+      <p class="band-sub">6 種 variant × 6 種 size。預設高度 h-9 ( 36px )，圓角 rounded-md。</p>
+      <div class="preview">
+        <span class="btn default">主要動作</span>
+        <span class="btn secondary">次要</span>
+        <span class="btn outline">外框</span>
+        <span class="btn ghost">Ghost</span>
+        <span class="btn destructive">刪除</span>
+        <span class="btn link">連結</span>
+      </div>
+      <div class="spec-line">variant: default · secondary · outline · ghost · destructive · link<br>size: default(h-9) · sm(h-8) · lg(h-10) · icon · icon-sm · icon-lg</div>
+    </section>
+
+    <!-- ============ Input ============ -->
+    <section class="band" id="comp-input">
+      <div class="band-head"><h2>Input</h2><span class="use-b">6 檔</span></div>
+      <p class="band-sub">單行輸入。焦點時顯示 3px 焦點環 ( ring )。</p>
+      <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
+        <span class="field">預設輸入框</span>
+        <span class="field focus">焦點狀態</span>
+      </div>
+      <div class="spec-line">h-9 · rounded-md · border --input · focus ring 3px</div>
+    </section>
+
+    <!-- ============ Switch ============ -->
+    <section class="band" id="comp-switch">
+      <div class="band-head"><h2>Switch</h2><span class="use-b">2 檔</span></div>
+      <p class="band-sub">開關,選取態使用主色。</p>
+      <div class="preview">
+        <span class="swch"></span>
+        <span class="swch off"></span>
+      </div>
+      <div class="spec-line">與 Checkbox 共用主色語意,尚未個別盤點細節</div>
+    </section>
+
+    <!-- ============ Checkbox ============ -->
+    <section class="band" id="comp-checkbox">
+      <div class="band-head"><h2>Checkbox</h2><span class="use-b">4 檔</span></div>
+      <p class="band-sub">勾選框,選取態使用主色。</p>
+      <div class="preview">
+        <span style="width:18px;height:18px;border-radius:5px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px">✓</span>
+        <span style="width:18px;height:18px;border-radius:5px;border:1.5px solid var(--line-strong)"></span>
+      </div>
+      <div class="spec-line">元件內有 rounded-[4px] 硬寫值 → 審計 10</div>
+    </section>
+
+    <!-- ============ Select ============ -->
+    <section class="band" id="comp-select">
+      <div class="band-head"><h2>Select</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">下拉選單,shadcn-vue 原生元件。</p>
+      <div class="spec-line">使用 3 檔,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Textarea ============ -->
+    <section class="band" id="comp-textarea">
+      <div class="band-head"><h2>Textarea</h2><span class="flag unused">未使用</span></div>
+      <p class="band-sub">多行輸入,已定義但目前沒有任何頁面引用。</p>
+      <div class="spec-line">0 檔使用中</div>
+    </section>
+
+    <!-- ============ Dialog ============ -->
+    <section class="band" id="comp-dialog">
+      <div class="band-head"><h2>Dialog</h2><span class="use-b">14 檔</span></div>
+      <p class="band-sub">最高頻的覆蓋層元件,用於審核、確認、編輯等流程。</p>
+      <div class="preview" style="justify-content:center">
+        <div style="width:100%;max-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lift);padding:14px">
+          <div style="font-weight:600;font-size:13px">確認核准協作請求</div>
+          <div style="font-size:11.5px;color:var(--ink-2);margin:6px 0 12px">核准後對方即可存取指定欄位</div>
+          <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn default" style="height:28px;font-size:12px">核准</span></div>
+        </div>
+      </div>
+      <div class="spec-line">審核、確認、編輯等流程共用</div>
+    </section>
+
+    <!-- ============ Drawer ============ -->
+    <section class="band" id="comp-drawer">
+      <div class="band-head"><h2>Drawer</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">側邊抽屜,手機版選單等場景使用。</p>
+      <div class="spec-line">使用 2 檔,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Popover ============ -->
+    <section class="band" id="comp-popover">
+      <div class="band-head"><h2>Popover</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">浮動彈出層。</p>
+      <div class="spec-line">使用 1 檔,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Command ============ -->
+    <section class="band" id="comp-command">
+      <div class="band-head"><h2>Command</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">指令選單 / 搜尋面板。</p>
+      <div class="spec-line">使用 1 檔,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Dropdown Menu ============ -->
+    <section class="band" id="comp-dropdown">
+      <div class="band-head"><h2>Dropdown Menu</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">下拉選單。</p>
+      <div class="spec-line">使用 1 檔,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Tooltip ============ -->
+    <section class="band" id="comp-tooltip">
+      <div class="band-head"><h2>Tooltip</h2><span class="use-b">5 檔</span></div>
+      <p class="band-sub">滑鼠停留提示,多用於圖示按鈕的補充說明。</p>
+      <div class="preview" style="justify-content:center">
+        <div style="background:var(--ink);color:var(--bg);font-size:12px;padding:5px 10px;border-radius:7px">重新整理節點狀態</div>
+      </div>
+      <div class="spec-line">深底淺字 · rounded-md · text-xs · 元件內有 rounded-[2px] 硬寫值 → 審計 10</div>
+    </section>
+
+    <!-- ============ Badge ============ -->
+    <section class="band" id="comp-badge">
+      <div class="band-head"><h2>Badge</h2><span class="use-b">3 檔</span></div>
+      <p class="band-sub">shadcn 原生標籤,膠囊形 ( rounded-full ),4 種 variant。</p>
+      <div class="preview">
+        <span class="pill p-default">預設</span>
+        <span class="pill p-secondary">次要</span>
+        <span class="pill p-destructive">危險</span>
+        <span class="pill p-outline">外框</span>
+      </div>
+      <div class="spec-line">rounded-full · text-xs · 與 StatusBadge 形狀不一致 → 審計 06</div>
+    </section>
+
+    <!-- ============ Skeleton ============ -->
+    <section class="band" id="comp-skeleton">
+      <div class="band-head"><h2>Skeleton</h2><span class="use-b">9 檔</span></div>
+      <p class="band-sub">載入骨架,配合即時 API 與 SSE 的等待狀態。</p>
+      <div class="preview" style="flex-direction:column;align-items:stretch;gap:8px">
+        <span class="skel" style="width:70%"></span>
+        <span class="skel" style="width:100%"></span>
+        <span class="skel" style="width:45%"></span>
+      </div>
+      <div class="spec-line">載入態骨架屏</div>
+    </section>
+
+    <!-- ============ Progress ============ -->
+    <section class="band" id="comp-progress">
+      <div class="band-head"><h2>Progress</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">進度條。</p>
+      <div class="spec-line">使用 3 檔,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Sonner Toast ============ -->
+    <section class="band" id="comp-toast">
+      <div class="band-head"><h2>Sonner Toast</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">全域提示訊息。</p>
+      <div class="spec-line">使用 1 檔,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Alert ============ -->
+    <section class="band" id="comp-alert">
+      <div class="band-head"><h2>Alert</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">頁內提示區塊。</p>
+      <div class="spec-line">使用 1 檔,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Card ============ -->
+    <section class="band" id="comp-card">
+      <div class="band-head"><h2>Card</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">資料容器,全站卡片主力來源之一。</p>
+      <div class="spec-line">尚未個別盤點,現況多與 Foundation 的 shadow-sm / radius-md 搭配使用</div>
+    </section>
+
+    <!-- ============ Table ============ -->
+    <section class="band" id="comp-table">
+      <div class="band-head"><h2>Table</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">表格,多以 @tanstack/vue-table 自建,非 shadcn 原生元件直接套用。</p>
+      <div class="spec-line">尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Tabs ============ -->
+    <section class="band" id="comp-tabs">
+      <div class="band-head"><h2>Tabs</h2><span class="use-b">9 檔</span></div>
+      <p class="band-sub">分頁切換。</p>
+      <div class="preview" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden">
+        <div style="display:flex;gap:16px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px"><span style="color:var(--accent-ink);font-weight:600;border-bottom:2px solid var(--accent);padding-bottom:6px">總覽</span><span style="color:var(--ink-3)">資料來源</span><span style="color:var(--ink-3)">紀錄</span></div>
+      </div>
+      <div class="spec-line">頁籤式導覽,資料來源與紀錄頁主力</div>
+    </section>
+
+    <!-- ============ Separator ============ -->
+    <section class="band" id="comp-separator">
+      <div class="band-head"><h2>Separator</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">分隔線。</p>
+      <div class="spec-line">尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Pagination ============ -->
+    <section class="band" id="comp-pagination">
+      <div class="band-head"><h2>Pagination</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">分頁器。</p>
+      <div class="spec-line">使用 1 檔,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ ScrollArea ============ -->
+    <section class="band" id="comp-scrollarea">
+      <div class="band-head"><h2>ScrollArea</h2><span class="use-b">7 檔</span></div>
+      <p class="band-sub">自訂捲軸容器。</p>
+      <div class="spec-line">元件內有 rounded-[inherit] 用法,非硬寫數值,尚未個別盤點</div>
+    </section>
+
+    <!-- ============ Collapsible ============ -->
+    <section class="band" id="comp-collapsible">
+      <div class="band-head"><h2>Collapsible</h2><span class="flag pending">★ 待盤點</span></div>
+      <p class="band-sub">可收合區塊。</p>
+      <div class="spec-line">尚未個別盤點</div>
+    </section>
+
+    <!-- ============ StatusBadge ============ -->
+    <section class="band" id="comp-statusbadge">
+      <div class="band-head"><h2>StatusBadge</h2><span class="flag dead">DEAD CODE</span></div>
+      <p class="band-sub">封裝了全站狀態與分類的色彩對照表 ( 共 28 種狀態 )，2026.07.12 已改為引用 Tag 語意 / 分類 token，但目前仍無任何頁面引用。</p>
+      <div class="preview">
+        <span class="tagprev" style="background:#f0fdf4;color:#15803d">有資料</span>
+        <span class="tagprev" style="background:#fffbeb;color:#b45309">待確認</span>
+        <span class="tagprev" style="background:#fef2f2;color:#b91c1c">無法存取</span>
+      </div>
+      <div class="spec-line">頁面改為 inline 手寫狀態色 → 審計 04，內部樣式已 token 化，引用數未變，2026.07.12 複查仍是 0 引用</div>
+    </section>
+
+    <!-- ============ StatsCard ============ -->
+    <section class="band" id="comp-statscard">
+      <div class="band-head"><h2>StatsCard</h2><span class="flag dead">DEAD CODE</span></div>
+      <p class="band-sub">總覽頁的統計數字卡片，2026.07.12 已改為引用 Function 層語意 token，同樣目前無頁面引用。</p>
+      <div class="preview" style="justify-content:center">
+        <div style="width:100%;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px"><div style="font-size:11px;color:var(--ink-3)">資料來源總數</div><div style="font-size:24px;font-weight:800">128</div></div>
+      </div>
+      <div class="spec-line">建議回收使用或刪除 → 審計 04，內部樣式已 token 化，引用數未變，2026.07.12 複查仍是 0 引用</div>
+    </section>
+
+    <footer>
+      DCF Access Web 設計系統 · 正式規範 · Foundation 五章已拍板定案 · 元件盤點 2026.07.12 展開為個別項目 · 審計清單 2026.07.12 複查更新<br>
+      下一步：依定案 Token 逐步遷移 nics-dcf-access-demo 程式碼，元件盤點逐一補齊細節，最終遷移為 Storybook 作為雙方 Claude Code 的共用設計來源。
+    </footer>
+   </div>
+  </main>
+
+<script>
+  /* 側邊欄「設計規範」「元件」切換：點自己這頁的群組不動作，點另一頁的群組就跳轉過去 */
+  (function () {
+    var currentPage = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.grp-toggle').forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        var targetPage = toggle.getAttribute('data-page');
+        if (targetPage && targetPage !== currentPage) location.href = targetPage;
+      });
+    });
+  })();
+
+  /* scrollspy：章節頂部進入視窗頂 32px 內時，亮起側欄對應連結 */
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+    var pairs = links
+      .map(function (a) { return { link: a, sec: document.getElementById(a.getAttribute('href').slice(1)) }; })
+      .filter(function (p) { return p.sec; })
+      .sort(function (a, b) { return a.sec.offsetTop - b.sec.offsetTop; });
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var current = null;
+      for (var i = 0; i < pairs.length; i++) {
+        if (pairs[i].sec.getBoundingClientRect().top <= 32) current = pairs[i];
+      }
+      /* 捲到頁面最底時，保底亮起最後一章 */
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) {
+        current = pairs[pairs.length - 1];
+      }
+      pairs.forEach(function (p) {
+        p.link.classList.toggle('active', p === current);
+      });
+    }
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+</script>
+
+</body></html>

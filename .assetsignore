@@ -1,0 +1,11 @@
+.git
+.gitignore
+.DS_Store
+.vscode
+node_modules
+package.json
+README.md
+CLAUDE.md
+wrangler.toml
+.assetsignore
+*.md

@@ -1,0 +1,6 @@
+name = "nics-dcf-design-system"
+compatibility_date = "2026-07-12"
+
+# 純靜態網站：直接提供根目錄的 index.html / tokens.css / favicon.svg
+[assets]
+directory = "./"

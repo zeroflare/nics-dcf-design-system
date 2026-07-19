@@ -95,6 +95,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ---------- top bar (mobile) ---------- */
+  .topbar { display: none; }
+  .nav-scrim { display: none; }
+
   /* ---------- sidebar ---------- */
   aside {
     position: fixed; top: 0; left: 0; width: 240px; height: 100vh;
@@ -281,14 +285,30 @@
   footer { border-top: 1px solid var(--line); margin-top: 60px; padding: 30px 0 0; color: var(--ink-3); font-size: 12.5px; font-family: var(--font-mono); }
 
   @media (max-width: 900px) {
-    aside { position: static; width: auto; height: auto; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 24px; }
-    main { margin-left: 0; }
+    .topbar {
+      display: flex; align-items: center; gap: 12px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 20; height: 56px;
+      padding: 0 16px; background: var(--surface); border-bottom: 1px solid var(--line);
+    }
+    .hb {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; margin-left: -8px; padding: 0;
+      background: none; border: none; cursor: pointer; color: var(--ink); border-radius: 8px;
+    }
+    .hb:hover { background: var(--surface-2); }
+    .hb svg { width: 24px; height: 24px; }
+    .tb-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit; min-width: 0; }
+    .tb-brand .mark { width: 24px; height: 24px; border-radius: 7px; flex: none; }
+    .tb-brand span { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    aside { z-index: 40; transform: translateX(-100%); transition: transform .25s ease; }
+    body.nav-open aside { transform: translateX(0); }
+    .nav-scrim {
+      display: block; position: fixed; inset: 0; z-index: 30;
+      background: rgba(0, 0, 0, .4); opacity: 0; visibility: hidden; transition: opacity .25s ease;
+    }
+    body.nav-open .nav-scrim { opacity: 1; visibility: visible; }
+    main { margin-left: 0; padding-top: 56px; }
     .main-inner { margin-left: 0; max-width: none; }
-    nav.toc { flex-flow: row wrap; }
-    nav.toc .grp { width: 100%; margin: 10px 0 2px; }
-    nav.toc .grp-toggle { width: 100%; margin: 10px 0 2px; }
-    nav.toc .grp-body { width: 100%; }
-    nav.toc a { padding: 5px 9px; }
     .finding .cols { grid-template-columns: 1fr; gap: 12px; }
   }
   @media (max-width: 720px) {
@@ -298,6 +318,17 @@
 </style>
 </head>
 <body>
+
+  <header class="topbar">
+    <button class="hb" type="button" aria-label="開啟選單" aria-expanded="false">
+      <svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>
+    </button>
+    <a class="tb-brand" href="index.html">
+      <img class="mark" src="favicon.png" alt="">
+      <span>資料匯流平台設計系統</span>
+    </a>
+  </header>
+  <div class="nav-scrim"></div>
 
   <aside>
     <a class="brand" href="index.html">
@@ -575,14 +606,15 @@
       </div></div>
 
       <h3 class="sub">Function 層 · 中性骨架</h3>
-      <p class="sub-note">描述頁面本身的中性色，不含任何語意。foreground 分 primary / secondary 涵蓋文字與圖示，線條獨立為 stroke，background 再分 surface ( 頁面底層 ) 與 container ( 疊在背景上的卡片、元件、區塊 )</p>
+      <p class="sub-note">描述頁面本身的中性色，不含任何語意。foreground 分 primary / secondary / tertiary 三階涵蓋文字與圖示，線條獨立為 stroke，background 再分 surface ( 頁面底層 ) 與 container ( 疊在背景上的卡片、元件、區塊 )</p>
       <div class="tbl-wrap">
         <table>
           <thead><tr><th>Token</th><th>用途</th><th>Base 對應</th><th>色塊</th></tr></thead>
           <tbody>
             <tr><td class="mono">foreground-primary</td><td>主要文字 / 圖示</td><td class="mono">neutral-900</td><td class="mono"><span class="dot" style="background:#0f172a"></span>#0f172a</td></tr>
             <tr><td class="mono">foreground-secondary</td><td>次要文字 / 圖示</td><td class="mono">neutral-500</td><td class="mono"><span class="dot" style="background:#64748b"></span>#64748b</td></tr>
-            <tr><td class="mono">stroke</td><td>邊框 / 分隔線</td><td class="mono">neutral-300</td><td class="mono"><span class="dot" style="background:#cbd5e1"></span>#cbd5e1</td></tr>
+            <tr><td class="mono">foreground-tertiary</td><td>輔助文字 / 圖示 ( 佔位提示、輔助說明 )</td><td class="mono">neutral-400</td><td class="mono"><span class="dot" style="background:#94a3b8"></span>#94a3b8</td></tr>
+            <tr><td class="mono">stroke</td><td>邊框 / 分隔線</td><td class="mono">neutral-200</td><td class="mono"><span class="dot" style="background:#e2e8f0"></span>#e2e8f0</td></tr>
             <tr><td class="mono">background-surface-primary</td><td>頁面底層背景</td><td class="mono">neutral-100</td><td class="mono"><span class="dot" style="background:#f1f5f9"></span>#f1f5f9</td></tr>
             <tr><td class="mono">background-container-surface</td><td>卡片本身 ( 白 )</td><td class="mono">neutral-0</td><td class="mono"><span class="dot" style="background:#ffffff"></span>#ffffff</td></tr>
             <tr><td class="mono">background-container-subtle</td><td>卡片上的輕量區隔</td><td class="mono">neutral-50</td><td class="mono"><span class="dot" style="background:#f8fafc"></span>#f8fafc</td></tr>
@@ -854,21 +886,21 @@
     <!-- ============ 審計清單 ============ -->
     <section class="band" id="audit">
       <div class="band-head"><h2>審計清單</h2></div>
-      <p class="band-sub">最初從程式碼盤點出的 11 條相似行為卻樣式分歧、或繞過設計系統的項目，<strong>2026.07.12 逐條複查目前 nics-dcf-access-demo 的實際狀態</strong>，更新每條的處理進度。嚴重度 ( 高/中/低 ) 是原始盤點時的影響範圍評估，不隨複查改變；新增的處理狀態 ( 已解決/部分改善/未處理 ) 才是本次複查的結果。</p>
+      <p class="band-sub">最初從程式碼盤點出的 11 條相似行為卻樣式分歧、或繞過設計系統的項目，<strong>2026.07.19 逐條裁示後更新處理進度</strong>。嚴重度 ( 高/中/低 ) 是原始盤點時的影響範圍評估，不隨複查改變；處理狀態 ( 已解決/部分改善/未處理 ) 反映最新裁示與修正結果。</p>
 
       <div class="audit-intro">
-        <div class="audit-stat done"><span class="big">2</span><span class="lbl">已解決</span></div>
+        <div class="audit-stat done"><span class="big">8</span><span class="lbl">已解決</span></div>
         <div class="audit-divider"></div>
-        <div class="audit-stat md"><span class="big">3</span><span class="lbl">部分改善</span></div>
+        <div class="audit-stat md"><span class="big">2</span><span class="lbl">部分改善</span></div>
         <div class="audit-divider"></div>
-        <div class="audit-stat hi"><span class="big">6</span><span class="lbl">未處理</span></div>
+        <div class="audit-stat hi"><span class="big">1</span><span class="lbl">未處理</span></div>
       </div>
 
       <div class="finding">
-        <div class="fhead"><span class="fnum">01</span><span class="ftitle">未落實需求書指定的官方色票</span><span class="sev hi">高</span><span class="rst partial">部分改善</span></div>
+        <div class="fhead"><span class="fnum">01</span><span class="ftitle">未落實需求書指定的官方色票</span><span class="sev hi">高</span><span class="rst done">已解決</span></div>
         <div class="cols">
-          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>--primary</code> 已對齊 brand-500 <code>#0d9488</code>；但 <code>--destructive</code> 仍是舊值 <code>oklch(0.577 0.245 27.325)</code>，尚未對齊需求書的危險色 <code>#ef4444</code>。<code>--success</code> / <code>--warning</code> / <code>--info</code> / <code>--selected</code> 已經在 <code>@nics/design-tokens</code> 定義好且可用，但目前只有總覽頁在採用。</p></div>
-          <div class="col fix"><div class="k">建議</div><p><code>--destructive</code> 對齊 red-500；其餘語意 token 隨頁面遷移逐步擴大採用範圍。</p></div>
+          <div class="col now"><div class="k">現況 ( 2026.07.19 修正 )</div><p><code>--primary</code> 已對齊 brand-500 <code>#0d9488</code>；<code>--destructive</code> 也已改指 <code>var(--color-red-500)</code>，對齊需求書危險色 <code>#ef4444</code>。需求書六色至此全數落實為單一來源。</p></div>
+          <div class="col fix"><div class="k">後續</div><p>其餘語意 token ( success / warning / info / selected ) 已定義完成，隨頁面遷移逐步擴大採用範圍 ( 歸 02 追蹤 )。</p></div>
         </div>
       </div>
 
@@ -881,18 +913,18 @@
       </div>
 
       <div class="finding">
-        <div class="fhead"><span class="fnum">03</span><span class="ftitle">狀態語意色未 token 化</span><span class="sev hi">高</span><span class="rst partial">部分改善</span></div>
+        <div class="fhead"><span class="fnum">03</span><span class="ftitle">狀態語意色未 token 化</span><span class="sev hi">高</span><span class="rst done">已解決</span></div>
         <div class="cols">
-          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>success</code> / <code>warning</code> / <code>danger</code> / <code>info</code> 語意 token 已經定義好且總覽頁已採用，不再是「無單一來源」；但用錯的 <code>emerald</code> 成功色仍殘留在 <strong>13 個檔案</strong>裡未換成 <code>green</code>。</p></div>
-          <div class="col fix"><div class="k">建議</div><p>剩餘 13 個檔案的 emerald → green 收斂，並隨頁面遷移擴大語意 token 採用範圍。</p></div>
+          <div class="col now"><div class="k">現況 ( 2026.07.19 修正 )</div><p>語意 token 已定義完成且為單一來源；殘留的 <code>emerald</code> 錯用成功色已全數收斂為 <code>green</code> ( 12 檔 23 處：文字與 icon 依實色規則統一 <code>green-700</code>，淺底 <code>green-50</code>、分類底 <code>green-100</code> )，全案已無 emerald。</p></div>
+          <div class="col fix"><div class="k">後續</div><p>語意 token ( <code>text-success-fg</code> 等 ) 的全面採用隨頁面遷移進行 ( 歸 02 追蹤 )。</p></div>
         </div>
       </div>
 
       <div class="finding">
-        <div class="fhead"><span class="fnum">04</span><span class="ftitle">共用元件淪為死程式碼</span><span class="sev hi">高</span><span class="rst open">未處理</span></div>
+        <div class="fhead"><span class="fnum">04</span><span class="ftitle">共用元件淪為死程式碼</span><span class="sev hi">高</span><span class="rst done">已解決</span></div>
         <div class="cols">
-          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>StatusBadge.vue</code> 與 <code>StatsCard.vue</code> 複查後仍是 0 引用，狀態未變。</p></div>
-          <div class="col fix"><div class="k">建議</div><p>維持原建議，擇一：讓頁面改用共用元件並補齊 props，或直接刪除避免誤導。</p></div>
+          <div class="col now"><div class="k">現況 ( 2026.07.19 處置 )</div><p>經查 git 全歷史，<code>StatusBadge.vue</code> 與 <code>StatsCard.vue</code> 從建立起即無任何頁面 import 或引用，並非「用過後被拔掉」。已拍板<strong>直接刪除</strong>，兩檔已自 codebase 移除。</p></div>
+          <div class="col fix"><div class="k">後續</div><p>未來若需要共用的狀態標籤 / 統計卡片元件，於元件盤點做到該區塊時重新設計，不沿用舊檔。</p></div>
         </div>
       </div>
 
@@ -905,26 +937,26 @@
       </div>
 
       <div class="finding">
-        <div class="fhead"><span class="fnum">06</span><span class="ftitle">Badge 有兩種形狀</span><span class="sev md">中</span><span class="rst open">未處理</span></div>
+        <div class="fhead"><span class="fnum">06</span><span class="ftitle">Badge 有兩種形狀</span><span class="sev md">中</span><span class="rst done">已解決</span></div>
         <div class="cols">
-          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p>shadcn 的 Badge 仍是 <code>rounded-full</code> 膠囊，StatusBadge 仍是 <code>rounded</code> 方角，狀態未變。但因為 StatusBadge 是死碼 ( 見 04 )，這個不一致目前沒有真的出現在任何上線頁面。</p></div>
-          <div class="col fix"><div class="k">建議</div><p>此項跟著 04 一起處理：若刪除 StatusBadge 則自動解決；若決定復活使用，需一併修正形狀。</p></div>
+          <div class="col now"><div class="k">現況 ( 2026.07.19 處置 )</div><p>StatusBadge 已隨 04 刪除，全站只剩 shadcn Badge 的 <code>rounded-full</code> 膠囊一種形狀，不一致已不存在。</p></div>
+          <div class="col fix"><div class="k">後續</div><p>無。Badge 形狀規格以元件盤點頁的 Badge 區塊為準。</p></div>
         </div>
       </div>
 
       <div class="finding">
-        <div class="fhead"><span class="fnum">07</span><span class="ftitle">文字灰階用了多種 slate</span><span class="sev md">中</span><span class="rst open">未處理</span></div>
+        <div class="fhead"><span class="fnum">07</span><span class="ftitle">文字灰階用了多種 slate</span><span class="sev md">中</span><span class="rst partial">部分改善</span></div>
         <div class="cols">
-          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p>複查後實際是 <strong>7 種</strong>深淺並用 ( 300 / 400 / 500 / 600 / 700 / 800 / 900 )，比原始盤點的 6 種還多一階，狀態未改善。</p></div>
-          <div class="col fix"><div class="k">建議</div><p>維持原建議，收斂為 3 階：主要 / 次要 / 輔助。</p></div>
+          <div class="col now"><div class="k">現況 ( 2026.07.19 拍板 )</div><p>已拍板收斂為 <strong>3 階</strong>：主要 <code>foreground-primary</code> ( n900 )、次要 <code>foreground-secondary</code> ( n500 )、輔助 <code>foreground-tertiary</code> ( n400，新增 )，tokens.css 已定義。disabled、active 等狀態變體不在收斂範圍內。</p></div>
+          <div class="col fix"><div class="k">後續</div><p>程式碼遷移時：600 / 700 / 800 / 900 併入主要、500 併入次要、300 / 400 併入輔助 ( 狀態變體除外 )，隨頁面遷移逐步收斂。</p></div>
         </div>
       </div>
 
       <div class="finding">
-        <div class="fhead"><span class="fnum">08</span><span class="ftitle">深色模式實際失效</span><span class="sev md">中</span><span class="rst open">未處理</span></div>
+        <div class="fhead"><span class="fnum">08</span><span class="ftitle">深色模式實際失效</span><span class="sev md">中</span><span class="rst done">已解決</span></div>
         <div class="cols">
-          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p>仍有 7 個檔案使用 <code>dark:</code> variant，尚未做過針對深色模式的專門檢視與修正，狀態未變。</p></div>
-          <div class="col fix"><div class="k">建議</div><p>維持原建議：頁面改走 token 讓 dark mode 生效，或短期內明確宣告只支援 light。</p></div>
+          <div class="col now"><div class="k">現況 ( 2026.07.19 拍板 )</div><p>已拍板：<strong>產品僅支援淺色模式 ( light only )</strong>，不提供深色模式。shadcn 元件自帶的 <code>dark:</code> variant 保留不刪，因採 class 策略且全站未掛載 <code>.dark</code>，永遠不會生效、無實際影響；保留可避免日後用 shadcn CLI 更新元件時反覆清理。</p></div>
+          <div class="col fix"><div class="k">處置</div><p>此為設計範圍決定而非缺陷，不需程式碼修正。若未來需求變更要支援深色模式，再回設計系統重新開題。</p></div>
         </div>
       </div>
 
@@ -937,18 +969,18 @@
       </div>
 
       <div class="finding">
-        <div class="fhead"><span class="fnum">10</span><span class="ftitle">圓角出現 magic number</span><span class="sev lo">低</span><span class="rst partial">部分改善</span></div>
+        <div class="fhead"><span class="fnum">10</span><span class="ftitle">圓角出現 magic number</span><span class="sev lo">低</span><span class="rst done">已解決</span></div>
         <div class="cols">
-          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>style.css</code> 的 <code>--radius</code> 推導覆寫已移除，改成四檔固定值 ( 4 / 8 / 16，+ 暫時 xl 相容別名 )。剩餘 <code>rounded-[4px]</code> ( Checkbox )、<code>rounded-[2px]</code> ( Tooltip ) 兩處硬寫值仍在，但都位於 shadcn-vue 自動生成的 <code>components/ui</code> 元件內部。</p></div>
-          <div class="col fix"><div class="k">建議</div><p>這兩處屬於 vendor 生成檔案，不建議手動修改；若要收斂，建議透過 shadcn-vue CLI 重新產生或改用 theme 變數覆寫，而非直接編輯生成檔案。</p></div>
+          <div class="col now"><div class="k">現況 ( 2026.07.19 拍板 )</div><p><code>style.css</code> 的 <code>--radius</code> 推導覆寫已移除，改成四檔固定值 ( 4 / 8 / 16，+ 暫時 xl 相容別名 )。剩餘 <code>rounded-[4px]</code> ( Checkbox )、<code>rounded-[2px]</code> ( Tooltip ) 兩處位於 shadcn-vue 自動生成的 <code>components/ui</code> 元件內部，已拍板<strong>不修改</strong>：屬 vendor 生成檔案，手動改動會在 CLI 更新時被覆蓋，且視覺影響極小 ( 4px 即 radius sm，2px 僅 Tooltip 箭頭 )。</p></div>
+          <div class="col fix"><div class="k">後續</div><p>無。若日後用 shadcn-vue CLI 重新產生元件，維持不動這兩處的原則。</p></div>
         </div>
       </div>
 
       <div class="finding">
-        <div class="fhead"><span class="fnum">11</span><span class="ftitle">邊框用了三種 slate</span><span class="sev lo">低</span><span class="rst open">未處理</span></div>
+        <div class="fhead"><span class="fnum">11</span><span class="ftitle">邊框用了三種 slate</span><span class="sev lo">低</span><span class="rst partial">部分改善</span></div>
         <div class="cols">
-          <div class="col now"><div class="k">現況 ( 2026.07.12 複查 )</div><p><code>border-slate-100 / 200 / 300</code> 三種仍並用，狀態未變。</p></div>
-          <div class="col fix"><div class="k">建議</div><p>維持原建議，統一走 <code>--border</code>，僅特例才另訂一個 token。</p></div>
+          <div class="col now"><div class="k">現況 ( 2026.07.19 複查 )</div><p>三種深淺並用屬歷史雜訊而非刻意層級：<code>slate-200</code> 102 次為絕對主力，<code>slate-100</code> 18 次、<code>slate-300</code> 15 次零星散落。已拍板收斂為單一 <code>stroke</code>，值從 neutral-300 下修為 <strong>neutral-200</strong> ( 貼齊現況主力 )，tokens.css 已同步更新。</p></div>
+          <div class="col fix"><div class="k">建議</div><p>程式碼遷移時將 <code>border-slate-100 / 200 / 300</code> 一律換成 <code>border-stroke</code>，不另立多階邊框 token。</p></div>
         </div>
       </div>
     </section>
@@ -962,6 +994,22 @@
   </main>
 
 <script>
+  /* 小斷點側邊欄抽屜：hamburger 開，點遮罩或連結關 */
+  (function () {
+    var body = document.body;
+    var hb = document.querySelector('.hb');
+    var scrim = document.querySelector('.nav-scrim');
+    function close() { body.classList.remove('nav-open'); if (hb) hb.setAttribute('aria-expanded', 'false'); }
+    if (hb) hb.addEventListener('click', function () {
+      var open = body.classList.toggle('nav-open');
+      hb.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    if (scrim) scrim.addEventListener('click', close);
+    document.querySelectorAll('nav.toc a, nav.toc .grp-toggle').forEach(function (el) {
+      el.addEventListener('click', close);
+    });
+  })();
+
   /* 側邊欄「設計規範」「元件」切換：點另一頁的群組就跳轉過去，點自己這頁的群組回到頁面最上方 */
   (function () {
     var currentPage = location.pathname.split('/').pop() || 'index.html';

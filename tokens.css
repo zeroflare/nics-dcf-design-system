@@ -227,7 +227,8 @@
      ------------------------------------------------------------------ */
   --color-fg-primary: var(--color-neutral-900);        /* 主要文字 / 圖示 */
   --color-fg-secondary: var(--color-neutral-500);      /* 次要文字 / 圖示 */
-  --color-stroke: var(--color-neutral-300);            /* 邊框 / 分隔線 ( 不叫 border ) */
+  --color-fg-tertiary: var(--color-neutral-400);       /* 輔助文字 / 圖示 ( 佔位提示、輔助說明 ) */
+  --color-stroke: var(--color-neutral-200);            /* 邊框 / 分隔線 ( 不叫 border ) */
   --color-bg-surface: var(--color-neutral-100);        /* 頁面底層背景 */
   --color-bg-container: var(--color-neutral-0);        /* 卡片本身 ( 白 ) */
   --color-bg-container-subtle: var(--color-neutral-50);   /* 卡片上輕量區隔 */

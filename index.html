@@ -95,6 +95,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ---------- top bar (mobile) ---------- */
+  .topbar { display: none; }
+  .nav-scrim { display: none; }
+
   /* ---------- sidebar ---------- */
   aside {
     position: fixed; top: 0; left: 0; width: 240px; height: 100vh;
@@ -144,18 +148,45 @@
   .stack-link:hover { text-decoration: underline; }
 
   @media (max-width: 900px) {
-    aside { position: static; width: auto; height: auto; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 24px; }
-    main { margin-left: 0; }
+    .topbar {
+      display: flex; align-items: center; gap: 12px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 20; height: 56px;
+      padding: 0 16px; background: var(--surface); border-bottom: 1px solid var(--line);
+    }
+    .hb {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; margin-left: -8px; padding: 0;
+      background: none; border: none; cursor: pointer; color: var(--ink); border-radius: 8px;
+    }
+    .hb:hover { background: var(--surface-2); }
+    .hb svg { width: 24px; height: 24px; }
+    .tb-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit; min-width: 0; }
+    .tb-brand .mark { width: 24px; height: 24px; border-radius: 7px; flex: none; }
+    .tb-brand span { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    aside { z-index: 40; transform: translateX(-100%); transition: transform .25s ease; }
+    body.nav-open aside { transform: translateX(0); }
+    .nav-scrim {
+      display: block; position: fixed; inset: 0; z-index: 30;
+      background: rgba(0, 0, 0, .4); opacity: 0; visibility: hidden; transition: opacity .25s ease;
+    }
+    body.nav-open .nav-scrim { opacity: 1; visibility: visible; }
+    main { margin-left: 0; padding-top: 56px; }
     .main-inner { margin-left: 0; max-width: none; }
-    nav.toc { flex-flow: row wrap; }
-    nav.toc .grp { width: 100%; margin: 10px 0 2px; }
-    nav.toc .grp-toggle { width: 100%; margin: 10px 0 2px; }
-    nav.toc .grp-body { width: 100%; }
-    nav.toc a { padding: 5px 9px; }
   }
 </style>
 </head>
 <body>
+
+  <header class="topbar">
+    <button class="hb" type="button" aria-label="開啟選單" aria-expanded="false">
+      <svg viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>
+    </button>
+    <a class="tb-brand" href="index.html">
+      <img class="mark" src="favicon.png" alt="">
+      <span>資料匯流平台設計系統</span>
+    </a>
+  </header>
+  <div class="nav-scrim"></div>
 
   <aside>
     <a class="brand" href="index.html">
@@ -266,6 +297,22 @@
   </main>
 
 <script>
+  /* 小斷點側邊欄抽屜：hamburger 開，點遮罩或連結關 */
+  (function () {
+    var body = document.body;
+    var hb = document.querySelector('.hb');
+    var scrim = document.querySelector('.nav-scrim');
+    function close() { body.classList.remove('nav-open'); if (hb) hb.setAttribute('aria-expanded', 'false'); }
+    if (hb) hb.addEventListener('click', function () {
+      var open = body.classList.toggle('nav-open');
+      hb.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    if (scrim) scrim.addEventListener('click', close);
+    document.querySelectorAll('nav.toc a, nav.toc .grp-toggle').forEach(function (el) {
+      el.addEventListener('click', close);
+    });
+  })();
+
   /* 側邊欄「設計規範」「元件」切換：點另一頁的群組就跳轉過去，點自己這頁的群組回到頁面最上方 */
   (function () {
     var currentPage = location.pathname.split('/').pop() || 'index.html';

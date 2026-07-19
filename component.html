@@ -409,7 +409,7 @@
         </table>
       </div>
       <h3 class="sub">接入五步驟</h3>
-      <div class="spec-line">1. 安裝套件：bun add github:zeroflare/nics-dcf-design-system，CSS 進入點 @import '@nics/design-tokens/tokens.css'<br>2. shadcn 橋接變數指向 token：--primary = brand-500 · --destructive = red-500 · --ring = brand-300 · --border = stroke<br>3. 安裝認可的 shadcn 元件清單並重放 3 個有意修改 ( Dialog / Card / Progress )；明確不使用 alert、scroll-area、膠囊式 tabs<br>4. 自訂元件從套件 import ( 如 @nics/design-tokens/components/Tag.vue )，依賴契約：@ 別名指向 src、對應 shadcn 元件已安裝<br>5. 實作前先讀本頁對應元件的「已拍板規則」；需要新元件或新樣式 pattern，先回設計系統立章拍板，實體放設計系統的 components/</div>
+      <div class="spec-line">1. 安裝套件：bun add github:zeroflare/nics-dcf-design-system，CSS 進入點 @import '@nics/design-tokens/tokens.css'，並加 @source 指到套件的 components/ ( Tailwind 預設不掃 node_modules )<br>2. shadcn 橋接變數指向 token：--primary = brand-500 · --destructive = red-500 · --ring = brand-300 · --border = stroke<br>3. 安裝認可的 shadcn 元件清單並重放 3 個有意修改 ( Dialog / Card / Progress )；明確不使用 alert、scroll-area、膠囊式 tabs<br>4. 自訂元件從套件 import ( 如 @nics/design-tokens/components/Tag.vue )，依賴契約：@ 別名指向 src、對應 shadcn 元件已安裝<br>5. 實作前先讀本頁對應元件的「已拍板規則」；需要新元件或新樣式 pattern，先回設計系統立章拍板，實體放設計系統的 components/</div>
     </section>
 
     <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->

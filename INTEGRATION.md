@@ -22,11 +22,12 @@ component.html 每個元件的標題旁都有來源標籤，一眼可辨。
 bun add github:zeroflare/nics-dcf-design-system
 ```
 
-在全站 CSS 進入點 ( 如 `src/style.css` ) 引入：
+在全站 CSS 進入點 ( 如 `src/style.css` ) 引入，並把套件的元件目錄加進 Tailwind 掃描來源 ( Tailwind 預設不掃 node_modules，漏這行自訂元件會沒有樣式 )：
 
 ```css
 @import 'tailwindcss';
 @import '@nics/design-tokens/tokens.css';
+@source '../node_modules/@nics/design-tokens/components';
 ```
 
 ### 2. shadcn 橋接變數指向 token

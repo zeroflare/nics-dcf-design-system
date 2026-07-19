@@ -406,51 +406,60 @@
       <div class="spec-line">已拍板規則 ( 2026.7.19 )：icon 按鈕一律 size="icon-sm"，頁碼類用 size="icon"，不得用 class 覆寫尺寸；手刻的 brand 外框按鈕樣式廢除，收斂為 outline 或 default；全站約 56 顆手刻按鈕隨頁面遷移分批收編呼叫 Button ( 手刻 teal-600 與 brand-500 同值，收編視覺幾乎零變化 )；Tab 切換、篩選 pill、選擇卡等 ~18 顆不屬 Button 職責，歸各自元件。secondary 與 link 為 shadcn 原生保留，標示未使用</div>
     </section>
 
-    <!-- ============ Input ============ -->
+    <!-- ============ Input ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-input">
-      <div class="band-head"><h2>Input</h2><span class="use-b">6 檔</span></div>
-      <p class="band-sub">單行輸入。焦點時顯示 3px 焦點環 ( ring )。</p>
+      <div class="band-head"><h2>Input</h2><span class="use-b">元件呼叫 12 處 / 7 檔 · 另有手刻 11 顆待收編</span></div>
+      <p class="band-sub">單行輸入。h-9 ( 36px )、rounded-md、文字 14px，焦點時顯示 3px brand-300 焦點環。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
         <span class="field">預設輸入框</span>
         <span class="field focus">焦點狀態</span>
       </div>
-      <div class="spec-line">h-9 · rounded-md · border --input · focus ring 3px</div>
+      <div class="spec-line">h-9 · rounded-md · border = stroke ( n200 ) · focus ring 3px brand-300</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.19 )：元件不加 size prop ( vendor 檔不 fork )，小尺寸定慣例 class="h-8 text-xs"；搜尋框 icon 空間用 pl-9、密碼顯示鈕用 pr-10 屬合理佈局覆寫；手刻 11 顆 ( 標準款 6、表格迷你款 4 吸附小尺寸慣例、無框搜尋款 1 ) 隨頁面遷移收編</div>
     </section>
 
-    <!-- ============ Switch ============ -->
+    <!-- ============ Switch ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-switch">
-      <div class="band-head"><h2>Switch</h2><span class="use-b">2 檔</span></div>
-      <p class="band-sub">開關,選取態使用主色。</p>
+      <div class="band-head"><h2>Switch</h2><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
+      <p class="band-sub">開關。選取態使用 --primary ( brand-500 )，全站零手刻、零覆寫，現況即規範。</p>
       <div class="preview">
         <span class="swch"></span>
         <span class="swch off"></span>
       </div>
-      <div class="spec-line">與 Checkbox 共用主色語意,尚未個別盤點細節</div>
+      <div class="spec-line">軌道 32×18.4 · thumb 16px 圓 · checked bg-primary · unchecked bg-input</div>
     </section>
 
-    <!-- ============ Checkbox ============ -->
+    <!-- ============ Checkbox ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-checkbox">
-      <div class="band-head"><h2>Checkbox</h2><span class="use-b">4 檔</span></div>
-      <p class="band-sub">勾選框,選取態使用主色。</p>
+      <div class="band-head"><h2>Checkbox</h2><span class="use-b">元件 0 引用 · 手刻 1 顆待收編</span></div>
+      <p class="band-sub">勾選框。元件已定義且規格正確 ( 16px、圓角 4px = sm、選取態 --primary )，但目前無頁面引用；RoleDetailDialog 權限矩陣有 1 顆手刻 ( 20px )，已拍板收編改用元件。</p>
       <div class="preview">
-        <span style="width:18px;height:18px;border-radius:5px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px">✓</span>
-        <span style="width:18px;height:18px;border-radius:5px;border:1.5px solid var(--line-strong)"></span>
+        <span style="width:16px;height:16px;border-radius:4px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px">✓</span>
+        <span style="width:16px;height:16px;border-radius:4px;border:1px solid var(--line-strong)"></span>
       </div>
-      <div class="spec-line">元件內有 rounded-[4px] 硬寫值 → 審計 10</div>
+      <div class="spec-line">size-4 ( 16px ) · rounded 4px ( = radius sm，vendor 內寫法見審計 10 ) · checked bg-primary</div>
     </section>
 
-    <!-- ============ Select ============ -->
+    <!-- ============ Select ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-select">
-      <div class="band-head"><h2>Select</h2><span class="flag pending">★ 待盤點</span></div>
-      <p class="band-sub">下拉選單,shadcn-vue 原生元件。</p>
-      <div class="spec-line">使用 3 檔,尚未個別盤點</div>
+      <div class="band-head"><h2>Select</h2><span class="use-b">元件呼叫 9 組 / 3 檔</span></div>
+      <p class="band-sub">下拉選單。全站零手刻原生 select，皆正確使用元件組合 ( Select / SelectTrigger / SelectContent / SelectItem )。</p>
+      <div class="preview">
+        <span class="field" style="display:inline-flex;justify-content:space-between;align-items:center;min-width:180px">請選擇更新頻率<span style="opacity:.5">▾</span></span>
+      </div>
+      <div class="spec-line">trigger h-9 ( size="sm" 為 h-8 ) · rounded-md · border = stroke · 文字 14px</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.19 )：小尺寸一律用原生 size="sm" prop，不得用 class 覆寫高度；寬度 ( w-full / min-w-* ) 屬佈局覆寫可用；先前 4 處冗餘的 border-slate-200 覆寫已移除</div>
     </section>
 
-    <!-- ============ Textarea ============ -->
+    <!-- ============ Textarea ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-textarea">
-      <div class="band-head"><h2>Textarea</h2><span class="flag unused">未使用</span></div>
-      <p class="band-sub">多行輸入,已定義但目前沒有任何頁面引用。</p>
-      <div class="spec-line">0 檔使用中</div>
+      <div class="band-head"><h2>Textarea</h2><span class="use-b">元件 0 引用 · 手刻 6 顆待收編</span></div>
+      <p class="band-sub">多行輸入。元件已定義 ( min-h-16、rounded-md、規格與 Input 一致 ) 但目前無頁面引用，全站 6 顆手刻已拍板隨頁面遷移收編。</p>
+      <div class="preview" style="flex-direction:column;align-items:stretch">
+        <span class="field" style="height:56px;align-items:flex-start;padding-top:8px">多行輸入內容</span>
+      </div>
+      <div class="spec-line">min-h-16 · rounded-md · border = stroke · focus ring 3px brand-300</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.19 )：標準款 2 顆直接收編；YAML 編輯器款 3 顆收編後以 class 覆寫 font-mono text-xs；駁回理由框 1 顆收編後圓角回 md，錯誤態紅框改走 aria-invalid 機制</div>
     </section>
 
     <!-- ============ Dialog ============ -->

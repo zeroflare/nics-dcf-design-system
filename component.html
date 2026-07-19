@@ -444,8 +444,13 @@
     <section class="band" id="comp-select">
       <div class="band-head"><h2>Select</h2><span class="use-b">元件呼叫 9 組 / 3 檔</span></div>
       <p class="band-sub">下拉選單。全站零手刻原生 select，皆正確使用元件組合 ( Select / SelectTrigger / SelectContent / SelectItem )。</p>
-      <div class="preview">
-        <span class="field" style="display:inline-flex;justify-content:space-between;align-items:center;min-width:180px">請選擇更新頻率<span style="opacity:.5">▾</span></span>
+      <div class="preview" style="flex-direction:column;align-items:flex-start;gap:6px">
+        <span class="field" style="display:inline-flex;justify-content:space-between;align-items:center;min-width:200px">請選擇更新頻率<span style="opacity:.5">▾</span></span>
+        <div style="width:200px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-lift);padding:4px">
+          <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">每日</div>
+          <div style="display:flex;justify-content:space-between;border-radius:4px;padding:6px 8px;font-size:11.5px;background:var(--surface-2)"><span>每週</span><span style="color:var(--accent-ink)">✓</span></div>
+          <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">每月</div>
+        </div>
       </div>
       <div class="spec-line">trigger h-9 ( size="sm" 為 h-8 ) · rounded-md · border = stroke · 文字 14px</div>
       <div class="spec-line">已拍板規則 ( 2026.7.19 )：小尺寸一律用原生 size="sm" prop，不得用 class 覆寫高度；寬度 ( w-full / min-w-* ) 屬佈局覆寫可用；先前 4 處冗餘的 border-slate-200 覆寫已移除</div>
@@ -455,63 +460,100 @@
     <section class="band" id="comp-textarea">
       <div class="band-head"><h2>Textarea</h2><span class="use-b">元件 0 引用 · 手刻 6 顆待收編</span></div>
       <p class="band-sub">多行輸入。元件已定義 ( min-h-16、rounded-md、規格與 Input 一致 ) 但目前無頁面引用，全站 6 顆手刻已拍板隨頁面遷移收編。</p>
-      <div class="preview" style="flex-direction:column;align-items:stretch">
+      <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
         <span class="field" style="height:56px;align-items:flex-start;padding-top:8px">多行輸入內容</span>
+        <span class="field focus" style="height:56px;align-items:flex-start;padding-top:8px">焦點狀態</span>
       </div>
       <div class="spec-line">min-h-16 · rounded-md · border = stroke · focus ring 3px brand-300</div>
       <div class="spec-line">已拍板規則 ( 2026.7.19 )：標準款 2 顆直接收編；YAML 編輯器款 3 顆收編後以 class 覆寫 font-mono text-xs；駁回理由框 1 顆收編後圓角回 md，錯誤態紅框改走 aria-invalid 機制</div>
     </section>
 
-    <!-- ============ Dialog ============ -->
+    <!-- ============ Dialog ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-dialog">
-      <div class="band-head"><h2>Dialog</h2><span class="use-b">14 檔</span></div>
-      <p class="band-sub">最高頻的覆蓋層元件,用於審核、確認、編輯等流程。</p>
+      <div class="band-head"><h2>Dialog</h2><span class="use-b">元件呼叫 15 組 / 13 檔</span></div>
+      <p class="band-sub">最高頻的覆蓋層元件，用於審核、確認、編輯等流程。全站零手刻覆蓋層，一律使用元件。</p>
       <div class="preview" style="justify-content:center">
-        <div style="width:100%;max-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lift);padding:14px">
-          <div style="font-weight:600;font-size:13px">確認核准協作請求</div>
+        <div style="width:100%;max-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:14px">
+          <div style="font-weight:700;font-size:13px">確認核准協作請求</div>
           <div style="font-size:11.5px;color:var(--ink-2);margin:6px 0 12px">核准後對方即可存取指定欄位</div>
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn default" style="height:28px;font-size:12px">核准</span></div>
         </div>
       </div>
-      <div class="spec-line">審核、確認、編輯等流程共用</div>
+      <div class="spec-line">圓角 lg ( 16px ) · shadow-lg · 內距 p-6 · 預設寬 sm:max-w-lg · 遮罩黑 80%</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 )：DialogTitle 套 Subtitle 語意字級 ( 18 / 700 / 1.3，取代原 18 / 600 / leading-none，落實文字章的 ★ 拍板，屬有意的 vendor 修改 )；呼叫端覆寫僅限寬度 / 高度佈局類 ( max-w-* / max-h-* / p-0 )，不得覆寫樣式</div>
     </section>
 
-    <!-- ============ Drawer ============ -->
+    <!-- ============ Drawer ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-drawer">
-      <div class="band-head"><h2>Drawer</h2><span class="flag pending">★ 待盤點</span></div>
-      <p class="band-sub">側邊抽屜,手機版選單等場景使用。</p>
-      <div class="spec-line">使用 2 檔,尚未個別盤點</div>
+      <div class="band-head"><h2>Drawer</h2><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
+      <p class="band-sub">側邊抽屜 ( vaul )。用於 MasterDetailLayout 右側詳情與 AppNav 手機版選單。</p>
+      <div class="preview" style="justify-content:center">
+        <div style="position:relative;width:100%;max-width:280px;height:130px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)">
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,.35)"></div>
+          <div style="position:absolute;top:0;right:0;bottom:0;width:58%;background:var(--surface);border-left:1px solid var(--line);padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:8px">
+              <span style="font-size:12px;font-weight:700">請求詳情</span><span style="color:var(--ink-3);font-size:11px">✕</span>
+            </div>
+            <div style="font-size:10.5px;color:var(--ink-2);line-height:1.6">從右側滑入的面板內容，佔滿視窗高度</div>
+          </div>
+        </div>
+      </div>
+      <div class="spec-line">right 方向 · 預設寬 w-3/4 ( sm 上限 max-w-sm ) · DrawerFooter 未使用</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 )：寬度用 !important 逃逸 vaul 上限 ( sm:!max-w-none 等 ) 認可為許可的佈局覆寫；DrawerHeader 的 border-slate-200 隨頁面遷移改 border-stroke；RequestDetailPanel 已在 Drawer 內，其自帶 shadow-xl 與左框屬雙重分隔，隨頁面遷移移除 ( 陰影章舊懸案結案 )</div>
     </section>
 
-    <!-- ============ Popover ============ -->
+    <!-- ============ Popover ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-popover">
-      <div class="band-head"><h2>Popover</h2><span class="flag pending">★ 待盤點</span></div>
-      <p class="band-sub">浮動彈出層。</p>
-      <div class="spec-line">使用 1 檔,尚未個別盤點</div>
+      <div class="band-head"><h2>Popover</h2><span class="use-b">元件呼叫 1 處</span></div>
+      <p class="band-sub">浮動彈出層，現況用於 RoleMultiSelect 下拉多選。現況即規範。</p>
+      <div class="preview" style="flex-direction:column;align-items:center;gap:6px">
+        <span class="btn outline" style="height:28px;font-size:12px">選擇角色 <span style="opacity:.5">▾</span></span>
+        <div style="width:210px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-lift);padding:12px;font-size:11.5px;color:var(--ink-2)">浮動面板內容 ( 預設 p-4 · w-72，緊貼觸發元素下方 )</div>
+      </div>
+      <div class="spec-line">rounded-md ( 8px ) · border = stroke · shadow-md · 內距 p-4 · 預設寬 w-72；combobox 場景的 w-[anchor-width] p-0 覆寫為標準寫法</div>
     </section>
 
-    <!-- ============ Command ============ -->
+    <!-- ============ Command ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-command">
-      <div class="band-head"><h2>Command</h2><span class="flag pending">★ 待盤點</span></div>
-      <p class="band-sub">指令選單 / 搜尋面板。</p>
-      <div class="spec-line">使用 1 檔,尚未個別盤點</div>
+      <div class="band-head"><h2>Command</h2><span class="use-b">元件呼叫 1 處</span></div>
+      <p class="band-sub">指令選單 / 搜尋面板，現況與 Popover 組成 RoleMultiSelect 的 combobox。現況即規範。</p>
+      <div class="preview" style="justify-content:center">
+        <div style="width:220px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-lift);overflow:hidden">
+          <div style="border-bottom:1px solid var(--line);padding:8px 12px;font-size:11.5px;color:var(--ink-3)">搜尋角色…</div>
+          <div style="padding:4px">
+            <div style="display:flex;justify-content:space-between;border-radius:4px;padding:6px 8px;font-size:11.5px;background:var(--surface-2)"><span>系統管理員</span><span style="color:var(--accent-ink)">✓</span></div>
+            <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">資料管理員</div>
+            <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">審核人員</div>
+          </div>
+        </div>
+      </div>
+      <div class="spec-line">容器 rounded-md · CommandItem rounded 4px ( = radius sm，「選單項 6→4」已落實 ) · px-2 py-1.5 · 文字 14px；CommandDialog、CommandShortcut 未使用</div>
     </section>
 
-    <!-- ============ Dropdown Menu ============ -->
+    <!-- ============ Dropdown Menu ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-dropdown">
-      <div class="band-head"><h2>Dropdown Menu</h2><span class="flag pending">★ 待盤點</span></div>
-      <p class="band-sub">下拉選單。</p>
-      <div class="spec-line">使用 1 檔,尚未個別盤點</div>
+      <div class="band-head"><h2>Dropdown Menu</h2><span class="use-b">元件呼叫 1 處</span></div>
+      <p class="band-sub">下拉選單，現況用於 AppNav 使用者選單。現況即規範。</p>
+      <div class="preview" style="flex-direction:column;align-items:center;gap:6px">
+        <span style="width:28px;height:28px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:11px">暖</span>
+        <div style="width:150px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-lift);padding:4px">
+          <div style="border-radius:4px;padding:6px 8px;font-size:11.5px;background:var(--surface-2)">個人資料</div>
+          <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">帳號設定</div>
+          <div style="height:1px;background:var(--line);margin:3px 4px"></div>
+          <div style="border-radius:4px;padding:6px 8px;font-size:11.5px;color:var(--crit)">登出</div>
+        </div>
+      </div>
+      <div class="spec-line">rounded-md · border = stroke · shadow-md · Item rounded 4px ( = radius sm ) · px-2 py-1.5 · 文字 14px；Checkbox / Radio / Sub 系列子元件未使用</div>
     </section>
 
-    <!-- ============ Tooltip ============ -->
+    <!-- ============ Tooltip ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-tooltip">
-      <div class="band-head"><h2>Tooltip</h2><span class="use-b">5 檔</span></div>
-      <p class="band-sub">滑鼠停留提示,多用於圖示按鈕的補充說明。</p>
+      <div class="band-head"><h2>Tooltip</h2><span class="use-b">元件呼叫 9 處 / 5 檔</span></div>
+      <p class="band-sub">滑鼠停留提示，多用於圖示按鈕的補充說明。全站零覆寫，現況即規範。</p>
       <div class="preview" style="justify-content:center">
         <div style="background:var(--ink);color:var(--bg);font-size:12px;padding:5px 10px;border-radius:7px">重新整理節點狀態</div>
       </div>
-      <div class="spec-line">深底淺字 · rounded-md · text-xs · 元件內有 rounded-[2px] 硬寫值 → 審計 10</div>
+      <div class="spec-line">深底淺字 ( bg-foreground / text-background ) · rounded-md · text-xs · px-3 py-1.5 · 箭頭的 rounded-[2px] 為審計 10 拍板不動項</div>
     </section>
 
     <!-- ============ Badge ============ -->

@@ -145,6 +145,10 @@
   .band-list > section.band + section.band { border-top: 1px solid var(--line); margin-top: 60px; padding-top: 60px; }
   .band-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 6px; }
   .band-head h2 { font-size: 27px; letter-spacing: -0.02em; font-weight: 800; margin: 0; }
+  /* 元件來源三層標籤 */
+  .band-head .src { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-3); white-space: nowrap; }
+  .band-head .src.mod { color: var(--warn); background: var(--warn-wash); border-color: transparent; }
+  .band-head .src.custom { color: var(--accent-ink); background: var(--accent-wash); border-color: transparent; }
   .band-sub { color: var(--ink-2); margin: 4px 0 30px; font-size: 15px; }
 
   /* spec table */
@@ -349,6 +353,7 @@
         <span>元件</span>
       </button>
       <div class="grp-body" id="grp-comp">
+        <a href="#comp-guide"><span>接入指南</span></a>
         <div class="grp sub">動作與表單</div>
         <a href="#comp-button" class="comp-link"><span>Button</span></a>
         <a href="#comp-input" class="comp-link"><span>Input</span></a>
@@ -358,6 +363,7 @@
         <a href="#comp-textarea" class="comp-link"><span>Textarea</span></a>
         <div class="grp sub">覆蓋層</div>
         <a href="#comp-dialog" class="comp-link"><span>Dialog</span></a>
+        <a href="#comp-confirmdialog" class="comp-link"><span>ConfirmDialog</span></a>
         <a href="#comp-drawer" class="comp-link"><span>Drawer</span></a>
         <a href="#comp-popover" class="comp-link"><span>Popover</span></a>
         <a href="#comp-command" class="comp-link"><span>Command</span></a>
@@ -387,9 +393,28 @@
     </header>
 
     <div class="band-list">
+    <!-- ============ 新專案接入指南 ( 2026.7.20 ) ============ -->
+    <section class="band" id="comp-guide">
+      <div class="band-head"><h2>新專案接入指南</h2></div>
+      <p class="band-sub">所有資料匯流平台相關網站的新專案，接入設計系統的標準流程。本設計系統是唯一來源：token、共用元件、元件規格都以此為準，不得在各專案自行發明。完整步驟與程式碼片段見 repo 根目錄的 <span style="font-family:var(--font-mono);color:var(--accent-ink)">INTEGRATION.md</span>。</p>
+      <h3 class="sub">元件來源三層制</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>層級</th><th>標籤</th><th>實體位置</th><th>使用方式</th></tr></thead>
+          <tbody>
+            <tr><td>shadcn 原生</td><td><span class="src">shadcn 原生</span></td><td>各專案自己的 components/ui/</td><td>shadcn CLI 安裝，不修改</td></tr>
+            <tr><td>shadcn + 有意修改</td><td><span class="src mod">有意修改</span></td><td>各專案 components/ui/</td><td>CLI 安裝後<strong>重放拍板過的修改</strong> ( 各元件章有寫，檔內留註解 )</td></tr>
+            <tr><td>自訂</td><td><span class="src custom">自訂</span></td><td>設計系統 repo 的 components/</td><td>由套件 import，<strong>不得複製進專案</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="sub">接入五步驟</h3>
+      <div class="spec-line">1. 安裝套件：bun add github:zeroflare/nics-dcf-design-system，CSS 進入點 @import '@nics/design-tokens/tokens.css'<br>2. shadcn 橋接變數指向 token：--primary = brand-500 · --destructive = red-500 · --ring = brand-300 · --border = stroke<br>3. 安裝認可的 shadcn 元件清單並重放 3 個有意修改 ( Dialog / Card / Progress )；明確不使用 alert、scroll-area、膠囊式 tabs<br>4. 自訂元件從套件 import ( 如 @nics/design-tokens/components/Tag.vue )，依賴契約：@ 別名指向 src、對應 shadcn 元件已安裝<br>5. 實作前先讀本頁對應元件的「已拍板規則」；需要新元件或新樣式 pattern，先回設計系統立章拍板，實體放設計系統的 components/</div>
+    </section>
+
     <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-button">
-      <div class="band-head"><h2>Button</h2><span class="use-b">元件呼叫 19 處 / 9 檔 · 另有手刻 ~56 顆待收編</span></div>
+      <div class="band-head"><h2>Button</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 19 處 / 9 檔 · 另有手刻 ~56 顆待收編</span></div>
       <p class="band-sub">6 種 variant × 6 種 size，不再新增 variant。基底規格：文字 14px / 500 ( Button token )、圓角一律 md ( 8px )、預設高度 h-9 ( 36px )。主色與危險色分別走 --primary ( brand-500 ) 與 --destructive ( red-500 )，focus ring 為 brand-300 半透明。</p>
       <div class="preview">
         <span class="btn default">主要動作</span>
@@ -405,7 +430,7 @@
 
     <!-- ============ Input ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-input">
-      <div class="band-head"><h2>Input</h2><span class="use-b">元件呼叫 12 處 / 7 檔 · 另有手刻 11 顆待收編</span></div>
+      <div class="band-head"><h2>Input</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 12 處 / 7 檔 · 另有手刻 11 顆待收編</span></div>
       <p class="band-sub">單行輸入。h-9 ( 36px )、rounded-md、文字 14px，焦點時顯示 3px brand-300 焦點環。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
         <span class="field">預設輸入框</span>
@@ -417,7 +442,7 @@
 
     <!-- ============ Switch ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-switch">
-      <div class="band-head"><h2>Switch</h2><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
+      <div class="band-head"><h2>Switch</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
       <p class="band-sub">開關。選取態使用 --primary ( brand-500 )，全站零手刻、零覆寫，現況即規範。</p>
       <div class="preview">
         <span class="swch"></span>
@@ -428,7 +453,7 @@
 
     <!-- ============ Checkbox ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-checkbox">
-      <div class="band-head"><h2>Checkbox</h2><span class="use-b">元件 0 引用 · 手刻 1 顆待收編</span></div>
+      <div class="band-head"><h2>Checkbox</h2><span class="src">shadcn 原生</span><span class="use-b">元件 0 引用 · 手刻 1 顆待收編</span></div>
       <p class="band-sub">勾選框。元件已定義且規格正確 ( 16px、圓角 4px = sm、選取態 --primary )，但目前無頁面引用；RoleDetailDialog 權限矩陣有 1 顆手刻 ( 20px )，已拍板收編改用元件。</p>
       <div class="preview">
         <span style="width:16px;height:16px;border-radius:4px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px">✓</span>
@@ -439,7 +464,7 @@
 
     <!-- ============ Select ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-select">
-      <div class="band-head"><h2>Select</h2><span class="use-b">元件呼叫 9 組 / 3 檔</span></div>
+      <div class="band-head"><h2>Select</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 9 組 / 3 檔</span></div>
       <p class="band-sub">下拉選單。全站零手刻原生 select，皆正確使用元件組合 ( Select / SelectTrigger / SelectContent / SelectItem )。</p>
       <div class="preview" style="flex-direction:column;align-items:flex-start;gap:6px">
         <span class="field" style="display:inline-flex;justify-content:space-between;align-items:center;min-width:200px">請選擇更新頻率<span style="opacity:.5">▾</span></span>
@@ -455,7 +480,7 @@
 
     <!-- ============ Textarea ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-textarea">
-      <div class="band-head"><h2>Textarea</h2><span class="use-b">元件 1 引用 · 手刻 5 顆待收編</span></div>
+      <div class="band-head"><h2>Textarea</h2><span class="src">shadcn 原生</span><span class="use-b">元件 1 引用 · 手刻 5 顆待收編</span></div>
       <p class="band-sub">多行輸入。元件已定義 ( min-h-16、rounded-md、規格與 Input 一致 )，RequestConfirmDialog 駁回理由欄已引用，其餘 5 顆手刻已拍板隨頁面遷移收編。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
         <span class="field" style="height:56px;align-items:flex-start;padding-top:8px">多行輸入內容</span>
@@ -467,7 +492,7 @@
 
     <!-- ============ Dialog ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-dialog">
-      <div class="band-head"><h2>Dialog</h2><span class="use-b">元件呼叫 15 組 / 13 檔</span></div>
+      <div class="band-head"><h2>Dialog</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 15 組 / 13 檔</span></div>
       <p class="band-sub">最高頻的覆蓋層元件，用於審核、確認、編輯等流程。全站零手刻覆蓋層，一律使用元件。</p>
       <div class="preview" style="justify-content:center;flex-wrap:wrap;gap:12px;align-items:flex-start">
         <div style="width:100%;max-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
@@ -493,9 +518,24 @@
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：Dialog 分兩型。<b>確認型</b>統一走共用元件 ConfirmDialog ( components/shared )：標題與說明置中、無圖示、無右上角關閉鈕、寬 sm:max-w-sm、DialogFooter 左取消 ( outline ) 右主動作 ( 一般 default / 破壞性 destructive )，說明文案帶入對象名稱；現行使用：協作請求核准 / 駁回 ( RequestConfirmDialog，駁回附 Textarea 理由欄 )、刪除帳號。<b>表單型</b> ( 重設密碼、編輯角色、新增帳號 )：標題與說明靠左、保留右上角關閉鈕、欄位 label 用 text-caption font-bold text-fg-secondary、DialogFooter 同樣左取消右主動作。落地於 demo</div>
     </section>
 
+    <!-- ============ ConfirmDialog ( 2026.7.20 盤點新增 ) ============ -->
+    <section class="band" id="comp-confirmdialog">
+      <div class="band-head"><h2>ConfirmDialog</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 確認型對話框統一樣式</span></div>
+      <p class="band-sub">確認型對話框的統一封裝 ( 2026.7.20 拍板新增 )：置中標題與說明、無圖示、無右上角關閉鈕、左取消右主動作。主動作 variant 支援 default 與 destructive ( 破壞性操作 )，可經 slot 插入表單內容 ( 如重設密碼 )。</p>
+      <div class="preview" style="justify-content:center">
+        <div style="width:100%;max-width:230px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
+          <div style="font-weight:700;font-size:13px">確認刪除此帳號？</div>
+          <div style="font-size:11.5px;color:var(--ink-2);margin:8px 0 14px;line-height:1.6">刪除後，帳號「[帳號]」將自系統移除，此操作無法復原。</div>
+          <div style="display:flex;gap:8px;justify-content:center"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn destructive" style="height:28px;font-size:12px">確認刪除</span></div>
+        </div>
+      </div>
+      <div class="spec-line">基於 Dialog ( sm:max-w-sm · show-close-button=false ) · 標題套 Subtitle · 按鈕走 Button 元件</div>
+      <div class="spec-line">依賴契約：內部以 @/components/ui/* 引用消費端的 shadcn dialog 與 button，接入時需先完成 shadcn 安裝步驟</div>
+    </section>
+
     <!-- ============ Drawer ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-drawer">
-      <div class="band-head"><h2>Drawer</h2><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
+      <div class="band-head"><h2>Drawer</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
       <p class="band-sub">側邊抽屜 ( vaul )。用於 MasterDetailLayout 右側詳情與 AppNav 手機版選單。</p>
       <div class="preview" style="justify-content:center">
         <div style="position:relative;width:100%;max-width:280px;height:130px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)">
@@ -514,7 +554,7 @@
 
     <!-- ============ Popover ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-popover">
-      <div class="band-head"><h2>Popover</h2><span class="use-b">元件呼叫 1 處</span></div>
+      <div class="band-head"><h2>Popover</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 1 處</span></div>
       <p class="band-sub">浮動彈出層，現況用於 RoleMultiSelect 下拉多選。現況即規範。</p>
       <div class="preview" style="flex-direction:column;align-items:center;gap:6px">
         <span class="btn outline" style="height:28px;font-size:12px">選擇角色 <span style="opacity:.5">▾</span></span>
@@ -525,7 +565,7 @@
 
     <!-- ============ Command ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-command">
-      <div class="band-head"><h2>Command</h2><span class="use-b">元件呼叫 1 處</span></div>
+      <div class="band-head"><h2>Command</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 1 處</span></div>
       <p class="band-sub">指令選單 / 搜尋面板，現況與 Popover 組成 RoleMultiSelect 的 combobox。現況即規範。</p>
       <div class="preview" style="justify-content:center">
         <div style="width:220px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-lift);overflow:hidden">
@@ -542,7 +582,7 @@
 
     <!-- ============ Dropdown Menu ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-dropdown">
-      <div class="band-head"><h2>Dropdown Menu</h2><span class="use-b">元件呼叫 1 處</span></div>
+      <div class="band-head"><h2>Dropdown Menu</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 1 處</span></div>
       <p class="band-sub">下拉選單，現況用於 AppNav 使用者選單。現況即規範。</p>
       <div class="preview" style="flex-direction:column;align-items:center;gap:6px">
         <span style="width:28px;height:28px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:11px">暖</span>
@@ -558,7 +598,7 @@
 
     <!-- ============ Tooltip ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-tooltip">
-      <div class="band-head"><h2>Tooltip</h2><span class="use-b">元件呼叫 9 處 / 5 檔</span></div>
+      <div class="band-head"><h2>Tooltip</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 9 處 / 5 檔</span></div>
       <p class="band-sub">滑鼠停留提示，多用於圖示按鈕的補充說明。全站零覆寫，現況即規範。</p>
       <div class="preview" style="justify-content:center">
         <div style="background:var(--ink);color:var(--bg);font-size:12px;padding:5px 10px;border-radius:7px">重新整理節點狀態</div>
@@ -568,7 +608,7 @@
 
     <!-- ============ Badge ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-badge">
-      <div class="band-head"><h2>Badge</h2><span class="use-b">元件呼叫 4 處 / 3 檔</span></div>
+      <div class="band-head"><h2>Badge</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 4 處 / 3 檔</span></div>
       <p class="band-sub">shadcn 原生標籤，膠囊形，4 種 variant。定位：狀態指示 ( 如節點運作中 / 離線 )；分類與狀態「標籤」一律改用自訂 Tag 元件，兩者分工明確。</p>
       <div class="preview">
         <span class="pill p-default">預設</span>
@@ -582,7 +622,7 @@
 
     <!-- ============ Tag ( 2026.7.20 盤點新增 ) ============ -->
     <section class="band" id="comp-tag">
-      <div class="band-head"><h2>Tag</h2><span class="use-b">自訂元件 · 首批 3 檔採用</span></div>
+      <div class="band-head"><h2>Tag</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 首批 3 檔採用</span></div>
       <p class="band-sub">Component 層 Tag token 的正式載體 ( 2026.7.20 拍板新增 )。語意 5 種 ( 50 淺底 ) + 分類 12 種 ( 100 底 )，深淺差異本身就是「狀態 vs 分類」的辨識規則。無框、膠囊形。</p>
       <div class="preview">
         <span class="tagprev" style="background:#f0fdf4;color:#15803d">已核准</span>
@@ -598,9 +638,10 @@
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：cacheLog 12 分類的三個消費檔 ( RecentOperationsCard / OperationRecordsTab / ContextLogsPanel ) 已收編為首批採用；其餘手刻 pill 隨頁面遷移收編；NodeControlCard 帶框狀態 pill 屬 Badge 職責</div>
     </section>
 
+
     <!-- ============ Skeleton ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-skeleton">
-      <div class="band-head"><h2>Skeleton</h2><span class="use-b">元件呼叫 27 處 / 9 檔</span></div>
+      <div class="band-head"><h2>Skeleton</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 27 處 / 9 檔</span></div>
       <p class="band-sub">載入骨架，配合即時 API 與 SSE 的等待狀態，全站使用最廣的回饋元件。原有 1 顆手刻骨架 ( RoleManagementCard ) 已收編。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:8px">
         <span class="skel" style="width:70%"></span>
@@ -612,7 +653,7 @@
 
     <!-- ============ Progress ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-progress">
-      <div class="band-head"><h2>Progress</h2><span class="use-b">元件呼叫 3 處 / 1 檔</span></div>
+      <div class="band-head"><h2>Progress</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 3 處 / 1 檔</span></div>
       <p class="band-sub">進度條。總覽頁 3 條手刻進度條已收編改用元件，並取得 progressbar 無障礙角色。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
         <div style="height:8px;border-radius:999px;background:#f1f5f9;overflow:hidden"><div style="width:42%;height:100%;background:#22c55e"></div></div>
@@ -625,7 +666,7 @@
 
     <!-- ============ Sonner Toast ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-toast">
-      <div class="band-head"><h2>Sonner Toast</h2><span class="use-b">App.vue 掛載 · toast() 呼叫 10+ 檔</span></div>
+      <div class="band-head"><h2>Sonner Toast</h2><span class="src">shadcn 原生</span><span class="use-b">App.vue 掛載 · toast() 呼叫 10+ 檔</span></div>
       <p class="band-sub">全域提示訊息 ( vue-sonner )。Toaster 於 App.vue 掛載一次，各 store 與元件透過 toast() 觸發，為表單送出與 API 結果的回饋主力。</p>
       <div class="preview" style="justify-content:center">
         <div style="display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-lift);padding:12px 16px;font-size:12.5px"><span style="color:var(--good)">✓</span>資料集已成功發佈</div>
@@ -635,7 +676,7 @@
 
     <!-- ============ Card ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-card">
-      <div class="band-head"><h2>Card</h2><span class="use-b">元件呼叫 1 處 · 另有手刻 ~24 處待收編</span></div>
+      <div class="band-head"><h2>Card</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 1 處 · 另有手刻 ~24 處待收編</span></div>
       <p class="band-sub">資料容器。元件現況僅登入頁使用，全站卡片幾乎都是手刻 div ( 約 24 處 / 9 檔 )，且多用違規的 rounded-xl，為 Table 之外第二大收編標的。</p>
       <div class="preview" style="justify-content:center">
         <div style="width:100%;max-width:240px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:16px"><div style="font-weight:700;font-size:13px;margin-bottom:6px">卡片標題</div><div style="font-size:11.5px;color:var(--ink-2)">內容區塊，圓角 md ( 8px )，陰影 shadow-sm</div></div>
@@ -646,7 +687,7 @@
 
     <!-- ============ Table ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-table">
-      <div class="band-head"><h2>Table</h2><span class="use-b">元件 0 引用 · 手刻 15 顆 / 14 檔待收編</span></div>
+      <div class="band-head"><h2>Table</h2><span class="src">shadcn 原生</span><span class="use-b">元件 0 引用 · 手刻 15 顆 / 14 檔待收編</span></div>
       <p class="band-sub">表格。shadcn Table 元件組合已定義但零引用，全站表格皆為手刻原生 table ( 15 顆 / 14 檔 )，是全站最大的收編標的。( 舊盤點註記的 tanstack 自建有誤：tanstack 只出現在未使用的元件 utils 內，頁面手刻的都是純 HTML table )</p>
       <div class="preview" style="padding:0;overflow:hidden;flex-direction:column;align-items:stretch">
         <div style="display:flex;background:var(--surface-2);border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)"><span style="flex:1;padding:8px 14px">名稱</span><span style="flex:1;padding:8px 14px">狀態</span><span style="flex:1;padding:8px 14px">更新時間</span></div>
@@ -658,7 +699,7 @@
 
     <!-- ============ Tabs ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-tabs">
-      <div class="band-head"><h2>Tabs</h2><span class="use-b">手刻 ~6 組 · 待封裝自訂元件</span></div>
+      <div class="band-head"><h2>Tabs</h2><span class="src">shadcn 原生</span><span class="use-b">手刻 ~6 組 · 待封裝自訂元件</span></div>
       <p class="band-sub">分頁切換。已拍板：<strong>底線式頁籤立為正式規格</strong> ( 現況全站頁面級導航的既定長相 )，之後封裝為自訂 Tabs 元件；shadcn 的膠囊式 Tabs 三 repo 皆零引用，已於 2026.7.20 刪除。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden">
         <div style="display:flex;gap:16px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px"><span style="color:var(--accent-ink);font-weight:700;border-bottom:2px solid var(--accent);padding-bottom:6px">總覽</span><span style="color:var(--ink-3)">資料來源</span><span style="color:var(--ink-3)">紀錄</span></div>
@@ -669,7 +710,7 @@
 
     <!-- ============ Separator ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-separator">
-      <div class="band-head"><h2>Separator</h2><span class="use-b">元件呼叫 2 處 / 1 檔</span></div>
+      <div class="band-head"><h2>Separator</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 2 處 / 1 檔</span></div>
       <p class="band-sub">分隔線，現況用於 NodeControlCard。現況即規範。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
         <div style="font-size:11.5px;color:var(--ink-2)">區塊一</div>
@@ -681,7 +722,7 @@
 
     <!-- ============ Pagination ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-pagination">
-      <div class="band-head"><h2>Pagination</h2><span class="use-b">元件呼叫 1 處</span></div>
+      <div class="band-head"><h2>Pagination</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 1 處</span></div>
       <p class="band-sub">分頁器，現況用於操作紀錄表格。組合式用法正確，內部按鈕吃 Button 元件 ( 頁碼已改正規 size="icon" )。現況即規範。</p>
       <div class="preview" style="justify-content:center;gap:6px">
         <span class="btn outline" style="height:30px;width:30px;padding:0;justify-content:center;font-size:12px">‹</span>
@@ -695,7 +736,7 @@
 
     <!-- ============ Collapsible ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-collapsible">
-      <div class="band-head"><h2>Collapsible</h2><span class="use-b">元件呼叫 1 處</span></div>
+      <div class="band-head"><h2>Collapsible</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 1 處</span></div>
       <p class="band-sub">可收合區塊，現況用於 RequestDetailPanel 的詳情展開。現況即規範。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:0">
         <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;padding:8px 0;border-bottom:1px solid var(--line)"><span>詳細欄位資訊</span><span style="color:var(--ink-3)">▾</span></div>

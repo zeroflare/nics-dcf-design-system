@@ -626,17 +626,17 @@
       <p class="sub-note" style="margin-top:14px">一個提醒：<code style="font-family:var(--font-mono);color:var(--accent-ink)">background-surface-primary</code> 跟 <code style="font-family:var(--font-mono);color:var(--accent-ink)">background-container-variant</code> 剛好都落在 neutral-100，是因為 R 現況的頁面背景色本來就跟次要元件背景很接近，不是重複定義</p>
 
       <h3 class="sub">Function 層 · 語意色</h3>
-      <p class="sub-note">每個語意只有三個 slot：foreground ( 700，文字與圖示皆用這個，對比才夠 )、background ( 50，淺底 )、stroke ( 邊框 )，不套用中性骨架那套 container 階層</p>
+      <p class="sub-note">每個語意四個 slot：foreground ( 700，文字與圖示皆用這個，對比才夠 )、background ( 50，淺底 )、stroke ( 邊框 )、solid ( 500，大面積實色圖形如進度條的填色，不用於文字 )，不套用中性骨架那套 container 階層。selected 是狀態不是圖形語意，沒有 solid</p>
       <div class="tbl-wrap">
         <table>
-          <thead><tr><th>語意</th><th>foreground</th><th>background</th><th>stroke</th></tr></thead>
+          <thead><tr><th>語意</th><th>foreground</th><th>background</th><th>stroke</th><th>solid</th></tr></thead>
           <tbody>
-            <tr><td>primary 主操作</td><td class="mono"><span class="dot" style="background:#115e59"></span>brand-700</td><td class="mono"><span class="dot" style="background:#f0fdfa"></span>brand-50</td><td class="mono"><span class="dot" style="background:#99f6e4"></span>brand-200</td></tr>
-            <tr><td>selected 已選取</td><td class="mono">—</td><td class="mono"><span class="dot" style="background:#f0fdfa"></span>brand-50</td><td class="mono"><span class="dot" style="background:#99f6e4"></span>brand-200</td></tr>
-            <tr><td>success 成功</td><td class="mono"><span class="dot" style="background:#15803d"></span>green-700</td><td class="mono"><span class="dot" style="background:#f0fdf4"></span>green-50</td><td class="mono"><span class="dot" style="background:#dcfce7"></span>green-100</td></tr>
-            <tr><td>warning 警告</td><td class="mono"><span class="dot" style="background:#b45309"></span>yellow-700</td><td class="mono"><span class="dot" style="background:#fffbeb"></span>yellow-50</td><td class="mono"><span class="dot" style="background:#fef3c7"></span>yellow-100</td></tr>
-            <tr><td>danger 危險 / 錯誤</td><td class="mono"><span class="dot" style="background:#b91c1c"></span>red-700</td><td class="mono"><span class="dot" style="background:#fef2f2"></span>red-50</td><td class="mono"><span class="dot" style="background:#fee2e2"></span>red-100</td></tr>
-            <tr><td>info 資訊</td><td class="mono"><span class="dot" style="background:#1d4ed8"></span>blue-700</td><td class="mono"><span class="dot" style="background:#eff6ff"></span>blue-50</td><td class="mono"><span class="dot" style="background:#dbeafe"></span>blue-100</td></tr>
+            <tr><td>primary 主操作</td><td class="mono"><span class="dot" style="background:#115e59"></span>brand-700</td><td class="mono"><span class="dot" style="background:#f0fdfa"></span>brand-50</td><td class="mono"><span class="dot" style="background:#99f6e4"></span>brand-200</td><td class="mono"><span class="dot" style="background:#0d9488"></span>brand-500</td></tr>
+            <tr><td>selected 已選取</td><td class="mono">—</td><td class="mono"><span class="dot" style="background:#f0fdfa"></span>brand-50</td><td class="mono"><span class="dot" style="background:#99f6e4"></span>brand-200</td><td class="mono">—</td></tr>
+            <tr><td>success 成功</td><td class="mono"><span class="dot" style="background:#15803d"></span>green-700</td><td class="mono"><span class="dot" style="background:#f0fdf4"></span>green-50</td><td class="mono"><span class="dot" style="background:#dcfce7"></span>green-100</td><td class="mono"><span class="dot" style="background:#22c55e"></span>green-500</td></tr>
+            <tr><td>warning 警告</td><td class="mono"><span class="dot" style="background:#b45309"></span>yellow-700</td><td class="mono"><span class="dot" style="background:#fffbeb"></span>yellow-50</td><td class="mono"><span class="dot" style="background:#fef3c7"></span>yellow-100</td><td class="mono"><span class="dot" style="background:#f59e0b"></span>yellow-500</td></tr>
+            <tr><td>danger 危險 / 錯誤</td><td class="mono"><span class="dot" style="background:#b91c1c"></span>red-700</td><td class="mono"><span class="dot" style="background:#fef2f2"></span>red-50</td><td class="mono"><span class="dot" style="background:#fee2e2"></span>red-100</td><td class="mono"><span class="dot" style="background:#ef4444"></span>red-500</td></tr>
+            <tr><td>info 資訊</td><td class="mono"><span class="dot" style="background:#1d4ed8"></span>blue-700</td><td class="mono"><span class="dot" style="background:#eff6ff"></span>blue-50</td><td class="mono"><span class="dot" style="background:#dbeafe"></span>blue-100</td><td class="mono"><span class="dot" style="background:#3b82f6"></span>blue-500</td></tr>
           </tbody>
         </table>
       </div>

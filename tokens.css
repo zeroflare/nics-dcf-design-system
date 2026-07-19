@@ -236,11 +236,14 @@
   --color-bg-container-high: var(--color-neutral-200);    /* 更重的強調區塊 */
 
   /* ===================== Function 層 · 語意色 =====================
-     每個語意只有 foreground=700 / background=50 / stroke=100 三個 slot
+     每個語意四個 slot：foreground=700 / background=50 / stroke=100 /
+     solid=500 ( 大面積實色圖形：進度條、量表這類填色，不用於文字 )
+     selected 是狀態不是圖形語意，沒有 solid
      ------------------------------------------------------------------ */
   --color-primary-fg: var(--color-brand-700);
   --color-primary-bg: var(--color-brand-50);
   --color-primary-stroke: var(--color-brand-100);
+  --color-primary-solid: var(--color-brand-500);
 
   --color-selected-bg: var(--color-brand-50);
   --color-selected-stroke: var(--color-brand-100);
@@ -248,18 +251,22 @@
   --color-success-fg: var(--color-green-700);
   --color-success-bg: var(--color-green-50);
   --color-success-stroke: var(--color-green-100);
+  --color-success-solid: var(--color-green-500);
 
   --color-warning-fg: var(--color-yellow-700);
   --color-warning-bg: var(--color-yellow-50);
   --color-warning-stroke: var(--color-yellow-100);
+  --color-warning-solid: var(--color-yellow-500);
 
   --color-danger-fg: var(--color-red-700);
   --color-danger-bg: var(--color-red-50);
   --color-danger-stroke: var(--color-red-100);
+  --color-danger-solid: var(--color-red-500);
 
   --color-info-fg: var(--color-blue-700);
   --color-info-bg: var(--color-blue-50);
   --color-info-stroke: var(--color-blue-100);
+  --color-info-solid: var(--color-blue-500);
 
   /* ===================== Component 層 · Tag =====================
      語意 5 種底色淺 ( 50 )、分類 12 種底色略深 ( 100 ),字一律 700

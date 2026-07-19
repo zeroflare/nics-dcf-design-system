@@ -229,6 +229,9 @@
   .btn.ghost { background: transparent; color: var(--ink); }
   .btn.destructive { background: #dc2626; color: #fff; }
   .btn.link { background: transparent; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; padding: 0; height: auto; }
+  .pv-unused { display: inline-flex; flex-direction: column; align-items: center; gap: 5px; }
+  .pv-unused > .btn { opacity: 0.35; }
+  .pv-unused .pv-tag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.06em; color: var(--ink-3); }
   .pill { font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 999px; border: 1px solid transparent; display: inline-flex; align-items: center; }
   .pill.p-default { background: var(--accent); color: #fff; }
   .pill.p-secondary { background: #eef2f6; color: #1e293b; }
@@ -383,23 +386,24 @@
    <div class="main-inner">
     <header class="hero">
       <h1>元件</h1>
-      <p class="lede">本頁盤點全站實際引用中的 UI 元件，逐一列出使用情況與樣式規格，做為前端開發與設計協作的共同依據。</p>
+      <p class="lede">本頁盤點全站實際引用中的 UI 元件，逐一列出使用情況與樣式規格，做為前端開發與設計協作的共同依據。每個元件依「讀碼 → 整理現況 → 提案 → 拍板」四步驟逐一定案：標「★ 待盤點」的尚未深入檢視；已有預覽圖的為現況記錄，規格同樣以定案為準。</p>
     </header>
 
     <div class="band-list">
-    <!-- ============ Button ============ -->
+    <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-button">
-      <div class="band-head"><h2>Button</h2><span class="use-b">19 檔</span></div>
-      <p class="band-sub">6 種 variant × 6 種 size。預設高度 h-9 ( 36px )，圓角 rounded-md。</p>
+      <div class="band-head"><h2>Button</h2><span class="use-b">元件呼叫 19 處 / 9 檔 · 另有手刻 ~56 顆待收編</span></div>
+      <p class="band-sub">6 種 variant × 6 種 size，不再新增 variant。基底規格：文字 14px / 500 ( Button token )、圓角一律 md ( 8px )、預設高度 h-9 ( 36px )。主色與危險色分別走 --primary ( brand-500 ) 與 --destructive ( red-500 )，focus ring 為 brand-300 半透明。</p>
       <div class="preview">
         <span class="btn default">主要動作</span>
-        <span class="btn secondary">次要</span>
+        <span class="pv-unused"><span class="btn secondary">次要</span><span class="pv-tag">未使用</span></span>
         <span class="btn outline">外框</span>
         <span class="btn ghost">Ghost</span>
         <span class="btn destructive">刪除</span>
-        <span class="btn link">連結</span>
+        <span class="pv-unused"><span class="btn link">連結</span><span class="pv-tag">未使用</span></span>
       </div>
-      <div class="spec-line">variant: default · secondary · outline · ghost · destructive · link<br>size: default(h-9) · sm(h-8) · lg(h-10) · icon · icon-sm · icon-lg</div>
+      <div class="spec-line">variant: default · secondary ( 未使用 ) · outline · ghost · destructive · link ( 未使用 )<br>size: default(h-9) · sm(h-8) · lg(h-10) · icon(36) · icon-sm(32) · icon-lg(40)</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.19 )：icon 按鈕一律 size="icon-sm"，頁碼類用 size="icon"，不得用 class 覆寫尺寸；手刻的 brand 外框按鈕樣式廢除，收斂為 outline 或 default；全站約 56 顆手刻按鈕隨頁面遷移分批收編呼叫 Button ( 手刻 teal-600 與 brand-500 同值，收編視覺幾乎零變化 )；Tab 切換、篩選 pill、選擇卡等 ~18 顆不屬 Button 職責，歸各自元件。secondary 與 link 為 shadcn 原生保留，標示未使用</div>
     </section>
 
     <!-- ============ Input ============ -->
@@ -530,7 +534,7 @@
     <section class="band" id="comp-progress">
       <div class="band-head"><h2>Progress</h2><span class="flag pending">★ 待盤點</span></div>
       <p class="band-sub">進度條。</p>
-      <div class="spec-line">使用 3 檔,尚未個別盤點</div>
+      <div class="spec-line">shadcn Progress 元件 0 檔引用；總覽頁另有 3 處手刻進度條 ( 未經此元件 )。盤點時需拍板：手刻改用元件，或刪除未使用的元件</div>
     </section>
 
     <!-- ============ Sonner Toast ============ -->

@@ -84,8 +84,9 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 | 檔案 | 修改 |
 |---|---|
 | `ui/dialog/DialogTitle.vue` | class 的 `'text-lg leading-none font-semibold'` → `'text-subtitle'` ( Subtitle 18 / 700 / 1.3 ) |
-| `ui/card/Card.vue` | class 的 `rounded-xl` → `rounded-md` ( 卡片圓角一律 md 8px ) |
+| `ui/card/Card.vue` | ① class 的 `rounded-xl` → `rounded-md` ( 卡片圓角一律 md 8px )<br>② 移除 `border` ( 框線與 shadow-sm 都在做與背景分離,並存會疊出灰邊使陰影顯重;需要框線的區塊自行加 `border-stroke` ) |
 | `ui/progress/Progress.vue` | 新增 `indicatorClass` prop 並以 `cn()` 併入 indicator class，供指定語意 solid 填色 |
+| `ui/switch/Switch.vue` | thumb 的 `bg-background` → `bg-fg-inverted-default` ( 純白;`--background` 在消費端是淺灰,疊在實色軌道上會顯髒 ) |
 
 ### 4. 自訂元件直接從套件 import
 

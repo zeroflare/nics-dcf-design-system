@@ -442,13 +442,14 @@
 
     <!-- ============ Switch ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-switch">
-      <div class="band-head"><h2>Switch</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
-      <p class="band-sub">開關。選取態使用 --primary ( brand-500 )，全站零手刻、零覆寫，現況即規範。</p>
+      <div class="band-head"><h2>Switch</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 3 處 / 3 檔</span></div>
+      <p class="band-sub">開關。選取態使用 --primary ( brand-500 )，全站零手刻。</p>
       <div class="preview">
         <span class="swch"></span>
         <span class="swch off"></span>
       </div>
-      <div class="spec-line">軌道 32×18.4 · thumb 16px 圓 · checked bg-primary · unchecked bg-input</div>
+      <div class="spec-line">軌道 32×18.4 · thumb 16px 圓 · checked bg-primary · unchecked bg-input · thumb 色 <code>fg-inverted-default</code> ( 純白 )</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 )：一項 vendor 修改 — <b>thumb 由 bg-background 改為 fg-inverted-default</b>，因 --background 在消費端是 #EEF1F5 淺灰，疊在 primary 實色軌道上會顯髒，滑塊應為純白。指標游標不寫在元件內，由 Foundation 的互動游標規則統一供給</div>
     </section>
 
     <!-- ============ Checkbox ( 2026.7.19 盤點定案 ) ============ -->
@@ -679,10 +680,11 @@
       <div class="band-head"><h2>Card</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 1 處 · 另有手刻 ~24 處待收編</span></div>
       <p class="band-sub">資料容器。元件現況僅登入頁使用，全站卡片幾乎都是手刻 div ( 約 24 處 / 9 檔 )，且多用違規的 rounded-xl，為 Table 之外第二大收編標的。</p>
       <div class="preview" style="justify-content:center">
-        <div style="width:100%;max-width:240px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:16px"><div style="font-weight:700;font-size:13px;margin-bottom:6px">卡片標題</div><div style="font-size:11.5px;color:var(--ink-2)">內容區塊，圓角 md ( 8px )，陰影 shadow-sm</div></div>
+        <div style="width:100%;max-width:240px;background:var(--surface);border-radius:8px;box-shadow:0 2px 6px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);padding:16px"><div style="font-weight:700;font-size:13px;margin-bottom:6px">卡片標題</div><div style="font-size:11.5px;color:var(--ink-2)">內容區塊，圓角 md ( 8px )，無框線，僅靠 shadow-sm 分離</div></div>
       </div>
-      <div class="spec-line">圓角 md ( 8px，vendor 修改：原 rounded-xl 依圓角章拍板對 md ) · border = stroke · shadow-sm · py-6 gap-6</div>
+      <div class="spec-line">圓角 md ( 8px，vendor 修改：原 rounded-xl 依圓角章拍板對 md ) · <b>無 border</b> ( vendor 修改 ) · shadow-sm · py-6 gap-6</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：手刻卡片隨頁面遷移收編呼叫 Card，圓角一併由 xl 對回 md</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 追加 )：<b>卡片移除框線</b>。框線與 shadow-sm 都在做「與背景分離」這件事，兩者並存會在陰影外緣疊出一圈灰邊，使陰影看起來比實際更重；卡片一律只靠陰影分離。若某區塊確實需要框線 ( 例如表格容器需要區隔表頭與表身 )，由該處自行加 <code>border-stroke</code>，不從 Card 提供</div>
     </section>
 
     <!-- ============ Table ( 2026.7.20 盤點定案 ) ============ -->

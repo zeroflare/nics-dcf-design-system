@@ -218,8 +218,11 @@
   /* full 直接用 rounded-full ( 9999px ),不需 token */
 
   /* ===================== Base · 陰影 ===================== */
-  /* sm 客製雙層柔和陰影 ( 卡片主力 );其餘沿用 Tailwind 預設 */
-  --shadow-sm: 0 2px 12px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.05);
+  /* sm 客製雙層柔和陰影 ( 卡片主力 );其餘沿用 Tailwind 預設
+     2026.7.20 調輕:模糊半徑 12px→6px、不透明度 8%→6% ( 第二層 3px→2px、5%→4% )。
+     原值之所以顯重不是因為顏色濃 ( 8% 其實低於 Tailwind md 的 10% ),
+     而是 12px 模糊為全系統最大、攤得太開,面積大所以存在感強 */
+  --shadow-sm: 0 2px 6px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
 
   /* ===================== Function 層 · 中性骨架 =====================
      放在 @theme 並用 --color- 前綴,Tailwind 才會自動生成
@@ -245,6 +248,12 @@
   --color-fg-tertiary-hover: var(--color-neutral-600);
   --color-fg-tertiary-active: var(--color-neutral-500);
   --color-fg-tertiary-disabled: var(--color-neutral-300);
+
+  /* 反色前景 ( 2026.7.20 新增 ):疊在深色或彩色實色之上的前景,例如
+     Switch 的滑塊、實色按鈕上的文字與圖示。刻意只有 default 一態,
+     不比照上面三階立四態 — 這類前景的狀態變化是由底下的實色去表達的,
+     前景本身恆為純白;若日後真的出現需要變化的情境再補 */
+  --color-fg-inverted-default: var(--color-neutral-0);
 
   --color-stroke: var(--color-neutral-200);            /* 邊框 / 分隔線 ( 不叫 border ) */
   --color-bg-surface: var(--color-neutral-100);        /* 頁面底層背景 */
@@ -308,4 +317,26 @@
   --color-tag-cat-operation-bg: var(--color-orange-100);    --color-tag-cat-operation-fg: var(--color-orange-700);
   --color-tag-cat-dataset-access-bg: var(--color-sky-100);  --color-tag-cat-dataset-access-fg: var(--color-sky-700);
   --color-tag-cat-inbox-bg: var(--color-rose-100);          --color-tag-cat-inbox-fg: var(--color-rose-700);
+}
+
+/* ============================================================
+   Base 層互動預設 ( 2026.7.20 拍板新增 )
+
+   瀏覽器對 <button> 的預設游標是 default 而不是 pointer ( 只有 <a> 是 pointer ),
+   Tailwind 的 preflight 也沒有補這條。結果是所有按鈕都要各自寫 cursor-pointer,
+   實務上必然漏掉 — 本專案 69 處 @click 只有 1 處寫了。
+
+   與其逐一補,在此統一給可互動元素指標游標。停用態排除,交還給 not-allowed。
+   ============================================================ */
+@layer base {
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab']:not([aria-disabled='true']),
+  [role='option'],
+  [role='menuitem'],
+  summary,
+  label:has(> input[type='file']),
+  select:not(:disabled) {
+    cursor: pointer;
+  }
 }

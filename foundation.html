@@ -622,6 +622,7 @@
             <tr><td class="mono">foreground-tertiary-hover</td><td>輔助文字的滑鼠停留態</td><td class="mono">neutral-600</td><td class="mono"><span class="dot" style="background:#475569"></span>#475569</td></tr>
             <tr><td class="mono">foreground-tertiary-active</td><td>輔助文字的按下態</td><td class="mono">neutral-500</td><td class="mono"><span class="dot" style="background:#64748b"></span>#64748b</td></tr>
             <tr><td class="mono">foreground-tertiary-disabled</td><td>輔助文字的停用態</td><td class="mono">neutral-300</td><td class="mono"><span class="dot" style="background:#cbd5e1"></span>#cbd5e1</td></tr>
+            <tr><td class="mono">foreground-inverted-default</td><td>疊在深色 / 彩色實色上的前景 ( Switch 滑塊、實色按鈕文字 )</td><td class="mono">neutral-0</td><td class="mono"><span class="dot" style="background:#ffffff;border:1px solid var(--line)"></span>#ffffff</td></tr>
             <tr><td class="mono">stroke</td><td>邊框 / 分隔線</td><td class="mono">neutral-200</td><td class="mono"><span class="dot" style="background:#e2e8f0"></span>#e2e8f0</td></tr>
             <tr><td class="mono">background-surface-primary</td><td>頁面底層背景</td><td class="mono">neutral-100</td><td class="mono"><span class="dot" style="background:#f1f5f9"></span>#f1f5f9</td></tr>
             <tr><td class="mono">background-container-surface</td><td>卡片本身 ( 白 )</td><td class="mono">neutral-0</td><td class="mono"><span class="dot" style="background:#ffffff"></span>#ffffff</td></tr>
@@ -836,6 +837,10 @@
         <div class="demo-tile"><div class="box sh" style="box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1)"></div><div class="nm">lg</div><div class="v">Tailwind 預設 · 使用 4</div></div>
         <div class="demo-tile"><div class="box sh" style="box-shadow:0 20px 25px -5px rgba(0,0,0,0.1),0 8px 10px -6px rgba(0,0,0,0.1)"></div><div class="nm">xl</div><div class="v">Tailwind 預設 · 使用 1</div></div>
       </div>
+      <h3 class="sub" style="margin-top:36px">互動游標</h3>
+      <p class="sub-note">瀏覽器對 <code style="font-family:var(--font-mono)">&lt;button&gt;</code> 的預設游標是 <code style="font-family:var(--font-mono)">default</code> 而不是 <code style="font-family:var(--font-mono)">pointer</code>（只有 <code style="font-family:var(--font-mono)">&lt;a&gt;</code> 是 pointer），Tailwind 的 preflight 也沒有補這一條。實務結果是每顆按鈕都要各自寫 <code style="font-family:var(--font-mono)">cursor-pointer</code>，必然會漏 — demo 曾出現 69 處 <code style="font-family:var(--font-mono)">@click</code> 只有 1 處寫了游標的情況，使用者難以第一時間辨識何處可點。</p>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 )：改由 <code style="font-family:var(--font-mono)">tokens.css</code> 的 <code style="font-family:var(--font-mono)">@layer base</code> 統一供給，涵蓋 <code style="font-family:var(--font-mono)">button</code>、<code style="font-family:var(--font-mono)">[role=button]</code>、<code style="font-family:var(--font-mono)">[role=tab]</code>、<code style="font-family:var(--font-mono)">[role=option]</code>、<code style="font-family:var(--font-mono)">[role=menuitem]</code>、<code style="font-family:var(--font-mono)">summary</code>、檔案上傳用的 <code style="font-family:var(--font-mono)">label</code> 與 <code style="font-family:var(--font-mono)">select</code>。停用態一律排除，游標交還給 <code style="font-family:var(--font-mono)">not-allowed</code></div>
+      <div class="spec-line">元件內不再各自宣告 <code style="font-family:var(--font-mono)">cursor-pointer</code>。<b>例外：非按鈕語意但可點的元素</b>（帶 <code style="font-family:var(--font-mono)">@click</code> 的 <code style="font-family:var(--font-mono)">div</code>、可選取的表格列、可排序的表頭）選擇器管不到，仍須自行加上</div>
     </section>
     <!-- ============ 06 頁面佈局 ============ -->
     <section class="band" id="layout">

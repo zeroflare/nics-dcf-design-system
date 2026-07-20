@@ -687,14 +687,15 @@
 
     <!-- ============ Table ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-table">
-      <div class="band-head"><h2>Table</h2><span class="src">shadcn 原生</span><span class="use-b">元件 0 引用 · 手刻 15 顆 / 14 檔待收編</span></div>
-      <p class="band-sub">表格。shadcn Table 元件組合已定義但零引用，全站表格皆為手刻原生 table ( 15 顆 / 14 檔 )，是全站最大的收編標的。( 舊盤點註記的 tanstack 自建有誤：tanstack 只出現在未使用的元件 utils 內，頁面手刻的都是純 HTML table )</p>
+      <div class="band-head"><h2>Table ( DataTable )</h2><span class="src custom">自訂</span><span class="use-b">DataTable 封裝 · 手刻 15 顆收編中</span></div>
+      <p class="band-sub">資料表格的統一封裝 DataTable ( 2026.7.20 拍板新增，住設計系統 components/，內部包各專案的 shadcn Table vendor )。拍板樣式全部烤入封裝：表頭 Caption 粗體大寫 fg-secondary 淺灰底、儲存格 px-6、stroke 分隔線、subtle hover。<strong>消費端一律用 DataTable 系列，不得直接使用 raw shadcn Table</strong>，樣式才不會漂移。</p>
       <div class="preview" style="padding:0;overflow:hidden;flex-direction:column;align-items:stretch">
         <div style="display:flex;background:var(--surface-2);border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)"><span style="flex:1;padding:8px 14px">名稱</span><span style="flex:1;padding:8px 14px">狀態</span><span style="flex:1;padding:8px 14px">更新時間</span></div>
         <div style="display:flex;border-bottom:1px solid var(--line);font-size:12px"><span style="flex:1;padding:9px 14px">tpe-edu-001</span><span style="flex:1;padding:9px 14px;color:var(--good)">已發佈</span><span style="flex:1;padding:9px 14px;color:var(--ink-3)">2026/07/20</span></div>
         <div style="display:flex;font-size:12px"><span style="flex:1;padding:9px 14px">tpe-edu-002</span><span style="flex:1;padding:9px 14px;color:var(--warn)">待確認</span><span style="flex:1;padding:9px 14px;color:var(--ink-3)">2026/07/19</span></div>
       </div>
-      <div class="spec-line">已拍板規則 ( 2026.7.20 )：15 顆手刻表格隨頁面遷移收編呼叫 Table 元件組合；儲存格垂直內距依間距章拍板為 12px ( py-3 )</div>
+      <div class="spec-line">組合：DataTable ( density prop：default = 一般 16px / dense = 密集 12px，間距章兩檔制 ) + DataTableHeader / Body / Row / Head / Cell；文字色由呼叫端指定 fg 語意 token</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 )：15 顆手刻表格隨頁面遷移收編呼叫 DataTable ( 首例：紀錄查詢頁兩張表 )；shadcn Table vendor 保留於各專案供封裝內部使用，不直接呼叫</div>
     </section>
 
     <!-- ============ Tabs ( 2026.7.20 盤點定案 ) ============ -->

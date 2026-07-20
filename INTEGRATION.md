@@ -16,6 +16,37 @@ component.html 每個元件的標題旁都有來源標籤，一眼可辨。
 
 ## 接入步驟
 
+### 0. 把 CLAUDE.md 模板放進新專案根目錄
+
+這步讓之後所有 AI session 自動載入治理規則，**不做這步，後續 session 對設計系統一無所知**。把下面模板存成新專案根目錄的 `CLAUDE.md` ( 確認 .gitignore 沒有排除它 )，並依專案名調整：
+
+```markdown
+# 這個 repo 是什麼
+
+[專案名],資料匯流平台相關網站之一,消費 `@nics/design-tokens` 的 token 與共用元件。
+
+# 設計系統治理 ( 必守 )
+
+1. 設計規範與元件的唯一來源是 `nics-dcf-design-system` repo:
+   規格書為該 repo 的 foundation.html ( 設計規範 ) 與 component.html ( 元件規格 ),
+   接入與維護流程為該 repo 的 INTEGRATION.md,動 UI 前先讀
+2. 樣式一律用 token 的語意 class,不手寫 raw Tailwind 色階與數值
+3. 共用元件不得建立在本 repo:新元件需求回 dcf-access-playground 與設計負責人拍板,
+   實體放 nics-dcf-design-system 的 components/,本 repo 由套件 import
+4. shadcn vendor 元件 ( components/ui/ ) 依 INTEGRATION.md 的認可清單安裝,
+   有意修改需重放並留註解;明確不使用:alert、scroll-area、膠囊式 tabs
+5. 元件覆寫僅限佈局類 ( 寬高、間距 ),色彩、圓角、字級不得覆寫
+6. 不確定是否拍板過的數值,查規格書,不要用猜的
+
+# 文字規則
+
+1. 繁體中文、台灣用語,不能出現簡體中文和支語
+2. 中文句子中使用半形括號並前後空格,例如:存取節點 (Access Node)
+3. 數字使用千分號,例如:1,000
+4. 嚴禁在句子中間使用 —— 破折號銜接或引出結論
+5. 不清楚就先問再實作,不要自行推論腦補
+```
+
 ### 1. 安裝 token 套件
 
 ```bash

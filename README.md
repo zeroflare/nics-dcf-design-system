@@ -1,6 +1,8 @@
 # @nics/design-tokens
 
-DCF 存取節點平台設計系統的**唯一來源 ( single source of truth )**。所有平台引用這裡的 token,改一次全部生效。
+DCF 存取節點平台設計系統的**唯一來源 ( single source of truth )**。所有平台引用這裡的 token 與共用元件,改一次全部生效。
+
+> **🚀 新專案接入必讀 [INTEGRATION.md](./INTEGRATION.md)** — 包含 CLAUDE.md 模板、token 安裝、shadcn 元件清單與有意修改重放、自訂元件引用的完整步驟。AI 協作者 ( Claude Code 等 ) 進到本 repo 或任何消費端專案工作前,也請先讀這份。
 
 ## 使用方式 ( Tailwind v4 )
 

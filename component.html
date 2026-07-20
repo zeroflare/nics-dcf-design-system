@@ -699,13 +699,13 @@
 
     <!-- ============ Tabs ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-tabs">
-      <div class="band-head"><h2>Tabs</h2><span class="src">shadcn 原生</span><span class="use-b">手刻 ~6 組 · 待封裝自訂元件</span></div>
-      <p class="band-sub">分頁切換。已拍板：<strong>底線式頁籤立為正式規格</strong> ( 現況全站頁面級導航的既定長相 )，之後封裝為自訂 Tabs 元件；shadcn 的膠囊式 Tabs 三 repo 皆零引用，已於 2026.7.20 刪除。</p>
+      <div class="band-head"><h2>Tabs</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 手刻 ~6 組收編中</span></div>
+      <p class="band-sub">分頁切換，底線式頁籤為正式規格 ( 2026.7.20 拍板並封裝為自訂元件，住設計系統 components/，v-model + tabs 陣列 API )。shadcn 的膠囊式 Tabs 三 repo 皆零引用，已刪除。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden">
         <div style="display:flex;gap:16px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px"><span style="color:var(--accent-ink);font-weight:700;border-bottom:2px solid var(--accent);padding-bottom:6px">總覽</span><span style="color:var(--ink-3)">資料來源</span><span style="color:var(--ink-3)">紀錄</span></div>
       </div>
-      <div class="spec-line">底線式規格：px-6 py-3 · 文字 14px · 選中態 brand 底線 2px + 700 字重 · 未選 fg-secondary，hover 加深</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.20 )：封裝自訂底線式 Tabs 元件後，6 組手刻頁籤隨頁面遷移收編</div>
+      <div class="spec-line">底線式規格：px-6 py-3 · 文字 Body2 ( 14px ) · 選中態 primary-solid 底線 2px + 700 字重 + primary-fg 文字 · 未選 fg-secondary ( 400 )，hover 加深為 fg-primary</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 )：消費端由 @nics/design-tokens/components/Tabs.vue 引用；6 組手刻頁籤隨頁面遷移收編 ( 首例：紀錄查詢頁 )</div>
     </section>
 
     <!-- ============ Separator ( 2026.7.20 盤點定案 ) ============ -->

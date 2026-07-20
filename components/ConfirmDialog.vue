@@ -1,4 +1,4 @@
-<!-- 確認型對話框的統一樣式：置中標題與說明、無圖示、無右上角關閉鈕、左取消右主動作 -->
+<!-- 確認型對話框的統一樣式：靠左標題與說明 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、左取消右主動作 -->
 <!-- 實體住在 nics-dcf-design-system,消費端由 @nics/design-tokens/components/ConfirmDialog.vue 引用 -->
 <!-- 依賴契約:消費端須已依接入指南安裝 shadcn 的 dialog 與 button,且 @ 別名指向 src -->
 <script setup lang="ts">
@@ -39,7 +39,7 @@ const openModel = computed({
 <template>
   <Dialog v-model:open="openModel">
     <DialogContent :show-close-button="false" class="sm:max-w-sm">
-      <DialogHeader class="items-center text-center sm:text-center">
+      <DialogHeader class="text-left">
         <DialogTitle>{{ title }}</DialogTitle>
         <DialogDescription v-if="description" class="leading-relaxed">
           {{ description }}

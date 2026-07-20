@@ -674,7 +674,7 @@
     <!-- ============ 02 文字 ============ -->
     <section class="band" id="type">
       <div class="band-head"><h2>文字</h2></div>
-      <p class="band-sub">語意化命名取代 Tailwind 原生字級名。<span class="st keep">✓ 現況即規範</span> 表示程式碼已是這樣，只需抽成 token；<span class="st new">★ 新規則</span> 表示需修改程式碼才生效。字級採兩軌制：閱讀內容走 Body1 ( 16px )，密集表格走 Body2 ( 14px )。</p>
+      <p class="band-sub">語意化命名取代 Tailwind 原生字級名。<span class="st keep">✓ 現況即規範</span> 表示程式碼已是這樣，只需抽成 token；<span class="st new">★ 新規則</span> 表示需修改程式碼才生效。字級採兩軌制：閱讀內容走 Body1 ( 16px )，密集表格走 Body2 ( 14px )。表格的歸類 ( 2026.7.20 拍板 )：頁面級主資料表屬閱讀內容用 Body1，內嵌於彈窗 / 面板 / 表單的輔助表屬密集表格用 Body2，由 DataTable 元件的 density 一併控制。</p>
 
       <h3 class="sub">字體家族 <span class="tag">Font Family</span></h3>
       <p class="sub-note">中文與英文分別指定，不再依賴系統預設。現況只載入了 Public Sans ( 無中文字符 )，且 fallback 誤寫成無中文的 <code style="font-family:var(--font-mono);color:var(--accent-ink)">Noto Sans</code>，導致全站中文實際上是各作業系統的預設字體在顯示。</p>

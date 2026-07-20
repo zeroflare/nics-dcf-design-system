@@ -515,13 +515,13 @@
       </div>
       <div class="spec-line">圓角 lg ( 16px ) · shadow-lg · 內距 p-6 · 預設寬 sm:max-w-lg · 遮罩黑 80%</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：DialogTitle 套 Subtitle 語意字級 ( 18 / 700 / 1.3，取代原 18 / 600 / leading-none，落實文字章的 ★ 拍板，屬有意的 vendor 修改 )；呼叫端覆寫僅限寬度 / 高度佈局類 ( max-w-* / max-h-* / p-0 )，不得覆寫樣式</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.20 )：Dialog 分兩型。<b>確認型</b>統一走共用元件 ConfirmDialog ( ds components/ )：標題與說明靠左 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、寬 sm:max-w-sm、DialogFooter 左取消 ( outline ) 右主動作 ( 一般 default / 破壞性 destructive )，說明文案帶入對象名稱；現行使用：協作請求核准 / 駁回 ( RequestConfirmDialog，駁回附 Textarea 理由欄 )、刪除 / 停用帳號、刪除角色。<b>表單型</b> ( 重設密碼、編輯角色、新增帳號 )：標題與說明靠左、保留右上角關閉鈕、欄位 label 用 text-caption font-bold text-fg-secondary、DialogFooter 同樣左取消右主動作。落地於 demo</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 )：Dialog 分兩型。<b>確認型</b>統一走共用元件 ConfirmDialog ( ds components/ )：標題與說明靠左 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、寬 sm:max-w-sm、DialogFooter 左取消 ( outline ) 右主動作 ( 一般 default / 破壞性 destructive )，說明文案帶入對象名稱；現行使用：協作請求核准 / 駁回 ( RequestConfirmDialog，駁回附 Textarea 理由欄 )、刪除 / 停用帳號、刪除角色、刪除資料集、未儲存變更警告 ( cancelLabel 覆寫為「繼續編輯」)。<b>表單型</b> ( 重設密碼、編輯角色、新增帳號 )：標題與說明靠左、保留右上角關閉鈕、欄位 label 用 text-caption font-bold text-fg-secondary、DialogFooter 同樣左取消右主動作。落地於 demo</div>
     </section>
 
     <!-- ============ ConfirmDialog ( 2026.7.20 盤點新增 ) ============ -->
     <section class="band" id="comp-confirmdialog">
       <div class="band-head"><h2>ConfirmDialog</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 確認型對話框統一樣式</span></div>
-      <p class="band-sub">確認型對話框的統一封裝 ( 2026.7.20 拍板新增 )：靠左標題與說明 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、左取消右主動作。主動作 variant 支援 default 與 destructive ( 破壞性操作 )，可經 slot 插入表單內容 ( 如重設密碼 )。</p>
+      <p class="band-sub">確認型對話框的統一封裝 ( 2026.7.20 拍板新增 )：靠左標題與說明 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、左取消右主動作。主動作 variant 支援 default 與 destructive ( 破壞性操作 )，可經 slot 插入表單內容 ( 如重設密碼 )，取消鈕文字可用 cancelLabel 覆寫 ( 預設「取消」，如資料來源頁的「繼續編輯」)。</p>
       <div class="preview" style="justify-content:center">
         <div style="width:100%;max-width:230px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:left">
           <div style="font-weight:700;font-size:13px">確認刪除此帳號？</div>
@@ -705,8 +705,8 @@
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden">
         <div style="display:flex;gap:16px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px"><span style="color:var(--accent-ink);font-weight:700;border-bottom:2px solid var(--accent);padding-bottom:6px">總覽</span><span style="color:var(--ink-3)">資料來源</span><span style="color:var(--ink-3)">紀錄</span></div>
       </div>
-      <div class="spec-line">底線式規格：px-6 py-3 · 文字 Body2 ( 14px ) · 選中態 primary-solid 底線 2px + 700 字重 + primary-fg 文字 · 未選 fg-secondary ( 400 )，hover 加深為 fg-primary</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.20 )：消費端由 @nics/design-tokens/components/Tabs.vue 引用；6 組手刻頁籤隨頁面遷移收編 ( 首例：紀錄查詢頁 )</div>
+      <div class="spec-line">底線式規格：px-6 py-3 · 文字 Body2 ( 14px ) · 選中態 primary-solid 底線 2px + 700 字重 + primary-fg 文字 · 未選 fg-secondary ( 400 )，hover 加深為 fg-primary · disabled 態 fg-tertiary + cursor-not-allowed，可帶 hint 以 shadcn Tooltip 呈現停用原因 ( 2026.7.20 資料來源頁需求新增，依賴契約：消費端須已安裝 shadcn tooltip )</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 )：消費端由 @nics/design-tokens/components/Tabs.vue 引用；6 組手刻頁籤隨頁面遷移收編 ( 首例：紀錄查詢頁，資料來源頁詳情頁籤含 disabled 首例 )</div>
     </section>
 
     <!-- ============ Separator ( 2026.7.20 盤點定案 ) ============ -->

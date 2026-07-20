@@ -21,6 +21,8 @@ const props = defineProps<{
   /** 主動作按鈕的 variant，破壞性操作用 destructive */
   variant?: 'default' | 'destructive'
   confirmDisabled?: boolean
+  /** 取消鈕文字,預設「取消」( 2026.7.20 資料來源頁「繼續編輯」需求新增 ) */
+  cancelLabel?: string
 }>()
 
 const emit = defineEmits<{
@@ -47,7 +49,7 @@ const openModel = computed({
       </DialogHeader>
       <slot />
       <DialogFooter>
-        <Button variant="outline" @click="openModel = false">取消</Button>
+        <Button variant="outline" @click="openModel = false">{{ cancelLabel ?? '取消' }}</Button>
         <Button :variant="variant ?? 'default'" :disabled="confirmDisabled" @click="emit('confirm')">
           {{ confirmLabel }}
         </Button>

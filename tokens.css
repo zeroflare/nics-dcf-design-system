@@ -225,9 +225,27 @@
      放在 @theme 並用 --color- 前綴,Tailwind 才會自動生成
      bg-fg-primary / text-fg-primary / border-stroke 這類 utility class
      ------------------------------------------------------------------ */
-  --color-fg-primary: var(--color-neutral-900);        /* 主要文字 / 圖示 */
-  --color-fg-secondary: var(--color-neutral-500);      /* 次要文字 / 圖示 */
-  --color-fg-tertiary: var(--color-neutral-400);       /* 輔助文字 / 圖示 ( 佔位提示、輔助說明 ) */
+  /* foreground 三階各有四個互動狀態 ( 2026.7.20 拍板新增 )
+     命名對稱,default 即原本的 fg-primary / -secondary / -tertiary,舊名已移除
+     hover 一律收斂到 neutral-700 附近作為統一互動回饋:primary 從最深往淺靠,
+     secondary / tertiary 從淺往深靠 ( primary 已在色階最深階,無法再加深 )
+     active 取 default 與 hover 的中間階 ( 按下時回彈一階 )
+     disabled 三階統一 neutral-300,確保永遠比 tertiary 更弱 */
+  --color-fg-primary-default: var(--color-neutral-900);    /* 主要文字 / 圖示 */
+  --color-fg-primary-hover: var(--color-neutral-700);
+  --color-fg-primary-active: var(--color-neutral-800);
+  --color-fg-primary-disabled: var(--color-neutral-300);
+
+  --color-fg-secondary-default: var(--color-neutral-500);  /* 次要文字 / 圖示 */
+  --color-fg-secondary-hover: var(--color-neutral-700);
+  --color-fg-secondary-active: var(--color-neutral-600);
+  --color-fg-secondary-disabled: var(--color-neutral-300);
+
+  --color-fg-tertiary-default: var(--color-neutral-400);   /* 輔助文字 / 圖示 ( 佔位提示、輔助說明 ) */
+  --color-fg-tertiary-hover: var(--color-neutral-600);
+  --color-fg-tertiary-active: var(--color-neutral-500);
+  --color-fg-tertiary-disabled: var(--color-neutral-300);
+
   --color-stroke: var(--color-neutral-200);            /* 邊框 / 分隔線 ( 不叫 border ) */
   --color-bg-surface: var(--color-neutral-100);        /* 頁面底層背景 */
   --color-bg-container: var(--color-neutral-0);        /* 卡片本身 ( 白 ) */

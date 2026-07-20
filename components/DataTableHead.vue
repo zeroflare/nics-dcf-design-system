@@ -17,7 +17,7 @@ const density = inject<ComputedRef<'default' | 'dense'>>(
   <TableHead
     :class="
       cn(
-        'h-auto px-6 text-caption font-bold tracking-wider text-fg-secondary uppercase',
+        'h-auto px-6 text-caption font-bold tracking-wider text-fg-secondary-default uppercase',
         density === 'dense' ? 'py-3' : 'py-4',
         props.class
       )

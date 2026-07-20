@@ -3,8 +3,8 @@
  * Tabs — 底線式頁籤 (2026.7.20 盤點拍板為正式規格,取代已刪除的 shadcn 膠囊式)
  * 實體住在 nics-dcf-design-system,消費端由 @nics/design-tokens/components/Tabs.vue 引用
  * 規格:px-6 py-3、文字 Body2 (14px);選中態 primary-solid 底線 2px + 700 字重 + primary-fg 文字;
- * 未選 fg-secondary (400),hover 加深為 fg-primary
- * disabled tab ( 2026.7.20 資料來源頁需求新增 ):fg-tertiary + cursor-not-allowed,
+ * 未選 fg-secondary-default,hover 走同階的 fg-secondary-hover ( 2026.7.20 狀態 token 上線後改用 )
+ * disabled tab ( 2026.7.20 資料來源頁需求新增 ):fg-secondary-disabled + cursor-not-allowed,
  * hint 以 shadcn Tooltip 呈現停用原因 ( 設計師反饋原生 title 太陽春,改回 Tooltip )
  * 依賴契約:消費端須已依接入指南安裝 shadcn 的 tooltip,且 @ 別名指向 src
  */
@@ -33,10 +33,10 @@ function select(tab: TabItem) {
 }
 
 function tabClass(tab: TabItem): string {
-  if (tab.disabled) return 'cursor-not-allowed font-normal text-fg-tertiary'
+  if (tab.disabled) return 'cursor-not-allowed font-normal text-fg-secondary-disabled'
   if (tab.value === props.modelValue)
     return 'border-b-2 border-primary-solid font-bold text-primary-fg'
-  return 'font-normal text-fg-secondary hover:text-fg-primary'
+  return 'font-normal text-fg-secondary-default hover:text-fg-secondary-hover'
 }
 </script>
 

@@ -605,14 +605,23 @@
       </div></div>
 
       <h3 class="sub">Function 層 · 中性骨架</h3>
-      <p class="sub-note">描述頁面本身的中性色，不含任何語意。foreground 分 primary / secondary / tertiary 三階涵蓋文字與圖示，線條獨立為 stroke，background 再分 surface ( 頁面底層 ) 與 container ( 疊在背景上的卡片、元件、區塊 )</p>
+      <p class="sub-note">描述頁面本身的中性色，不含任何語意。foreground 分 primary / secondary / tertiary 三階涵蓋文字與圖示，每階各有 default / hover / active / disabled 四個互動狀態 ( 2026.7.20 拍板新增 )，線條獨立為 stroke，background 再分 surface ( 頁面底層 ) 與 container ( 疊在背景上的卡片、元件、區塊 )</p>
       <div class="tbl-wrap">
         <table>
           <thead><tr><th>Token</th><th>用途</th><th>Base 對應</th><th>色塊</th></tr></thead>
           <tbody>
-            <tr><td class="mono">foreground-primary</td><td>主要文字 / 圖示</td><td class="mono">neutral-900</td><td class="mono"><span class="dot" style="background:#0f172a"></span>#0f172a</td></tr>
-            <tr><td class="mono">foreground-secondary</td><td>次要文字 / 圖示</td><td class="mono">neutral-500</td><td class="mono"><span class="dot" style="background:#64748b"></span>#64748b</td></tr>
-            <tr><td class="mono">foreground-tertiary</td><td>輔助文字 / 圖示 ( 佔位提示、輔助說明 )</td><td class="mono">neutral-400</td><td class="mono"><span class="dot" style="background:#94a3b8"></span>#94a3b8</td></tr>
+            <tr><td class="mono">foreground-primary-default</td><td>主要文字 / 圖示</td><td class="mono">neutral-900</td><td class="mono"><span class="dot" style="background:#0f172a"></span>#0f172a</td></tr>
+            <tr><td class="mono">foreground-primary-hover</td><td>主要文字的滑鼠停留態</td><td class="mono">neutral-700</td><td class="mono"><span class="dot" style="background:#334155"></span>#334155</td></tr>
+            <tr><td class="mono">foreground-primary-active</td><td>主要文字的按下態</td><td class="mono">neutral-800</td><td class="mono"><span class="dot" style="background:#1e293b"></span>#1e293b</td></tr>
+            <tr><td class="mono">foreground-primary-disabled</td><td>主要文字的停用態</td><td class="mono">neutral-300</td><td class="mono"><span class="dot" style="background:#cbd5e1"></span>#cbd5e1</td></tr>
+            <tr><td class="mono">foreground-secondary-default</td><td>次要文字 / 圖示</td><td class="mono">neutral-500</td><td class="mono"><span class="dot" style="background:#64748b"></span>#64748b</td></tr>
+            <tr><td class="mono">foreground-secondary-hover</td><td>次要文字的滑鼠停留態</td><td class="mono">neutral-700</td><td class="mono"><span class="dot" style="background:#334155"></span>#334155</td></tr>
+            <tr><td class="mono">foreground-secondary-active</td><td>次要文字的按下態</td><td class="mono">neutral-600</td><td class="mono"><span class="dot" style="background:#475569"></span>#475569</td></tr>
+            <tr><td class="mono">foreground-secondary-disabled</td><td>次要文字的停用態</td><td class="mono">neutral-300</td><td class="mono"><span class="dot" style="background:#cbd5e1"></span>#cbd5e1</td></tr>
+            <tr><td class="mono">foreground-tertiary-default</td><td>輔助文字 / 圖示 ( 佔位提示、輔助說明 )</td><td class="mono">neutral-400</td><td class="mono"><span class="dot" style="background:#94a3b8"></span>#94a3b8</td></tr>
+            <tr><td class="mono">foreground-tertiary-hover</td><td>輔助文字的滑鼠停留態</td><td class="mono">neutral-600</td><td class="mono"><span class="dot" style="background:#475569"></span>#475569</td></tr>
+            <tr><td class="mono">foreground-tertiary-active</td><td>輔助文字的按下態</td><td class="mono">neutral-500</td><td class="mono"><span class="dot" style="background:#64748b"></span>#64748b</td></tr>
+            <tr><td class="mono">foreground-tertiary-disabled</td><td>輔助文字的停用態</td><td class="mono">neutral-300</td><td class="mono"><span class="dot" style="background:#cbd5e1"></span>#cbd5e1</td></tr>
             <tr><td class="mono">stroke</td><td>邊框 / 分隔線</td><td class="mono">neutral-200</td><td class="mono"><span class="dot" style="background:#e2e8f0"></span>#e2e8f0</td></tr>
             <tr><td class="mono">background-surface-primary</td><td>頁面底層背景</td><td class="mono">neutral-100</td><td class="mono"><span class="dot" style="background:#f1f5f9"></span>#f1f5f9</td></tr>
             <tr><td class="mono">background-container-surface</td><td>卡片本身 ( 白 )</td><td class="mono">neutral-0</td><td class="mono"><span class="dot" style="background:#ffffff"></span>#ffffff</td></tr>
@@ -623,6 +632,7 @@
         </table>
       </div>
       <p class="sub-note" style="margin-top:14px">一個提醒：<code style="font-family:var(--font-mono);color:var(--accent-ink)">background-surface-primary</code> 跟 <code style="font-family:var(--font-mono);color:var(--accent-ink)">background-container-variant</code> 剛好都落在 neutral-100，是因為 R 現況的頁面背景色本來就跟次要元件背景很接近，不是重複定義</p>
+      <p class="sub-note" style="margin-top:14px">互動狀態的推導規則 ( 2026.7.20 拍板 )：<strong>hover 一律收斂到 neutral-700 附近</strong>作為統一的互動回饋，primary 因為 default 已經站在色階最深的 neutral-900、無法再加深，改為往淺靠；secondary 與 tertiary 則從淺往深靠，三階最後都朝同一個區間集中。<strong>active 取 default 與 hover 的中間階</strong>，做出按下時回彈一階的手感。<strong>disabled 三階統一 neutral-300</strong>，確保停用態永遠比最弱的 tertiary 更輕。primary 與 secondary 的 hover 同為 neutral-700 是刻意的，hover 是暫態不需要維持三階層級</p>
 
       <h3 class="sub">Function 層 · 語意色</h3>
       <p class="sub-note">每個語意四個 slot：foreground ( 700，文字與圖示皆用這個，對比才夠 )、background ( 50，淺底 )、stroke ( 邊框 )、solid ( 500，大面積實色圖形如進度條的填色，不用於文字 )，不套用中性骨架那套 container 階層。selected 是狀態不是圖形語意，沒有 solid</p>
@@ -946,8 +956,8 @@
       <div class="finding">
         <div class="fhead"><span class="fnum">07</span><span class="ftitle">文字灰階用了多種 slate</span><span class="sev md">中</span><span class="rst partial">部分改善</span></div>
         <div class="cols">
-          <div class="col now"><div class="k">現況 ( 2026.07.19 拍板 )</div><p>已拍板收斂為 <strong>3 階</strong>：主要 <code>foreground-primary</code> ( n900 )、次要 <code>foreground-secondary</code> ( n500 )、輔助 <code>foreground-tertiary</code> ( n400，新增 )，tokens.css 已定義。disabled、active 等狀態變體不在收斂範圍內。</p></div>
-          <div class="col fix"><div class="k">後續</div><p>程式碼遷移時：600 / 700 / 800 / 900 併入主要、500 併入次要、300 / 400 併入輔助 ( 狀態變體除外 )，隨頁面遷移逐步收斂。</p></div>
+          <div class="col now"><div class="k">現況 ( 2026.07.20 更新 )</div><p>已拍板收斂為 <strong>3 階 × 4 狀態</strong>：主要 ( n900 )、次要 ( n500 )、輔助 ( n400 ) 各自帶 <code>-default</code> / <code>-hover</code> / <code>-active</code> / <code>-disabled</code>，共 12 條，tokens.css 已定義。2026.07.19 原本把狀態變體排除在收斂範圍外，7.20 因導覽列需要 hover 色而正式納入。</p></div>
+          <div class="col fix"><div class="k">後續</div><p>命名一律帶狀態後綴，無後綴的舊名 ( <code>fg-primary</code> 等 ) 已全數移除，消費端 260 處一次改完。語意色 ( primary-fg / danger-fg 等 ) 的狀態變體尚未納入，有需要再議。</p></div>
         </div>
       </div>
 

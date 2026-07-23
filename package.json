@@ -1,6 +1,6 @@
 {
   "name": "@nics/design-tokens",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "DCF 存取節點平台設計系統 — design tokens 與共用元件的唯一來源",
   "exports": {
     "./tokens.css": "./tokens.css",

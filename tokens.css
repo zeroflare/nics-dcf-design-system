@@ -268,6 +268,7 @@
      selected 是狀態不是圖形語意，沒有 solid
      ------------------------------------------------------------------ */
   --color-primary-fg: var(--color-brand-700);
+  --color-primary-fg-hover: var(--color-brand-600);   /* 彩色文字連結 ( 如「查看全部」) 的滑鼠停留態:往淺一階、維持品牌色相,不比照中性前景收斂到 neutral ( 2026.7.23 拍板,收掉語意色狀態變體待議項 )。其餘語意色的狀態變體有需要再補 */
   --color-primary-bg: var(--color-brand-50);
   --color-primary-stroke: var(--color-brand-100);
   --color-primary-solid: var(--color-brand-500);

@@ -650,6 +650,7 @@
           </tbody>
         </table>
       </div>
+      <p class="sub-note" style="margin-top:14px">primary 另補一個互動狀態 <code>primary-fg-hover</code> ( brand-600 <span class="dot" style="background:#0f766e"></span>#0f766e )，2026.7.23 拍板新增，供彩色文字連結 ( 例如「查看全部」) 的滑鼠停留態使用：往淺一階、維持品牌色相，刻意不比照中性前景收斂到 neutral，否則連結 hover 會失去品牌感。其餘語意色 ( success / warning / danger / info ) 的狀態變體目前仍未納入，有需要再補 → 審計 07。</p>
 
       <h3 class="sub">Component 層 · Tag</h3>
       <p class="sub-note">Tag 只有 background 跟 foreground 兩個 slot，全部指向 Function 層。分兩組：語意 5 種底色淺 ( 50 )、分類辨識 12 種底色略深 ( 100 )，這個深淺差異本身就是規則，用來區分「這是狀態」還是「這是分類」</p>
@@ -962,7 +963,7 @@
         <div class="fhead"><span class="fnum">07</span><span class="ftitle">文字灰階用了多種 slate</span><span class="sev md">中</span><span class="rst partial">部分改善</span></div>
         <div class="cols">
           <div class="col now"><div class="k">現況 ( 2026.07.20 更新 )</div><p>已拍板收斂為 <strong>3 階 × 4 狀態</strong>：主要 ( n900 )、次要 ( n500 )、輔助 ( n400 ) 各自帶 <code>-default</code> / <code>-hover</code> / <code>-active</code> / <code>-disabled</code>，共 12 條，tokens.css 已定義。2026.07.19 原本把狀態變體排除在收斂範圍外，7.20 因導覽列需要 hover 色而正式納入。</p></div>
-          <div class="col fix"><div class="k">後續</div><p>命名一律帶狀態後綴，無後綴的舊名 ( <code>fg-primary</code> 等 ) 已全數移除，消費端 260 處一次改完。語意色 ( primary-fg / danger-fg 等 ) 的狀態變體尚未納入，有需要再議。</p></div>
+          <div class="col fix"><div class="k">後續</div><p>命名一律帶狀態後綴，無後綴的舊名 ( <code>fg-primary</code> 等 ) 已全數移除，消費端 260 處一次改完。語意色的狀態變體採「有需要再補」原則:<code>primary-fg-hover</code> ( brand-600 ) 已於 2026.7.23 因彩色連結 hover 需求補上,收掉此待議項;其餘語意色 ( danger-fg 等 ) 尚未納入,有需要再補。</p></div>
         </div>
       </div>
 

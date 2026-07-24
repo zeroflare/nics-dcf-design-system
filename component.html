@@ -409,7 +409,7 @@
         </table>
       </div>
       <h3 class="sub">接入五步驟</h3>
-      <div class="spec-line">1. 安裝套件：bun add github:zeroflare/nics-dcf-design-system，CSS 進入點 @import '@nics/design-tokens/tokens.css'，並加 @source 指到套件的 components/ ( Tailwind 預設不掃 node_modules )<br>2. shadcn 橋接變數指向 token：--primary = brand-500 · --destructive = red-500 · --ring = brand-300 · --border = stroke<br>3. 安裝認可的 shadcn 元件清單並重放 3 個有意修改 ( Dialog / Card / Progress )；明確不使用 alert、scroll-area、膠囊式 tabs<br>4. 自訂元件從套件 import ( 如 @nics/design-tokens/components/Tag.vue )，依賴契約：@ 別名指向 src、對應 shadcn 元件已安裝<br>5. 實作前先讀本頁對應元件的「已拍板規則」；需要新元件或新樣式 pattern，先回設計系統立章拍板，實體放設計系統的 components/</div>
+      <div class="spec-line">1. 安裝套件：bun add github:zeroflare/nics-dcf-design-system，CSS 進入點 @import '@nics/design-tokens/tokens.css'，並加 @source 指到套件的 components/ ( Tailwind 預設不掃 node_modules )<br>2. shadcn 橋接變數指向 token：--primary = brand-500 · --destructive = red-500 · --ring = brand-300 · --border = stroke<br>3. 安裝認可的 shadcn 元件清單並重放 4 個有意修改 ( Dialog / Card / Progress / Drawer )；明確不使用 alert、scroll-area、膠囊式 tabs<br>4. 自訂元件從套件 import ( 如 @nics/design-tokens/components/Tag.vue )，依賴契約：@ 別名指向 src、對應 shadcn 元件已安裝<br>5. 實作前先讀本頁對應元件的「已拍板規則」；需要新元件或新樣式 pattern，先回設計系統立章拍板，實體放設計系統的 components/</div>
     </section>
 
     <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->
@@ -536,7 +536,7 @@
 
     <!-- ============ Drawer ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-drawer">
-      <div class="band-head"><h2>Drawer</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
+      <div class="band-head"><h2>Drawer</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
       <p class="band-sub">側邊抽屜 ( vaul )。用於 MasterDetailLayout 右側詳情與 AppNav 手機版選單。</p>
       <div class="preview" style="justify-content:center">
         <div style="position:relative;width:100%;max-width:280px;height:130px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)">
@@ -551,6 +551,7 @@
       </div>
       <div class="spec-line">right 方向 · 預設寬 w-3/4 ( sm 上限 max-w-sm ) · DrawerFooter 未使用</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：寬度用 !important 逃逸 vaul 上限 ( sm:!max-w-none 等 ) 認可為許可的佈局覆寫；DrawerHeader 的 border-slate-200 隨頁面遷移改 border-stroke；RequestDetailPanel 已在 Drawer 內，其自帶 shadow-xl 與左框屬雙重分隔，隨頁面遷移移除 ( 陰影章舊懸案結案 )</div>
+      <div class="spec-line"><b>容器底色 vendor 修改 ( 2026.7.24 拍板 )</b>：DrawerContent 由 shadcn 預設 <code>bg-background</code> 改為 <code>bg-container</code> ( ds 白卡底 )。因 <code>--background</code> 在消費端非白，抽屜面板應與卡片同為白底；屬有意的 vendor 修改，檔內留「有意的 vendor 修改」註解</div>
     </section>
 
     <!-- ============ Popover ( 2026.7.20 盤點定案 ) ============ -->

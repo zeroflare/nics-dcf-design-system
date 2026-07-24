@@ -629,10 +629,13 @@
             <tr><td class="mono">background-container-subtle</td><td>卡片上的輕量區隔</td><td class="mono">neutral-50</td><td class="mono"><span class="dot" style="background:#f8fafc"></span>#f8fafc</td></tr>
             <tr><td class="mono">background-container-variant</td><td>卡片上的元件 ( 輸入框等 )</td><td class="mono">neutral-100</td><td class="mono"><span class="dot" style="background:#f1f5f9"></span>#f1f5f9</td></tr>
             <tr><td class="mono">background-container-high</td><td>比 variant 更重的強調區塊</td><td class="mono">neutral-200</td><td class="mono"><span class="dot" style="background:#e2e8f0"></span>#e2e8f0</td></tr>
+            <tr><td class="mono">background-interactive</td><td>可點列 / 項目的靜置底 ( 如待處理協作請求列 )</td><td class="mono">neutral-100</td><td class="mono"><span class="dot" style="background:#f1f5f9"></span>#f1f5f9</td></tr>
+            <tr><td class="mono">background-interactive-hover</td><td>可點列 hover 提亮一階 ( 互動回饋 )</td><td class="mono">neutral-50</td><td class="mono"><span class="dot" style="background:#f8fafc"></span>#f8fafc</td></tr>
           </tbody>
         </table>
       </div>
       <p class="sub-note" style="margin-top:14px">一個提醒：<code style="font-family:var(--font-mono);color:var(--accent-ink)">background-surface-primary</code> 跟 <code style="font-family:var(--font-mono);color:var(--accent-ink)">background-container-variant</code> 剛好都落在 neutral-100，是因為 R 現況的頁面背景色本來就跟次要元件背景很接近，不是重複定義</p>
+      <p class="sub-note" style="margin-top:14px"><code>background-interactive</code> / <code>background-interactive-hover</code> ( 2026.7.24 拍板 ) 是為「可點的列 / 項目」獨立出來的一組互動底色：靜置 neutral-100、hover 提亮一階到 neutral-50。中性骨架的 background-container 那組描述的是疊層高低、只有單一態，這組刻意帶 default / hover，補上互動列需要的 hover slot。方向上刻意讓 hover 比 default 亮，使列在白卡上像可浮起的小卡，與語意色 hover 往深靠的邏輯不同。</p>
       <p class="sub-note" style="margin-top:14px">互動狀態的推導規則 ( 2026.7.20 拍板 )：<strong>hover 一律收斂到 neutral-700 附近</strong>作為統一的互動回饋，primary 因為 default 已經站在色階最深的 neutral-900、無法再加深，改為往淺靠；secondary 與 tertiary 則從淺往深靠，三階最後都朝同一個區間集中。<strong>active 取 default 與 hover 的中間階</strong>，做出按下時回彈一階的手感。<strong>disabled 三階統一 neutral-300</strong>，確保停用態永遠比最弱的 tertiary 更輕。primary 與 secondary 的 hover 同為 neutral-700 是刻意的，hover 是暫態不需要維持三階層級</p>
 
       <h3 class="sub">Function 層 · 語意色</h3>
@@ -651,6 +654,7 @@
         </table>
       </div>
       <p class="sub-note" style="margin-top:14px">primary 另補一個互動狀態 <code>primary-fg-hover</code> ( brand-600 <span class="dot" style="background:#0f766e"></span>#0f766e )，2026.7.23 拍板新增，供彩色文字連結 ( 例如「查看全部」) 的滑鼠停留態使用：往淺一階、維持品牌色相，刻意不比照中性前景收斂到 neutral，否則連結 hover 會失去品牌感。其餘語意色 ( success / warning / danger / info ) 的狀態變體目前仍未納入，有需要再補 → 審計 07。</p>
+      <p class="sub-note" style="margin-top:14px">primary 另補一個 <code>primary-solid-hover</code> ( brand-600 <span class="dot" style="background:#0f766e"></span>#0f766e )，2026.7.24 拍板新增，供實色主按鈕 ( 例如「核准」) 的 hover 往深一階，取代按鈕原本硬寫的 brand-600 raw 色。與 primary-fg-hover 同屬「語意色狀態變體有需要再補」原則。</p>
 
       <h3 class="sub">Component 層 · Tag</h3>
       <p class="sub-note">Tag 只有 background 跟 foreground 兩個 slot，全部指向 Function 層。分兩組：語意 5 種底色淺 ( 50 )、分類辨識 12 種底色略深 ( 100 )，這個深淺差異本身就是規則，用來區分「這是狀態」還是「這是分類」</p>

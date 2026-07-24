@@ -262,6 +262,12 @@
   --color-bg-container-variant: var(--color-neutral-100); /* 卡片上的元件 */
   --color-bg-container-high: var(--color-neutral-200);    /* 更重的強調區塊 */
 
+  /* 可互動表面 ( 可點的列/項目,如待處理協作請求列 ):靜置 neutral-100、hover 提亮一階到
+     neutral-50,作為互動回饋。中性骨架的 bg-container 那組是「疊層高低」語意、只有單一態,
+     這組刻意獨立出來帶 default/hover,補上互動列需要的 hover slot ( 2026.7.24 拍板 ) */
+  --color-bg-interactive: var(--color-neutral-100);
+  --color-bg-interactive-hover: var(--color-neutral-50);
+
   /* ===================== Function 層 · 語意色 =====================
      每個語意四個 slot：foreground=700 / background=50 / stroke=100 /
      solid=500 ( 大面積實色圖形：進度條、量表這類填色，不用於文字 )
@@ -272,6 +278,7 @@
   --color-primary-bg: var(--color-brand-50);
   --color-primary-stroke: var(--color-brand-100);
   --color-primary-solid: var(--color-brand-500);
+  --color-primary-solid-hover: var(--color-brand-600);   /* 實色主按鈕 ( 如「核准」) 的 hover:往深一階。與 primary-fg-hover 同屬「語意色狀態變體有需要再補」原則 ( 2026.7.24 拍板,取代按鈕硬寫 brand-600 ) */
 
   --color-selected-bg: var(--color-brand-50);
   --color-selected-stroke: var(--color-brand-100);

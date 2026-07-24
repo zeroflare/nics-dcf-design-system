@@ -364,6 +364,7 @@
         <div class="grp sub">覆蓋層</div>
         <a href="#comp-dialog" class="comp-link"><span>Dialog</span></a>
         <a href="#comp-confirmdialog" class="comp-link"><span>ConfirmDialog</span></a>
+        <a href="#comp-cardheader" class="comp-link"><span>CardHeader</span></a>
         <a href="#comp-drawer" class="comp-link"><span>Drawer</span></a>
         <a href="#comp-popover" class="comp-link"><span>Popover</span></a>
         <a href="#comp-command" class="comp-link"><span>Command</span></a>
@@ -532,6 +533,23 @@
       </div>
       <div class="spec-line">基於 Dialog ( sm:max-w-sm · show-close-button=false ) · 標題套 Subtitle · 按鈕走 Button 元件</div>
       <div class="spec-line">依賴契約：內部以 @/components/ui/* 引用消費端的 shadcn dialog 與 button，接入時需先完成 shadcn 安裝步驟</div>
+    </section>
+
+    <!-- ============ CardHeader ( 2026.7.24 拍板新增 ) ============ -->
+    <section class="band" id="comp-cardheader">
+      <div class="band-head"><h2>CardHeader</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 卡片標題列統一樣式</span></div>
+      <p class="band-sub">卡片標題列的統一封裝 ( 2026.7.24 拍板新增 )：左側 4×20 品牌色前導矩形 ( bg-primary-solid ) + 標題 ( Subtitle )，底部 stroke 分隔線撐滿整卡。收斂自總覽頁四張卡 ( 待處理協作請求 / 資料來源 / 資源使用概況 / 近期操作 ) 原本各自內嵌的相同標題列。<code>title</code> prop 帶標題文字；<code>badge</code> 插槽放標題後徽章 ( 如待處理件數 )，<code>trailing</code> 插槽放右側次要資訊或動作 ( 如「查看全部」連結、更新時間 )。</p>
+      <div class="preview" style="justify-content:center">
+        <div style="width:100%;max-width:280px;background:var(--surface);border-radius:8px;box-shadow:0 2px 6px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:16px">
+            <div style="display:flex;align-items:center;gap:8px"><span style="width:4px;height:20px;background:var(--accent-ink)"></span><span style="font-weight:700;font-size:15px">卡片標題</span></div>
+            <span style="color:var(--accent-ink);font-size:12px;font-weight:700">查看全部 ›</span>
+          </div>
+          <div style="padding:16px;font-size:11.5px;color:var(--ink-2)">內容區</div>
+        </div>
+      </div>
+      <div class="spec-line">已拍板規則 ( 2026.7.24 )：前導矩形 4×20 ( w-1 h-5 ) bg-primary-solid、標題 Subtitle、border-b stroke 撐滿整卡、padding px-4 py-4 ( 上下對稱,左右與卡片內容對齊 16px )。矩形色 / 字級 / 分隔線不得覆寫,消費端僅可覆寫佈局類</div>
+      <div class="spec-line">純標記自訂元件,無 shadcn 依賴;消費端由 @nics/design-tokens/components/CardHeader.vue 引用</div>
     </section>
 
     <!-- ============ Drawer ( 2026.7.20 盤點定案 ) ============ -->

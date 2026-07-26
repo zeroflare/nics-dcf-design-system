@@ -864,6 +864,11 @@
           <div class="spec-line">AppNav(1) · AppFooter(1) · ResourceBar(1) · ContextLogsPanel(1)</div>
         </div>
       </div>
+      <h3 class="sub" style="margin-top:36px">回應式工具列：靠右且可伸縮的尾端元件</h3>
+      <p class="sub-note">篩選列常見情境：前面幾個固定寬的篩選項（時間、分類⋯）＋尾端一個搜尋框，搜尋框要在空間夠時貼右、空間變窄時<b>先收縮寬度</b>、真的縮到底才換行，換行後自己獨占一行時要靠左而不是浮在右側空白處。純 CSS flex 可以做到，但兩個常見寫法都會踩坑：</p>
+      <div class="spec-line"><b>坑 1：搜尋框不能用 <code style="font-family:var(--font-mono)">w-full</code></b>。這會讓瀏覽器在排版時判斷它「要求整行寬度」，導致它幾乎不可能跟前一個篩選項共用同一行，每次都自己換到新行，看起來像「壞掉」。改用固定目標寬度（如 <code style="font-family:var(--font-mono)">w-[400px]</code>）搭配 <code style="font-family:var(--font-mono)">min-w-[Npx]</code> 下限，讓瀏覽器對 flex 子項目的預設 <code style="font-family:var(--font-mono)">shrink</code> 行為接手收縮</div>
+      <div class="spec-line"><b>坑 2：<code style="font-family:var(--font-mono)">flex-grow</code> 與 <code style="font-family:var(--font-mono)">margin: auto</code>（如 <code style="font-family:var(--font-mono)">ml-auto</code>）不能同時用在同一個元素上</b>。CSS 規範規定剩餘空間會優先分給 auto margin，flex-grow 分不到任何空間，結果元素會被壓到內容最小寬度，完全長不到目標寬度。兩者要嘛都不用（純 <code style="font-family:var(--font-mono)">ml-auto</code> + 固定寬度，靠右但不會平滑收縮）、要嘛用斷點切開：<b>窄螢幕用 <code style="font-family:var(--font-mono)">flex-1</code></b>（basis 0，吃滿當前行剩餘空間並收縮，配 <code style="font-family:var(--font-mono)">max-w</code> 設上限）負責「跟隨排列 + 收縮」；<b>寬螢幕切到 <code style="font-family:var(--font-mono)">flex-none</code> + 固定寬度 + <code style="font-family:var(--font-mono)">ml-auto</code></b> 負責「貼齊右緣」（例：<code style="font-family:var(--font-mono)">flex-1 max-w-[400px] min-w-[160px] xl:flex-none xl:w-[400px] xl:ml-auto</code>）</div>
+      <div class="spec-line">獨占一行時為什麼會自動靠左：這個斷點區間沒有套用 <code style="font-family:var(--font-mono)">ml-auto</code>，純粹靠 flex 預設的 <code style="font-family:var(--font-mono)">justify-content: flex-start</code>，元素自然落在該行起始位置（左側），不需要額外規則</div>
     </section>
 
     <!-- ============ 狀態色票 ============ -->

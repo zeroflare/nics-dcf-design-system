@@ -328,13 +328,19 @@
 }
 
 /* ============================================================
-   Base 層互動預設 ( 2026.7.20 拍板新增 )
+   Base 層互動預設 ( 2026.7.20 拍板新增,2026.7.26 補 combobox/switch/checkbox )
 
    瀏覽器對 <button> 的預設游標是 default 而不是 pointer ( 只有 <a> 是 pointer ),
    Tailwind 的 preflight 也沒有補這條。結果是所有按鈕都要各自寫 cursor-pointer,
    實務上必然漏掉 — 本專案 69 處 @click 只有 1 處寫了。
 
    與其逐一補,在此統一給可互動元素指標游標。停用態排除,交還給 not-allowed。
+
+   2026.7.26:Select / Switch / Checkbox 在 reka-ui 底層雖然預設都渲染成 <button>
+   ( 所以理論上原本的 button 選擇器就會覆蓋到 ),但那是實作細節的巧合,不是穩定契約
+   ( reka-ui 換版本、或消費端傳入不同 as prop 都可能讓它不再是 <button> 標籤 )。
+   明確把 combobox/switch/checkbox 這三個角色寫進選擇器,改成靠 ARIA role 語意本身
+   保證,而不是靠著它剛好是哪個 HTML 標籤。
    ============================================================ */
 @layer base {
   button:not(:disabled),
@@ -342,6 +348,9 @@
   [role='tab']:not([aria-disabled='true']),
   [role='option'],
   [role='menuitem'],
+  [role='combobox']:not(:disabled),
+  [role='switch']:not(:disabled),
+  [role='checkbox']:not(:disabled),
   summary,
   label:has(> input[type='file']),
   select:not(:disabled) {

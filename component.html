@@ -410,7 +410,7 @@
         </table>
       </div>
       <h3 class="sub">接入五步驟</h3>
-      <div class="spec-line">1. 安裝套件：bun add github:zeroflare/nics-dcf-design-system，CSS 進入點 @import '@nics/design-tokens/tokens.css'，並加 @source 指到套件的 components/ ( Tailwind 預設不掃 node_modules )<br>2. shadcn 橋接變數指向 token：--primary = brand-500 · --destructive = red-500 · --ring = brand-300 · --border = stroke<br>3. 安裝認可的 shadcn 元件清單並重放 4 個有意修改 ( Dialog / Card / Progress / Drawer )；明確不使用 alert、scroll-area、膠囊式 tabs<br>4. 自訂元件從套件 import ( 如 @nics/design-tokens/components/Tag.vue )，依賴契約：@ 別名指向 src、對應 shadcn 元件已安裝<br>5. 實作前先讀本頁對應元件的「已拍板規則」；需要新元件或新樣式 pattern，先回設計系統立章拍板，實體放設計系統的 components/</div>
+      <div class="spec-line">1. 安裝套件：bun add github:zeroflare/nics-dcf-design-system，CSS 進入點 @import '@nics/design-tokens/tokens.css'，並加 @source 指到套件的 components/ ( Tailwind 預設不掃 node_modules )<br>2. shadcn 橋接變數指向 token：--primary = brand-500 · --destructive = red-500 · --ring = brand-300 · --border = stroke<br>3. 安裝認可的 shadcn 元件清單並重放 5 個有意修改 ( Dialog / Card / Progress / Drawer / Switch )；明確不使用 alert、scroll-area、膠囊式 tabs<br>4. 自訂元件從套件 import ( 如 @nics/design-tokens/components/Tag.vue )，依賴契約：@ 別名指向 src、對應 shadcn 元件已安裝<br>5. 實作前先讀本頁對應元件的「已拍板規則」；需要新元件或新樣式 pattern，先回設計系統立章拍板，實體放設計系統的 components/</div>
     </section>
 
     <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->
@@ -518,6 +518,7 @@
       <div class="spec-line">圓角 lg ( 16px ) · shadow-lg · 內距 p-6 · 預設寬 sm:max-w-lg · 遮罩黑 80%</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：DialogTitle 套 Subtitle 語意字級 ( 18 / 700 / 1.3，取代原 18 / 600 / leading-none，落實文字章的 ★ 拍板，屬有意的 vendor 修改 )；呼叫端覆寫僅限寬度 / 高度佈局類 ( max-w-* / max-h-* / p-0 )，不得覆寫樣式</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：Dialog 分兩型。<b>確認型</b>統一走共用元件 ConfirmDialog ( ds components/ )：標題與說明靠左 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、寬 sm:max-w-sm、DialogFooter 左取消 ( outline ) 右主動作 ( 一般 default / 破壞性 destructive )，說明文案帶入對象名稱；現行使用：協作請求核准 / 駁回 ( RequestConfirmDialog，駁回附 Textarea 理由欄 )、刪除 / 停用帳號、刪除角色、刪除資料集、未儲存變更警告 ( cancelLabel 覆寫為「繼續編輯」)。<b>表單型</b> ( 重設密碼、編輯角色、新增帳號 )：標題與說明靠左、保留右上角關閉鈕、欄位 label 用 text-caption font-bold text-fg-secondary、DialogFooter 同樣左取消右主動作。落地於 demo</div>
+      <div class="spec-line"><b>容器底色 vendor 修改 ( 2026.7.26 拍板 )</b>：DialogContent / DialogScrollContent 由 shadcn 預設 <code>bg-background</code> 改為 <code>bg-container</code>（ds 白卡底）。因 <code>--background</code> 在消費端非白 ( #EEF1F5 頁面底色 )，對話框應與卡片同為白底,不應和頁面背景同色;屬有意的 vendor 修改，檔內留「有意的 vendor 修改」註解，比照 Drawer 的先例 ( 見下方 Drawer 章 )</div>
     </section>
 
     <!-- ============ ConfirmDialog ( 2026.7.20 盤點新增 ) ============ -->

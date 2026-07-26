@@ -24,7 +24,7 @@
 
 1. **元件來源三層制** ( component.html 每個元件都有標籤 ):
    - **shadcn 原生**:實體放各消費端專案的 `components/ui/` ( CLI 慣例 ),原始碼不修改
-   - **shadcn + 有意修改**:同上,但安裝後要重放拍板過的修改 ( 目前 3 個:DialogTitle 套 text-subtitle、Card 圓角 md、Progress 加 indicatorClass ),修改處必須留「有意的 vendor 修改」註解
+   - **shadcn + 有意修改**:同上,但安裝後要重放拍板過的修改 ( 目前 6 個,清單見 `INTEGRATION.md`:DialogTitle 套 text-subtitle、DialogContent/DialogScrollContent 底色改白、DrawerContent 底色改白、Card 圓角 md、Progress 加 indicatorClass、Switch thumb 改純白 ),修改處必須留「有意的 vendor 修改」註解
    - **自訂**:實體放**本 repo 的 `components/`**,消費端由套件 import,不得複製進專案
 2. **新增共用元件或樣式 pattern 的流程**:先在 `component.html` 立章、走「讀碼 → 整理現況 → 提案 → 設計負責人拍板」四步,拍板後實體放本 repo `components/`,再由消費端引用。**嚴禁直接在消費端專案建立共用元件**
 3. **修改既有元件樣式前**,先讀 `component.html` 該元件的「已拍板規則」,不得牴觸;要牴觸就回 `dcf-access-playground` 重新拍板

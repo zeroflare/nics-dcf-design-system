@@ -228,38 +228,39 @@
   .flag.unused { background: var(--warn-wash); color: var(--warn); }
   .flag.pending { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
 
-  /* mini demo controls */
+  /* mini demo controls ( 2026.7.27 全面改接 DS 真實 token 鏡像,不再用本頁私有文件配色，
+     逐一比對 Button.vue / badgeVariants / Switch.vue 等真實原始碼校正，詳見各元件章節 ) */
   .btn { font-family: var(--font-sans); font-size: 13px; font-weight: 500; height: 34px; padding: 0 15px; border-radius: 8px; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 6px; cursor: default; }
-  .btn.default { background: var(--accent); color: #fff; }
-  .btn.secondary { background: #eef2f6; color: #1e293b; }
-  .btn.outline { background: transparent; border-color: var(--line-strong); color: var(--ink); box-shadow: var(--shadow); }
-  .btn.ghost { background: transparent; color: var(--ink); }
-  .btn.destructive { background: #dc2626; color: #fff; }
-  .btn.link { background: transparent; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; padding: 0; height: auto; }
+  .btn.default { background: var(--color-primary-solid); color: var(--color-fg-inverted-default); }
+  .btn.secondary { background: var(--color-bg-container-variant); color: var(--color-fg-primary-default); }
+  .btn.outline { background: var(--color-bg-surface); border-color: var(--color-stroke); color: var(--color-fg-primary-default); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+  .btn.ghost { background: transparent; color: var(--color-fg-primary-default); }
+  .btn.destructive { background: var(--color-danger-solid); color: var(--color-fg-inverted-default); }
+  .btn.link { background: transparent; color: var(--color-primary-solid); text-decoration: underline; text-underline-offset: 3px; padding: 0; height: auto; }
   .pv-unused { display: inline-flex; flex-direction: column; align-items: center; gap: 5px; }
   .pv-unused > .btn { opacity: 0.35; }
   .pv-unused .pv-tag { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.06em; color: var(--ink-3); }
   .pill { font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 999px; border: 1px solid transparent; display: inline-flex; align-items: center; }
-  .pill.p-default { background: var(--accent); color: #fff; }
-  .pill.p-secondary { background: #eef2f6; color: #1e293b; }
-  .pill.p-destructive { background: #dc2626; color: #fff; }
-  .pill.p-outline { background: transparent; border-color: var(--line-strong); color: var(--ink); }
+  .pill.p-default { background: var(--color-primary-solid); color: var(--color-fg-inverted-default); }
+  .pill.p-secondary { background: var(--color-bg-container-variant); color: var(--color-fg-primary-default); }
+  .pill.p-destructive { background: var(--color-danger-solid); color: var(--color-fg-inverted-default); }
+  .pill.p-outline { background: transparent; border-color: var(--color-stroke); color: var(--color-fg-primary-default); }
   .sbadge { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; border: 1px solid; }
-  .field { height: 34px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface); padding: 0 12px; display: flex; align-items: center; color: var(--ink-3); font-size: 13px; width: 100%; }
-  .field.focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
-  .swch { width: 34px; height: 20px; border-radius: 999px; background: var(--accent); position: relative; }
-  .swch::after { content: ""; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: #fff; top: 2px; right: 2px; }
-  .swch.off { background: #cbd5e1; }
+  .field { height: 34px; border: 1px solid var(--color-stroke); border-radius: 8px; background: var(--color-bg-container); padding: 0 12px; display: flex; align-items: center; color: var(--color-fg-tertiary-default); font-size: 13px; width: 100%; }
+  .field.focus { border-color: var(--color-brand-300); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-300) 50%, transparent); }
+  .swch { width: 34px; height: 20px; border-radius: 999px; background: var(--color-primary-solid); position: relative; }
+  .swch::after { content: ""; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--color-fg-inverted-default); top: 2px; right: 2px; }
+  .swch.off { background: var(--color-stroke); }
   .swch.off::after { right: auto; left: 2px; }
-  .skel { height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--line) 0%, var(--surface-2) 50%, var(--line) 100%); }
-  /* Shimmer 掃光骨架 preview ( 對應 tokens.css 的 .shimmer ) */
-  .shimmerprev { position: relative; overflow: hidden; height: 12px; border-radius: 6px; background: var(--line); }
-  .shimmerprev::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent 0%, var(--surface-2) 50%, transparent 100%); animation: skelshimmer 1.6s ease-in-out infinite; }
+  /* Shimmer 掃光骨架 preview ( 對應 tokens.css 的 .shimmer，2026.7.27 改接真實 skeleton-base/sheen token ) */
+  .shimmerprev { position: relative; overflow: hidden; height: 12px; border-radius: 6px; background: var(--color-skeleton-base); }
+  .shimmerprev::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent 0%, var(--color-skeleton-sheen) 50%, transparent 100%); animation: skelshimmer 1.6s ease-in-out infinite; }
   @keyframes skelshimmer { 100% { transform: translateX(100%); } }
   @media (prefers-reduced-motion: reduce) { .shimmerprev::after { animation: none; } }
 
   /* ============================================================
-     DS 真實 token 鏡像 ( 僅供本頁 Navbar / Footer preview 使用,2026.7.27 )
+     DS 真實 token 鏡像 ( 2026.7.27 拍板新增供 Navbar / Footer，2026.7.27
+     全面擴大供全檔所有元件 preview 使用 )
      tokens.css 用 Tailwind v4 的 @theme 語法,此靜態頁沒有建置流程無法直接
      @import 生效 ( 瀏覽器不認得 @theme,直接連會整包失效 )，故在此手動鏡像
      實際值，變數命名與 tokens.css 完全一致，方便對照，含顏色與字級兩層
@@ -268,8 +269,10 @@
      如有出入，一律以 tokens.css 為準，數值變動時本區塊要一併同步更新。
      ------------------------------------------------------------------ */
   :root {
+    --color-bg-surface: #f1f5f9;
     --color-bg-container: #ffffff;
     --color-bg-container-subtle: #f8fafc;
+    --color-bg-container-variant: #f1f5f9;
     --color-fg-primary-default: #0f172a;
     --color-fg-primary-hover: #334155;
     --color-fg-secondary-default: #64748b;
@@ -281,9 +284,16 @@
     --color-primary-solid: #0d9488;
     --color-success-fg: #15803d;
     --color-success-solid: #22c55e;
+    --color-warning-fg: #b45309;
+    --color-warning-solid: #f59e0b;
+    --color-danger-fg: #b91c1c;
     --color-danger-solid: #ef4444;
     --color-avatar-gradient-from: #2dd4bf;
     --color-avatar-gradient-to: #0d9488;
+    --color-skeleton-base: #e2e8f0;
+    --color-skeleton-sheen: #f8fafc;
+    --color-brand-300: #2dd4bf;
+    --shadow-sm: 0 2px 6px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
     --text-body2: 14px;
     --text-body2--line-height: 1.5;
     --text-caption: 12px;
@@ -458,7 +468,6 @@
         <div class="grp sub">回饋與資料</div>
         <a href="#comp-badge" class="comp-link"><span>Badge</span></a>
         <a href="#comp-tag" class="comp-link"><span>Tag</span></a>
-        <a href="#comp-skeleton" class="comp-link"><span>Skeleton</span></a>
         <a href="#comp-shimmer" class="comp-link"><span>Shimmer</span></a>
         <a href="#comp-avatar" class="comp-link"><span>Avatar</span></a>
         <a href="#comp-progress" class="comp-link"><span>Progress</span></a>
@@ -654,8 +663,8 @@
       <div class="band-head"><h2>Checkbox</h2><span class="src">shadcn 原生</span><span class="use-b">元件 0 引用 · 手刻 1 顆待收編</span></div>
       <p class="band-sub">勾選框。元件已定義且規格正確 ( 16px、圓角 4px = sm、選取態 --primary )，但目前無頁面引用；RoleDetailDialog 權限矩陣有 1 顆手刻 ( 20px )，已拍板收編改用元件。</p>
       <div class="preview">
-        <span style="width:16px;height:16px;border-radius:4px;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:10px">✓</span>
-        <span style="width:16px;height:16px;border-radius:4px;border:1px solid var(--line-strong)"></span>
+        <span style="width:16px;height:16px;border-radius:4px;background:var(--color-primary-solid);display:inline-flex;align-items:center;justify-content:center;color:var(--color-fg-inverted-default);font-size:10px">✓</span>
+        <span style="width:16px;height:16px;border-radius:4px;border:1px solid var(--color-stroke)"></span>
       </div>
       <div class="spec-line">size-4 ( 16px ) · rounded 4px ( = radius sm，vendor 內寫法見審計 10 ) · checked bg-primary</div>
     </section>
@@ -666,9 +675,9 @@
       <p class="band-sub">下拉選單。全站零手刻原生 select，皆正確使用元件組合 ( Select / SelectTrigger / SelectContent / SelectItem )。</p>
       <div class="preview" style="flex-direction:column;align-items:flex-start;gap:6px">
         <span class="field" style="display:inline-flex;justify-content:space-between;align-items:center;min-width:200px">請選擇更新頻率<span style="opacity:.5">▾</span></span>
-        <div style="width:200px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-lift);padding:4px">
+        <div style="width:200px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:8px;box-shadow:var(--shadow-lift);padding:4px">
           <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">每日</div>
-          <div style="display:flex;justify-content:space-between;border-radius:4px;padding:6px 8px;font-size:11.5px;background:var(--surface-2)"><span>每週</span><span style="color:var(--accent-ink)">✓</span></div>
+          <div style="display:flex;justify-content:space-between;border-radius:4px;padding:6px 8px;font-size:11.5px;background:var(--color-bg-container-variant)"><span>每週</span><span style="color:var(--color-primary-fg)">✓</span></div>
           <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">每月</div>
         </div>
       </div>
@@ -693,21 +702,21 @@
       <div class="band-head"><h2>Dialog</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 15 組 / 13 檔</span></div>
       <p class="band-sub">最高頻的覆蓋層元件，用於審核、確認、編輯等流程。全站零手刻覆蓋層，一律使用元件。</p>
       <div class="preview" style="justify-content:center;flex-wrap:wrap;gap:12px;align-items:flex-start">
-        <div style="width:100%;max-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
+        <div style="width:100%;max-width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
           <div style="font-weight:700;font-size:13px">確認核准此協作請求？</div>
-          <div style="font-size:11.5px;color:var(--ink-2);margin:6px 0 12px">核准後，[申請單位] 將可依申請範圍使用「[資料集名稱]」進行後續資料協作流程。</div>
+          <div style="font-size:11.5px;color:var(--color-fg-secondary-default);margin:6px 0 12px">核准後，[申請單位] 將可依申請範圍使用「[資料集名稱]」進行後續資料協作流程。</div>
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn default" style="height:28px;font-size:12px">確認核准</span></div>
         </div>
-        <div style="width:100%;max-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
+        <div style="width:100%;max-width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
           <div style="font-weight:700;font-size:13px">確認刪除此帳號？</div>
-          <div style="font-size:11.5px;color:var(--ink-2);margin:6px 0 12px">刪除後，帳號「[帳號]」將自系統移除，此操作無法復原。</div>
+          <div style="font-size:11.5px;color:var(--color-fg-secondary-default);margin:6px 0 12px">刪除後，帳號「[帳號]」將自系統移除，此操作無法復原。</div>
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn destructive" style="height:28px;font-size:12px">確認刪除</span></div>
         </div>
-        <div style="width:100%;max-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px">
+        <div style="width:100%;max-width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px">
           <div style="font-weight:700;font-size:13px">重設密碼</div>
-          <div style="font-size:11.5px;color:var(--ink-2);margin:4px 0 10px">為帳號「[帳號]」設定新密碼</div>
-          <div style="font-size:10.5px;font-weight:700;color:var(--ink-3);margin-bottom:4px">新密碼</div>
-          <div style="border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:11px;color:var(--ink-3);margin-bottom:12px">輸入新密碼</div>
+          <div style="font-size:11.5px;color:var(--color-fg-secondary-default);margin:4px 0 10px">為帳號「[帳號]」設定新密碼</div>
+          <div style="font-size:10.5px;font-weight:700;color:var(--color-fg-secondary-default);margin-bottom:4px">新密碼</div>
+          <div style="border:1px solid var(--color-stroke);border-radius:8px;padding:6px 8px;font-size:11px;color:var(--color-fg-secondary-default);margin-bottom:12px">輸入新密碼</div>
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn default" style="height:28px;font-size:12px">確認重設</span></div>
         </div>
       </div>
@@ -722,9 +731,9 @@
       <div class="band-head"><h2>ConfirmDialog</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 確認型對話框統一樣式</span></div>
       <p class="band-sub">確認型對話框的統一封裝 ( 2026.7.20 拍板新增 )：靠左標題與說明 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、左取消右主動作。主動作 variant 支援 default 與 destructive ( 破壞性操作 )，可經 slot 插入表單內容 ( 如重設密碼 )，取消鈕文字可用 cancelLabel 覆寫 ( 預設「取消」，如資料來源頁的「繼續編輯」)。</p>
       <div class="preview" style="justify-content:center">
-        <div style="width:100%;max-width:230px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:left">
+        <div style="width:100%;max-width:230px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:left">
           <div style="font-weight:700;font-size:13px">確認刪除此帳號？</div>
-          <div style="font-size:11.5px;color:var(--ink-2);margin:8px 0 14px;line-height:1.6">刪除後，帳號「[帳號]」將自系統移除，此操作無法復原。</div>
+          <div style="font-size:11.5px;color:var(--color-fg-secondary-default);margin:8px 0 14px;line-height:1.6">刪除後，帳號「[帳號]」將自系統移除，此操作無法復原。</div>
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn destructive" style="height:28px;font-size:12px">確認刪除</span></div>
         </div>
       </div>
@@ -737,12 +746,12 @@
       <div class="band-head"><h2>CardHeader</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 卡片標題列統一樣式</span></div>
       <p class="band-sub">卡片標題列的統一封裝 ( 2026.7.24 拍板新增 )：左側 4×20 品牌色前導矩形 ( bg-primary-solid ) + 標題 ( Subtitle )，底部 stroke 分隔線撐滿整卡。收斂自總覽頁四張卡 ( 待處理協作請求 / 資料來源 / 資源使用概況 / 近期操作 ) 原本各自內嵌的相同標題列。<code>title</code> prop 帶標題文字；<code>badge</code> 插槽放標題後徽章 ( 如待處理件數 )，<code>trailing</code> 插槽放右側次要資訊或動作 ( 如「查看全部」連結、更新時間 )。</p>
       <div class="preview" style="justify-content:center">
-        <div style="width:100%;max-width:280px;background:var(--surface);border-radius:8px;box-shadow:0 2px 6px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);overflow:hidden">
-          <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:16px">
-            <div style="display:flex;align-items:center;gap:8px"><span style="width:4px;height:20px;background:var(--accent-ink)"></span><span style="font-weight:700;font-size:15px">卡片標題</span></div>
-            <span style="color:var(--accent-ink);font-size:12px;font-weight:700">查看全部 ›</span>
+        <div style="width:100%;max-width:280px;background:var(--color-bg-container);border-radius:8px;box-shadow:var(--shadow-sm);overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--color-stroke);padding:16px">
+            <div style="display:flex;align-items:center;gap:8px"><span style="width:4px;height:20px;background:var(--color-primary-solid)"></span><span style="font-weight:700;font-size:15px">卡片標題</span></div>
+            <span style="color:var(--color-primary-fg);font-size:12px;font-weight:700">查看全部 ›</span>
           </div>
-          <div style="padding:16px;font-size:11.5px;color:var(--ink-2)">內容區</div>
+          <div style="padding:16px;font-size:11.5px;color:var(--color-fg-secondary-default)">內容區</div>
         </div>
       </div>
       <div class="spec-line">已拍板規則 ( 2026.7.24 )：前導矩形 4×20 ( w-1 h-5 ) bg-primary-solid、標題 Subtitle、border-b stroke 撐滿整卡、padding px-4 py-4 ( 上下對稱，左右與卡片內容對齊 16px )。矩形色 / 字級 / 分隔線不得覆寫，消費端僅可覆寫佈局類</div>
@@ -754,13 +763,13 @@
       <div class="band-head"><h2>Drawer</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 2 處 / 2 檔</span></div>
       <p class="band-sub">側邊抽屜 ( vaul )。用於 MasterDetailLayout 右側詳情與 AppNav 手機版選單。</p>
       <div class="preview" style="justify-content:center">
-        <div style="position:relative;width:100%;max-width:280px;height:130px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)">
+        <div style="position:relative;width:100%;max-width:280px;height:130px;border:1px solid var(--color-stroke);border-radius:10px;overflow:hidden;background:var(--color-bg-container)">
           <div style="position:absolute;inset:0;background:rgba(0,0,0,.35)"></div>
-          <div style="position:absolute;top:0;right:0;bottom:0;width:58%;background:var(--surface);border-left:1px solid var(--line);padding:12px">
-            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:8px">
-              <span style="font-size:12px;font-weight:700">請求詳情</span><span style="color:var(--ink-3);font-size:11px">✕</span>
+          <div style="position:absolute;top:0;right:0;bottom:0;width:58%;background:var(--color-bg-container);border-left:1px solid var(--color-stroke);padding:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--color-stroke);padding-bottom:8px;margin-bottom:8px">
+              <span style="font-size:12px;font-weight:700">請求詳情</span><span style="color:var(--color-fg-tertiary-default);font-size:11px">✕</span>
             </div>
-            <div style="font-size:10.5px;color:var(--ink-2);line-height:1.6">從右側滑入的面板內容，佔滿視窗高度</div>
+            <div style="font-size:10.5px;color:var(--color-fg-secondary-default);line-height:1.6">從右側滑入的面板內容，佔滿視窗高度</div>
           </div>
         </div>
       </div>
@@ -775,7 +784,7 @@
       <p class="band-sub">浮動彈出層，現況用於 RoleMultiSelect 下拉多選。現況即規範。</p>
       <div class="preview" style="flex-direction:column;align-items:center;gap:6px">
         <span class="btn outline" style="height:28px;font-size:12px">選擇角色 <span style="opacity:.5">▾</span></span>
-        <div style="width:210px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-lift);padding:12px;font-size:11.5px;color:var(--ink-2)">浮動面板內容 ( 預設 p-4 · w-72，緊貼觸發元素下方 )</div>
+        <div style="width:210px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:8px;box-shadow:var(--shadow-lift);padding:12px;font-size:11.5px;color:var(--color-fg-secondary-default)">浮動面板內容 ( 預設 p-4 · w-72，緊貼觸發元素下方 )</div>
       </div>
       <div class="spec-line">rounded-md ( 8px ) · border = stroke · shadow-md · 內距 p-4 · 預設寬 w-72；combobox 場景的 w-[anchor-width] p-0 覆寫為標準寫法</div>
     </section>
@@ -785,10 +794,10 @@
       <div class="band-head"><h2>Command</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 1 處</span></div>
       <p class="band-sub">指令選單 / 搜尋面板，現況與 Popover 組成 RoleMultiSelect 的 combobox。現況即規範。</p>
       <div class="preview" style="justify-content:center">
-        <div style="width:220px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-lift);overflow:hidden">
-          <div style="border-bottom:1px solid var(--line);padding:8px 12px;font-size:11.5px;color:var(--ink-3)">搜尋角色…</div>
+        <div style="width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:8px;box-shadow:var(--shadow-lift);overflow:hidden">
+          <div style="border-bottom:1px solid var(--color-stroke);padding:8px 12px;font-size:11.5px;color:var(--color-fg-secondary-default)">搜尋角色…</div>
           <div style="padding:4px">
-            <div style="display:flex;justify-content:space-between;border-radius:4px;padding:6px 8px;font-size:11.5px;background:var(--surface-2)"><span>系統管理員</span><span style="color:var(--accent-ink)">✓</span></div>
+            <div style="display:flex;justify-content:space-between;border-radius:4px;padding:6px 8px;font-size:11.5px;background:var(--color-bg-container-variant)"><span>系統管理員</span><span style="color:var(--color-primary-fg)">✓</span></div>
             <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">資料管理員</div>
             <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">審核人員</div>
           </div>
@@ -802,12 +811,12 @@
       <div class="band-head"><h2>Dropdown Menu</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 1 處</span></div>
       <p class="band-sub">下拉選單，現況用於 AppNav 使用者選單。現況即規範。</p>
       <div class="preview" style="flex-direction:column;align-items:center;gap:6px">
-        <span style="width:28px;height:28px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:11px">暖</span>
-        <div style="width:150px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-lift);padding:4px">
-          <div style="border-radius:4px;padding:6px 8px;font-size:11.5px;background:var(--surface-2)">個人資料</div>
+        <span style="width:28px;height:28px;border-radius:999px;background:var(--color-bg-container-variant);border:1px solid var(--color-stroke);display:inline-flex;align-items:center;justify-content:center;font-size:11px">暖</span>
+        <div style="width:150px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:8px;box-shadow:var(--shadow-lift);padding:4px">
+          <div style="border-radius:4px;padding:6px 8px;font-size:11.5px;background:var(--color-bg-container-variant)">個人資料</div>
           <div style="border-radius:4px;padding:6px 8px;font-size:11.5px">帳號設定</div>
-          <div style="height:1px;background:var(--line);margin:3px 4px"></div>
-          <div style="border-radius:4px;padding:6px 8px;font-size:11.5px;color:var(--crit)">登出</div>
+          <div style="height:1px;background:var(--color-stroke);margin:3px 4px"></div>
+          <div style="border-radius:4px;padding:6px 8px;font-size:11.5px;color:var(--color-danger-solid)">登出</div>
         </div>
       </div>
       <div class="spec-line">rounded-md · border = stroke · shadow-md · Item rounded 4px ( = radius sm ) · px-2 py-1.5 · 文字 14px；Checkbox / Radio / Sub 系列子元件未使用</div>
@@ -818,7 +827,7 @@
       <div class="band-head"><h2>Tooltip</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 9 處 / 5 檔</span></div>
       <p class="band-sub">滑鼠停留提示，多用於圖示按鈕的補充說明。全站零覆寫，現況即規範。</p>
       <div class="preview" style="justify-content:center">
-        <div style="background:var(--ink);color:var(--bg);font-size:12px;padding:5px 10px;border-radius:7px">重新整理節點狀態</div>
+        <div style="background:var(--color-fg-primary-default);color:var(--color-bg-surface);font-size:12px;padding:5px 10px;border-radius:7px">重新整理節點狀態</div>
       </div>
       <div class="spec-line">深底淺字 ( bg-foreground / text-background ) · rounded-md · text-xs · px-3 py-1.5 · 箭頭的 rounded-[2px] 為審計 10 拍板不動項</div>
     </section>
@@ -856,18 +865,6 @@
     </section>
 
 
-    <!-- ============ Skeleton ( 2026.7.20 盤點定案 · 2026.7.27 退役 ) ============ -->
-    <section class="band" id="comp-skeleton">
-      <div class="band-head"><h2>Skeleton</h2><span class="src">已退役</span><span class="use-b">全面由 Shimmer 取代 · 元件本體已移除</span></div>
-      <p class="band-sub">原 shadcn 原生載入骨架 ( animate-pulse 整塊明滅 )。2026.7.27 全面由下方自訂的 Shimmer ( 掃光 ) 取代：頁面級與次級 loading 骨架全數遷移，最後僅剩三個死碼元件 ( ResourceUsageCard / NodeControlCard / ResourceBar，總覽頁改版後被 navbar 節點指示器取代的殘骸 ) 在依賴，已一併清除。shadcn skeleton 的元件本體與認可清單資格皆已移除，保留本章供歷史對照，新的載入骨架一律見下方 Shimmer 章。</p>
-      <div class="preview" style="flex-direction:column;align-items:stretch;gap:8px;opacity:.45">
-        <span class="skel" style="width:70%"></span>
-        <span class="skel" style="width:100%"></span>
-        <span class="skel" style="width:45%"></span>
-      </div>
-      <div class="spec-line">( 已退役 ) 原規格：bg-primary/10 淺 brand 底 · rounded-md · animate-pulse · 尺寸由呼叫端 class 決定</div>
-    </section>
-
     <!-- ============ Shimmer ( 2026.7.27 拍板新增 ) ============ -->
     <section class="band" id="comp-shimmer">
       <div class="band-head"><h2>Shimmer</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 五頁頁面級骨架首批採用</span></div>
@@ -899,9 +896,9 @@
       <div class="band-head"><h2>Progress</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 3 處 / 1 檔</span></div>
       <p class="band-sub">進度條。總覽頁 3 條手刻進度條已收編改用元件，並取得 progressbar 無障礙角色。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
-        <div style="height:8px;border-radius:999px;background:#f1f5f9;overflow:hidden"><div style="width:42%;height:100%;background:#22c55e"></div></div>
-        <div style="height:8px;border-radius:999px;background:#f1f5f9;overflow:hidden"><div style="width:67%;height:100%;background:#f59e0b"></div></div>
-        <div style="height:8px;border-radius:999px;background:#f1f5f9;overflow:hidden"><div style="width:30%;height:100%;background:#0d9488"></div></div>
+        <div style="height:8px;border-radius:999px;background:color-mix(in srgb, var(--color-primary-solid) 20%, transparent);overflow:hidden"><div style="width:42%;height:100%;background:var(--color-success-solid)"></div></div>
+        <div style="height:8px;border-radius:999px;background:color-mix(in srgb, var(--color-primary-solid) 20%, transparent);overflow:hidden"><div style="width:67%;height:100%;background:var(--color-warning-solid)"></div></div>
+        <div style="height:8px;border-radius:999px;background:color-mix(in srgb, var(--color-primary-solid) 20%, transparent);overflow:hidden"><div style="width:30%;height:100%;background:var(--color-primary-solid)"></div></div>
       </div>
       <div class="spec-line">h-2 · rounded-full · 軌道 <code>bg-primary/20</code> ( shadcn 橋接變數 --primary 20% 透明，即 brand-500/20，非 ds 語意 token，現況即規範 ) · 填色用語意 solid token ( success / warning / primary )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：元件新增 indicatorClass prop ( 有意的 vendor 擴充 ) 供指定語意填色；大面積實色一律走 solid=500，不用於文字</div>
@@ -912,7 +909,7 @@
       <div class="band-head"><h2>Sonner Toast</h2><span class="src">shadcn 原生</span><span class="use-b">App.vue 掛載 · toast() 呼叫 10+ 檔</span></div>
       <p class="band-sub">全域提示訊息 ( vue-sonner )。Toaster 於 App.vue 掛載一次，各 store 與元件透過 toast() 觸發，為表單送出與 API 結果的回饋主力。</p>
       <div class="preview" style="justify-content:center">
-        <div style="display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow-lift);padding:12px 16px;font-size:12.5px"><span style="color:var(--good)">✓</span>資料集已成功發佈</div>
+        <div style="display:flex;align-items:center;gap:10px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:10px;box-shadow:var(--shadow-lift);padding:12px 16px;font-size:12.5px"><span style="color:var(--color-success-fg)">✓</span>資料集已成功發佈</div>
       </div>
       <div class="spec-line">右下角浮出 · 元件檔含客製成功 / 資訊 icon · 現況即規範</div>
     </section>
@@ -922,7 +919,7 @@
       <div class="band-head"><h2>Card</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 1 處 · 另有手刻 ~24 處待收編</span></div>
       <p class="band-sub">資料容器。元件現況僅登入頁使用，全站卡片幾乎都是手刻 div ( 約 24 處 / 9 檔 )，且多用違規的 rounded-xl，為 Table 之外第二大收編標的。</p>
       <div class="preview" style="justify-content:center">
-        <div style="width:100%;max-width:240px;background:var(--surface);border-radius:8px;box-shadow:0 2px 6px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);padding:16px"><div style="font-weight:700;font-size:13px;margin-bottom:6px">卡片標題</div><div style="font-size:11.5px;color:var(--ink-2)">內容區塊，圓角 md ( 8px )，無框線，僅靠 shadow-sm 分離</div></div>
+        <div style="width:100%;max-width:240px;background:var(--color-bg-container);border-radius:8px;box-shadow:var(--shadow-sm);padding:16px"><div style="font-weight:700;font-size:13px;margin-bottom:6px">卡片標題</div><div style="font-size:11.5px;color:var(--color-fg-secondary-default)">內容區塊，圓角 md ( 8px )，無框線，僅靠 shadow-sm 分離</div></div>
       </div>
       <div class="spec-line">圓角 md ( 8px，vendor 修改：原 rounded-xl 依圓角章拍板對 md ) · <b>無 border</b> ( vendor 修改 ) · shadow-sm · py-6 gap-6</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：手刻卡片隨頁面遷移收編呼叫 Card，圓角一併由 xl 對回 md</div>
@@ -934,9 +931,9 @@
       <div class="band-head"><h2>Table ( DataTable )</h2><span class="src custom">自訂</span><span class="use-b">DataTable 封裝 · 手刻 15 顆收編中</span></div>
       <p class="band-sub">資料表格的統一封裝 DataTable ( 2026.7.20 拍板新增，住設計系統 components/，內部包各專案的 shadcn Table vendor )。拍板樣式全部烤入封裝：表頭 Caption 粗體大寫 fg-secondary 淺灰底、儲存格 px-6、stroke 分隔線、subtle hover。<strong>消費端一律用 DataTable 系列，不得直接使用 raw shadcn Table</strong>，樣式才不會漂移。</p>
       <div class="preview" style="padding:0;overflow:hidden;flex-direction:column;align-items:stretch">
-        <div style="display:flex;background:var(--surface-2);border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)"><span style="flex:1;padding:8px 14px">名稱</span><span style="flex:1;padding:8px 14px">狀態</span><span style="flex:1;padding:8px 14px">更新時間</span></div>
-        <div style="display:flex;border-bottom:1px solid var(--line);font-size:12px"><span style="flex:1;padding:9px 14px">tpe-edu-001</span><span style="flex:1;padding:9px 14px;color:var(--good)">已發佈</span><span style="flex:1;padding:9px 14px;color:var(--ink-3)">2026/07/20</span></div>
-        <div style="display:flex;font-size:12px"><span style="flex:1;padding:9px 14px">tpe-edu-002</span><span style="flex:1;padding:9px 14px;color:var(--warn)">待確認</span><span style="flex:1;padding:9px 14px;color:var(--ink-3)">2026/07/19</span></div>
+        <div style="display:flex;background:var(--color-bg-container-subtle);border-bottom:1px solid var(--color-stroke);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-fg-secondary-default)"><span style="flex:1;padding:8px 14px">名稱</span><span style="flex:1;padding:8px 14px">狀態</span><span style="flex:1;padding:8px 14px">更新時間</span></div>
+        <div style="display:flex;border-bottom:1px solid var(--color-stroke);font-size:12px"><span style="flex:1;padding:9px 14px">tpe-edu-001</span><span style="flex:1;padding:9px 14px;color:var(--color-success-fg)">已發佈</span><span style="flex:1;padding:9px 14px;color:var(--color-fg-tertiary-default)">2026/07/20</span></div>
+        <div style="display:flex;font-size:12px"><span style="flex:1;padding:9px 14px">tpe-edu-002</span><span style="flex:1;padding:9px 14px;color:var(--color-warning-fg)">待確認</span><span style="flex:1;padding:9px 14px;color:var(--color-fg-tertiary-default)">2026/07/19</span></div>
       </div>
       <div class="spec-line">組合：DataTable + DataTableHeader / Body / Row / Head / Cell；density 同時管字級與內距：default = 頁面級主資料表 ( Body1 16px 字 / 垂直內距 16px )、dense = 內嵌於彈窗 / 面板 / 表單的輔助表 ( Body2 14px 字 / 12px )；文字色由呼叫端指定 fg 語意 token</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：15 顆手刻表格隨頁面遷移收編呼叫 DataTable ( 首例：紀錄查詢頁兩張表 )；shadcn Table vendor 保留於各專案供封裝內部使用，不直接呼叫</div>
@@ -947,7 +944,7 @@
       <div class="band-head"><h2>Tabs</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 手刻 ~6 組收編中</span></div>
       <p class="band-sub">分頁切換，底線式頁籤為正式規格 ( 2026.7.20 拍板並封裝為自訂元件，住設計系統 components/，v-model + tabs 陣列 API )。shadcn 的膠囊式 Tabs 三 repo 皆零引用，已刪除。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden">
-        <div style="display:flex;gap:16px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px"><span style="color:var(--accent-ink);font-weight:700;border-bottom:2px solid var(--accent);padding-bottom:6px">總覽</span><span style="color:var(--ink-3)">資料來源</span><span style="color:var(--ink-3)">紀錄</span></div>
+        <div style="display:flex;gap:16px;padding:10px 14px;border-bottom:1px solid var(--color-stroke);font-size:12px"><span style="color:var(--color-primary-fg);font-weight:700;border-bottom:2px solid var(--color-primary-solid);padding-bottom:6px">總覽</span><span style="color:var(--color-fg-secondary-default)">資料來源</span><span style="color:var(--color-fg-secondary-default)">紀錄</span></div>
       </div>
       <div class="spec-line">底線式規格：px-6 py-3 · 文字 Body2 ( 14px ) · 選中態 primary-solid 底線 2px + 700 字重 + primary-fg 文字 · 未選 fg-secondary ( 400 )，hover 走同階的 fg-secondary-hover ( 與 fg-primary-hover 同為 neutral-700，視覺上一樣深，但是不同的語意 token ) · disabled 態 fg-secondary-disabled + cursor-not-allowed，可帶 hint 以 shadcn Tooltip 呈現停用原因 ( 2026.7.20 資料來源頁需求新增，依賴契約：消費端須已安裝 shadcn tooltip )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：消費端由 @nics/design-tokens/components/Tabs.vue 引用；6 組手刻頁籤隨頁面遷移收編 ( 首例：紀錄查詢頁，資料來源頁詳情頁籤含 disabled 首例 )</div>
@@ -958,9 +955,9 @@
       <div class="band-head"><h2>Separator</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 2 處 / 1 檔</span></div>
       <p class="band-sub">分隔線，現況用於 NodeControlCard。現況即規範。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
-        <div style="font-size:11.5px;color:var(--ink-2)">區塊一</div>
-        <div style="height:1px;background:var(--line)"></div>
-        <div style="font-size:11.5px;color:var(--ink-2)">區塊二</div>
+        <div style="font-size:11.5px;color:var(--color-fg-secondary-default)">區塊一</div>
+        <div style="height:1px;background:var(--color-stroke)"></div>
+        <div style="font-size:11.5px;color:var(--color-fg-secondary-default)">區塊二</div>
       </div>
       <div class="spec-line">1px · 色用 stroke ( n200 )；規則：語意性分隔用 Separator 元件，表格列 / 清單項分隔用 divide-* 屬佈局慣用寫法，認可並用</div>
     </section>
@@ -984,8 +981,8 @@
       <div class="band-head"><h2>Collapsible</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 1 處</span></div>
       <p class="band-sub">可收合區塊，現況用於 RequestDetailPanel 的詳情展開。現況即規範。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:0">
-        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;padding:8px 0;border-bottom:1px solid var(--line)"><span>詳細欄位資訊</span><span style="color:var(--ink-3)">▾</span></div>
-        <div style="font-size:11.5px;color:var(--ink-2);padding:8px 0 0">展開後的內容區塊</div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;padding:8px 0;border-bottom:1px solid var(--color-stroke)"><span>詳細欄位資訊</span><span style="color:var(--color-fg-tertiary-default)">▾</span></div>
+        <div style="font-size:11.5px;color:var(--color-fg-secondary-default);padding:8px 0 0">展開後的內容區塊</div>
       </div>
       <div class="spec-line">無自帶樣式，展示樣式由呼叫端決定 · 現況即規範</div>
     </section>
@@ -993,7 +990,7 @@
 
     <footer>
       政府資料匯流分析協作平臺設計系統 · 正式規範 · Foundation 五章已拍板定案 · 元件盤點 2026.07.20 全數 23 項關章 ( 讀碼 → 現況 → 提案 → 拍板 )<br>
-      已刪除元件：StatusBadge、StatsCard ( 死碼，審計 04 )、Alert、ScrollArea、膠囊式 Tabs ( 零引用 vendor，2026.07.20 拍板 )。下一步：依收編清單隨頁面遷移逐步落地，最終遷移為 Storybook 作為雙方 Claude Code 的共用設計來源。
+      已刪除元件：StatusBadge、StatsCard ( 死碼，審計 04 )、Alert、ScrollArea、膠囊式 Tabs ( 零引用 vendor，2026.07.20 拍板 )、Skeleton ( 全面由 Shimmer 取代，2026.07.27 章節連歷史紀錄一併刪除 )。下一步：依收編清單隨頁面遷移逐步落地，最終遷移為 Storybook 作為雙方 Claude Code 的共用設計來源。
     </footer>
    </div>
   </main>

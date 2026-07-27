@@ -63,15 +63,30 @@ bun add github:zeroflare/nics-dcf-design-system
 
 ### 2. shadcn 橋接變數指向 token
 
-shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:root` 把以下變數改指 token ( 這是拍板值，不是建議值 )：
+shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:root` 把以下變數改指 token ( 這是拍板值，不是建議值 )。2026.7.27 拍板：全部 shadcn 語意變數都要橋接，不留 shadcn 原生 oklch 預設值：
 
 ```css
---primary: var(--color-brand-500);        /* 主操作色,甲方需求書 #0d9488 */
---primary-foreground: #ffffff;
---destructive: var(--color-red-500);      /* 危險色,甲方需求書 #ef4444 */
---ring: var(--color-brand-300);           /* focus 光暈,經 ring/50 半透明渲染 */
---border: var(--color-stroke);            /* 邊框,單一 stroke = neutral-200 */
+--background: var(--color-bg-surface);            /* 頁面底色,淺灰 */
+--foreground: var(--color-fg-primary-default);
+--card: var(--color-bg-container);                 /* 卡片白底 */
+--card-foreground: var(--color-fg-primary-default);
+--popover: var(--color-bg-container);
+--popover-foreground: var(--color-fg-primary-default);
+--primary: var(--color-brand-500);                 /* 主操作色,甲方需求書 #0d9488 */
+--primary-foreground: var(--color-fg-inverted-default);
+--secondary: var(--color-bg-container-variant);
+--secondary-foreground: var(--color-fg-primary-default);
+--muted: var(--color-bg-container-variant);
+--muted-foreground: var(--color-fg-secondary-default);
+--accent: var(--color-bg-container-variant);
+--accent-foreground: var(--color-fg-primary-default);
+--destructive: var(--color-red-500);               /* 危險色,甲方需求書 #ef4444 */
+--border: var(--color-stroke);                      /* 邊框,單一 stroke = neutral-200 */
+--input: var(--color-stroke);
+--ring: var(--color-brand-300);                     /* focus 光暈,經 ring/50 半透明渲染 */
 ```
+
+**不橋接**：`.dark` 整塊、`--chart-1~5`、`--sidebar-*`。這些是 shadcn 鷹架的預設殘留，本設計系統目前沒有深色模式，也沒有任何消費站裝 chart / sidebar 元件，橋接了也沒有元件會吃到，留著純粹是 shadcn CLI 裝元件時一起帶出來的死碼，之後真的要做深色模式或裝 chart/sidebar 才需要處理。
 
 ### 3. 安裝認可的 shadcn 元件並重放有意修改
 
@@ -84,11 +99,11 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 | 檔案 | 修改 |
 |---|---|
 | `ui/dialog/DialogTitle.vue` | class 的 `'text-lg leading-none font-semibold'` → `'text-subtitle'` ( Subtitle 18 / 700 / 1.3 ) |
-| `ui/dialog/DialogContent.vue`<br>`ui/dialog/DialogScrollContent.vue` | class 的 `bg-background` → `bg-container` ( ds 白卡底;`--background` 在消費端是頁面底色的淺灰 #EEF1F5,對話框應與卡片同為白底 ) |
+| `ui/dialog/DialogContent.vue`<br>`ui/dialog/DialogScrollContent.vue` | class 的 `bg-background` → `bg-container` ( ds 白卡底;`--background` 橋接到 bg-surface 頁面底色淺灰,對話框應與卡片同為白底,不能沿用頁面底色 ) |
 | `ui/drawer/DrawerContent.vue` | class 的 `bg-background` → `bg-container` ( ds 白卡底,理由同 Dialog；2026.7.24 拍板 ) |
 | `ui/card/Card.vue` | ① class 的 `rounded-xl` → `rounded-md` ( 卡片圓角一律 md 8px )<br>② 移除 `border` ( 框線與 shadow-sm 都在做與背景分離,並存會疊出灰邊使陰影顯重;需要框線的區塊自行加 `border-stroke` ) |
 | `ui/progress/Progress.vue` | 新增 `indicatorClass` prop 並以 `cn()` 併入 indicator class，供指定語意 solid 填色 |
-| `ui/switch/Switch.vue` | thumb 的 `bg-background` → `bg-fg-inverted-default` ( 純白;`--background` 在消費端是淺灰,疊在實色軌道上會顯髒 ) |
+| `ui/switch/Switch.vue` | thumb 的 `bg-background` → `bg-fg-inverted-default` ( 純白;`--background` 橋接到頁面底色淺灰,疊在實色軌道上會顯髒 ) |
 
 ### 4. 自訂元件直接從套件 import
 

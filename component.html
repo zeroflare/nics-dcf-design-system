@@ -249,6 +249,11 @@
   .swch.off { background: #cbd5e1; }
   .swch.off::after { right: auto; left: 2px; }
   .skel { height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--line) 0%, var(--surface-2) 50%, var(--line) 100%); }
+  /* Shimmer 掃光骨架 preview ( 對應 tokens.css 的 .shimmer ) */
+  .shimmerprev { position: relative; overflow: hidden; height: 12px; border-radius: 6px; background: var(--line); }
+  .shimmerprev::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent 0%, var(--surface-2) 50%, transparent 100%); animation: skelshimmer 1.6s ease-in-out infinite; }
+  @keyframes skelshimmer { 100% { transform: translateX(100%); } }
+  @media (prefers-reduced-motion: reduce) { .shimmerprev::after { animation: none; } }
 
   /* audit */
   .audit-intro { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; padding: 22px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 24px; }
@@ -663,13 +668,26 @@
     <!-- ============ Skeleton ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-skeleton">
       <div class="band-head"><h2>Skeleton</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 27 處 / 9 檔</span></div>
-      <p class="band-sub">載入骨架，配合即時 API 與 SSE 的等待狀態，全站使用最廣的回饋元件。原有 1 顆手刻骨架 ( RoleManagementCard ) 已收編。</p>
+      <p class="band-sub">shadcn 原生載入骨架 ( animate-pulse 整塊明滅 )，配合即時 API 與 SSE 的等待狀態。原有 1 顆手刻骨架 ( RoleManagementCard ) 已收編。頁面級的 loading 骨架已改由下方自訂的 Shimmer 承接，此元件保留於卡片內 / 面板內的零散骨架，隨頁面遷移逐步收編。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:8px">
         <span class="skel" style="width:70%"></span>
         <span class="skel" style="width:100%"></span>
         <span class="skel" style="width:45%"></span>
       </div>
       <div class="spec-line">bg-primary/10 淺 brand 底 · rounded-md · animate-pulse · 尺寸由呼叫端 class 決定 ( 屬佈局覆寫 )</div>
+    </section>
+
+    <!-- ============ Shimmer ( 2026.7.27 拍板新增 ) ============ -->
+    <section class="band" id="comp-shimmer">
+      <div class="band-head"><h2>Shimmer</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 五頁頁面級骨架首批採用</span></div>
+      <p class="band-sub">頁面級載入骨架的正式規格 ( 2026.7.27 拍板新增 )。一道亮帶由左往右掃過骨架塊，取代 shadcn skeleton 的 animate-pulse 整塊明滅，並把骨架排成貼合各頁真實版面的形狀，載入完成的瞬間不會有版面跳動。實體住設計系統 components/，消費端由 <span style="font-family:var(--font-mono);color:var(--accent-ink)">@nics/design-tokens/components/Shimmer.vue</span> 引用。</p>
+      <div class="preview" style="flex-direction:column;align-items:stretch;gap:8px">
+        <span class="shimmerprev" style="width:70%"></span>
+        <span class="shimmerprev" style="width:100%"></span>
+        <span class="shimmerprev" style="width:45%"></span>
+      </div>
+      <div class="spec-line">骨架塊 skeleton-base ( neutral-200 中性底 ) · 掃光亮帶 skeleton-sheen ( neutral-50 近白 ) · linear-gradient 90deg 由 translateX(-100%) 掃到 100% · 動畫 shimmer 1.6s ease-in-out infinite · 預設 rounded-md，尺寸與圓角由呼叫端 class 決定 ( 佈局覆寫 )</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.27 )：總覽 / 資料來源 / 紀錄查詢 / 系統設定 / 協作請求 五頁的頁面級 loading 骨架首批採用，骨架形狀比照各頁真實版面 ( 卡片群、表格列、左右欄 )；prefers-reduced-motion 時停用掃光只留靜態底色；與 shadcn skeleton 並存期間，頁面級一律用 Shimmer，卡片 / 面板內零散骨架隨頁面遷移收編</div>
     </section>
 
     <!-- ============ Progress ( 2026.7.20 盤點定案 ) ============ -->

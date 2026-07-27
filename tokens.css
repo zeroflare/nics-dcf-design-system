@@ -325,6 +325,15 @@
   --color-tag-cat-operation-bg: var(--color-orange-100);    --color-tag-cat-operation-fg: var(--color-orange-700);
   --color-tag-cat-dataset-access-bg: var(--color-sky-100);  --color-tag-cat-dataset-access-fg: var(--color-sky-700);
   --color-tag-cat-inbox-bg: var(--color-rose-100);          --color-tag-cat-inbox-fg: var(--color-rose-700);
+
+  /* ===================== Component 層 · Skeleton ( Shimmer 掃光骨架 ) =====================
+     載入骨架的底色與掃光亮帶 ( 2026.7.27 拍板新增 )。base 為骨架塊本體
+     ( neutral-200 中性淺灰,比 shadcn skeleton 的 brand/10 更中性 ),sheen 為由左掃到右的
+     亮帶 ( neutral-50 近白 ),兩者對比構成 shimmer 的光感。動畫與掃光層實作見檔末
+     @layer components 的 .shimmer
+     ------------------------------------------------------------------ */
+  --color-skeleton-base: var(--color-neutral-200);
+  --color-skeleton-sheen: var(--color-neutral-50);
 }
 
 /* ============================================================
@@ -355,5 +364,50 @@
   label:has(> input[type='file']),
   select:not(:disabled) {
     cursor: pointer;
+  }
+}
+
+/* ============================================================
+   Component 層 · Shimmer 掃光骨架 ( 2026.7.27 拍板新增 )
+
+   載入骨架的正式動畫規格。一道亮帶 ( skeleton-sheen ) 由左往右掃過骨架塊
+   ( skeleton-base ),overflow-hidden 遮住溢出的掃光層,構成 shimmer 光感,
+   取代 shadcn skeleton 的 animate-pulse 整塊明滅。元件載體為本 repo 的
+   components/Shimmer.vue,消費端由 @nics/design-tokens/components/Shimmer.vue 引用,
+   骨架塊尺寸與圓角由呼叫端 class 決定 ( 佈局覆寫 )。
+
+   prefers-reduced-motion 時停用掃光動畫,只留靜態底色 ( 無障礙 )。
+   ============================================================ */
+@layer components {
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-skeleton-base);
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--color-skeleton-sheen) 50%,
+      transparent 100%
+    );
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer::after {
+    animation: none;
   }
 }

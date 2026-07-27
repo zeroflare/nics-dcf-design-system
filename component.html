@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="政府資料匯流分析協作平臺設計系統 — 元件規格與盤點">
 <link rel="icon" href="favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <title>政府資料匯流分析協作平臺設計系統</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -12,7 +15,7 @@
   img, svg, video { max-width: 100%; height: auto; }
 
   :root {
-    --font-sans: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans TC', sans-serif;
+    --font-sans: 'Public Sans', 'Noto Sans TC', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
 
     /* light ground — cool slate biased toward the teal brand */
@@ -255,6 +258,80 @@
   @keyframes skelshimmer { 100% { transform: translateX(100%); } }
   @media (prefers-reduced-motion: reduce) { .shimmerprev::after { animation: none; } }
 
+  /* ============================================================
+     DS 真實 token 鏡像 ( 僅供本頁 Navbar / Footer preview 使用,2026.7.27 )
+     tokens.css 用 Tailwind v4 的 @theme 語法,此靜態頁沒有建置流程無法直接
+     @import 生效 ( 瀏覽器不認得 @theme,直接連會整包失效 )，故在此手動鏡像
+     實際值，變數命名與 tokens.css 完全一致，方便對照，含顏色與字級兩層
+     ( 字級每個 token 都搭配對應的 --line-height，跟真實 Tailwind 編譯出的
+     .text-caption 等 utility class 一樣「字級與行高綁定」，不是各自寫死 )。
+     如有出入，一律以 tokens.css 為準，數值變動時本區塊要一併同步更新。
+     ------------------------------------------------------------------ */
+  :root {
+    --color-bg-container: #ffffff;
+    --color-bg-container-subtle: #f8fafc;
+    --color-fg-primary-default: #0f172a;
+    --color-fg-primary-hover: #334155;
+    --color-fg-secondary-default: #64748b;
+    --color-fg-secondary-hover: #334155;
+    --color-fg-tertiary-default: #94a3b8;
+    --color-fg-inverted-default: #ffffff;
+    --color-stroke: #e2e8f0;
+    --color-primary-fg: #115e59;
+    --color-primary-solid: #0d9488;
+    --color-success-fg: #15803d;
+    --color-success-solid: #22c55e;
+    --color-danger-solid: #ef4444;
+    --color-avatar-gradient-from: #2dd4bf;
+    --color-avatar-gradient-to: #0d9488;
+    --text-body2: 14px;
+    --text-body2--line-height: 1.5;
+    --text-caption: 12px;
+    --text-caption--line-height: 1.5;
+    --text-button: 14px;
+    --text-button--line-height: 1;
+  }
+
+  /* Navbar / Footer 殼 preview ( 2026.7.27 拍板新增，跨站共用 ) */
+  .nv-label { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--ink-2); margin-bottom: 8px; }
+  .nv-label .pill { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--ink-3); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; font-weight: 400; }
+  .nv-frame { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); background: var(--color-bg-container); margin-bottom: 22px; }
+  .nv-frame:last-child { margin-bottom: 0; }
+  .nvbar { height: 56px; background: var(--color-bg-container); border-bottom: 1px solid var(--color-stroke); display: flex; align-items: stretch; justify-content: space-between; padding: 0 20px; gap: 16px; }
+  .nvbar .nv-l { display: flex; align-items: center; gap: 24px; min-width: 0; }
+  .nvbar .nv-r { display: flex; align-items: center; gap: 24px; }
+  .nvlogo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .nvlogo img { width: 28px; height: 28px; flex: none; }
+  .nvlogo .txt { display: flex; flex-direction: column; line-height: 1.25; }
+  .nvlogo .txt .main { font-size: var(--text-body2); line-height: var(--text-body2--line-height); font-weight: 700; color: var(--color-fg-primary-default); letter-spacing: -0.025em; white-space: nowrap; }
+  .nvlogo .txt .sub { margin-top: -4px; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-fg-secondary-default); white-space: nowrap; }
+  .nvitems { display: flex; align-items: stretch; height: 56px; }
+  .nvitem { display: flex; align-items: center; padding: 0 16px; height: 100%; font-size: var(--text-body2); line-height: var(--text-body2--line-height); color: var(--color-fg-secondary-default); white-space: nowrap; position: relative; text-decoration: none; }
+  .nvitem:hover { color: var(--color-fg-secondary-hover); }
+  .nvitem.active { color: var(--color-primary-fg); font-weight: 700; }
+  .nvitem.active:hover { color: var(--color-primary-fg); }
+  .nvitem.active::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 3px; background: var(--color-primary-solid); }
+  .nvitem-text { position: relative; }
+  .nvitem-text .nvbadge { position: absolute; top: 0; left: 100%; margin-left: 2px; transform: translateY(-50%); min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--color-danger-solid); color: var(--color-fg-inverted-default); font-size: 9.6px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .nvstatus { display: flex; align-items: center; gap: 4px; white-space: nowrap; font-size: var(--text-body2); line-height: var(--text-body2--line-height); color: var(--color-success-fg); }
+  .nvstatus .dot { width: 8px; height: 8px; margin-right: 0; border: none; border-radius: 999px; background: var(--color-success-solid); }
+  .nvicon { width: 36px; height: 36px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: var(--color-fg-secondary-default); background: none; border: none; padding: 0; cursor: pointer; appearance: none; }
+  .nvicon:hover { background: var(--color-bg-container-subtle); }
+  .nvicon svg { width: 20px; height: 20px; }
+  .nvuser { display: flex; align-items: center; gap: 4px; }
+  .nvavatar { width: 24px; height: 24px; border-radius: 999px; flex: none; background: linear-gradient(135deg, var(--color-avatar-gradient-from), var(--color-avatar-gradient-to)); color: var(--color-fg-inverted-default); font-weight: 700; display: flex; align-items: center; justify-content: center; line-height: 1; }
+  .nvavatar.latin { font-size: var(--text-body2); }
+  .nvavatar.cjk { font-size: var(--text-caption); }
+  .nvuser .name { font-size: var(--text-body2); line-height: var(--text-body2--line-height); color: var(--color-fg-primary-default); white-space: nowrap; }
+  .nvuser:hover .name { color: var(--color-fg-primary-hover); }
+  .nvloginbtn { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 8px; background: var(--color-primary-solid); color: var(--color-fg-inverted-default); font-size: var(--text-button); line-height: var(--text-button--line-height); font-weight: 500; text-decoration: none; }
+  .nvloginbtn svg { width: 16px; height: 16px; }
+  .ftbar { background: var(--color-bg-container); padding: 16px 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-fg-tertiary-default); }
+  .ftbar .inner { max-width: 1024px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .ftbar .links { display: flex; gap: 24px; }
+  .ftbar a { color: var(--color-fg-tertiary-default); text-decoration: none; }
+  .ftbar a:hover { color: var(--color-primary-fg); }
+
   /* audit */
   .audit-intro { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; padding: 22px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 24px; }
   .audit-stat { display: flex; flex-direction: column; }
@@ -359,6 +436,9 @@
       </button>
       <div class="grp-body" id="grp-comp">
         <a href="#comp-guide"><span>接入指南</span></a>
+        <div class="grp sub">版面外殼</div>
+        <a href="#comp-navbar" class="comp-link"><span>Navbar</span></a>
+        <a href="#comp-footer" class="comp-link"><span>Footer</span></a>
         <div class="grp sub">動作與表單</div>
         <a href="#comp-button" class="comp-link"><span>Button</span></a>
         <a href="#comp-input" class="comp-link"><span>Input</span></a>
@@ -379,6 +459,8 @@
         <a href="#comp-badge" class="comp-link"><span>Badge</span></a>
         <a href="#comp-tag" class="comp-link"><span>Tag</span></a>
         <a href="#comp-skeleton" class="comp-link"><span>Skeleton</span></a>
+        <a href="#comp-shimmer" class="comp-link"><span>Shimmer</span></a>
+        <a href="#comp-avatar" class="comp-link"><span>Avatar</span></a>
         <a href="#comp-progress" class="comp-link"><span>Progress</span></a>
         <a href="#comp-toast" class="comp-link"><span>Sonner Toast</span></a>
         <a href="#comp-card" class="comp-link"><span>Card</span></a>
@@ -416,6 +498,115 @@
       </div>
       <h3 class="sub">接入五步驟</h3>
       <div class="spec-line">1. 安裝套件：bun add github:zeroflare/nics-dcf-design-system，CSS 進入點 @import '@nics/design-tokens/tokens.css'，並加 @source 指到套件的 components/ ( Tailwind 預設不掃 node_modules )<br>2. shadcn 橋接變數指向 token：--primary = brand-500 · --destructive = red-500 · --ring = brand-300 · --border = stroke<br>3. 安裝認可的 shadcn 元件清單並重放 5 個有意修改 ( Dialog / Card / Progress / Drawer / Switch )；明確不使用 alert、scroll-area、膠囊式 tabs<br>4. 自訂元件從套件 import ( 如 @nics/design-tokens/components/Tag.vue )，依賴契約：@ 別名指向 src、對應 shadcn 元件已安裝<br>5. 實作前先讀本頁對應元件的「已拍板規則」；需要新元件或新樣式 pattern，先回設計系統立章拍板，實體放設計系統的 components/</div>
+    </section>
+
+    <!-- ============ Navbar ( 2026.7.27 拍板新增,跨站共用殼 ) ============ -->
+    <section class="band" id="comp-navbar">
+      <div class="band-head"><h2>Navbar</h2><span class="src custom">自訂</span><span class="use-b">殼 + slot · 存取節點 / 分析平臺共用</span></div>
+      <p class="band-sub">業主要求存取節點與分析平臺兩站要有一致的視覺識別，導覽列是使用者最直接感受到一致性的地方。做法是把「長相」收進設計系統：56px 高、白底、logo 排版、底線式選中態、使用者頭像 ( 見 Avatar 章 )、按鈕與圖示尺寸全部共用；各站帶入自己的選單項目與右側動作 ( 差異只留在內容層，不留在樣式層 )。</p>
+
+      <div class="nv-label"><span>存取節點</span> · Access Node <span class="pill">登入後</span></div>
+      <div class="nv-frame">
+        <div class="nvbar">
+          <div class="nv-l">
+            <a class="nvlogo" href="#" onclick="return false">
+              <img src="favicon.png" alt="">
+              <span class="txt"><span class="main">政府資料匯流分析協作平臺</span><span class="sub">資料存取節點</span></span>
+            </a>
+            <nav class="nvitems">
+              <a class="nvitem active" href="#" onclick="return false">總覽</a>
+              <a class="nvitem" href="#" onclick="return false">資料來源</a>
+              <a class="nvitem" href="#" onclick="return false"><span class="nvitem-text">協作請求<span class="nvbadge">3</span></span></a>
+              <a class="nvitem" href="#" onclick="return false">紀錄查詢</a>
+              <a class="nvitem" href="#" onclick="return false">系統設定</a>
+            </nav>
+          </div>
+          <div class="nv-r">
+            <span class="nvstatus"><span class="dot"></span>連線正常</span>
+            <span class="nvuser"><span class="nvavatar latin">W</span><span class="name">WreckOP</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-label"><span>分析平臺</span> · Platform <span class="pill">登入後</span></div>
+      <div class="nv-frame">
+        <div class="nvbar">
+          <div class="nv-l">
+            <a class="nvlogo" href="#" onclick="return false">
+              <img src="favicon.png" alt="">
+              <span class="txt"><span class="main">政府資料匯流分析平臺</span><span class="sub">管理平台</span></span>
+            </a>
+            <nav class="nvitems">
+              <a class="nvitem active" href="#" onclick="return false">儀表板</a>
+              <a class="nvitem" href="#" onclick="return false">專案協作</a>
+              <a class="nvitem" href="#" onclick="return false">節點管理</a>
+              <a class="nvitem" href="#" onclick="return false">稽核記錄</a>
+              <a class="nvitem" href="#" onclick="return false">使用者管理</a>
+            </nav>
+          </div>
+          <div class="nv-r" style="gap:8px">
+            <button class="nvicon" aria-label="設定">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.6"/></svg>
+            </button>
+            <span class="nvuser"><span class="nvavatar cjk">陳</span><span class="name">陳建良</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-label"><span>分析平臺</span> · Platform <span class="pill">未登入</span></div>
+      <div class="nv-frame">
+        <div class="nvbar">
+          <div class="nv-l">
+            <a class="nvlogo" href="#" onclick="return false">
+              <img src="favicon.png" alt="">
+              <span class="txt"><span class="main">政府資料匯流分析平臺</span><span class="sub">管理平台</span></span>
+            </a>
+            <nav class="nvitems">
+              <a class="nvitem active" href="#" onclick="return false">操作紀錄</a>
+            </nav>
+          </div>
+          <div class="nv-r">
+            <a class="nvloginbtn" href="#" onclick="return false">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              登入
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-line">高度 56px 固定 · 白底 · 底部 1px stroke 分隔線 · logo 28px 無圓角 + 兩行文字堆疊 ( 主名 14/700 主要色、副名 12px 次要色，leading-tight + -mt-1 收窄行距 )</div>
+      <div class="spec-line">選單項：文字 Body2 ( 14px ) · 選中態 primary-solid 底線 3px + primary-fg 文字 + 700 字重 · 未選 fg-secondary，hover 加深；徽章絕對定位貼文字右緣 ( -translate-y-1/2、ml-0.5、text-[0.6rem] )</div>
+      <div class="spec-line">右側動作區各站自訂內容，但元素樣式共用：連線狀態圓點 + 文字 ( gap-1 )、圖示按鈕 36px 圓形、使用者頭像 ( 見 Avatar 章 ) + 名稱 ( gap-1 )、登入按鈕 primary-solid 實色；連線狀態與使用者兩塊之間 gap-6 ( 24px )</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.27 )：業主要求兩站視覺一致，navbar 以「殼 + slot」落地，實體為本 repo <code>components/Navbar.vue</code> ( 插槽 brand / 預設選單 / actions ) + <code>components/NavbarItem.vue</code> ( 單一選單項，props：to / active / badge )，樣式規格共用、選單與右側內容各站帶入。<b>存取節點列逐字對照 AppNav.vue / NodeStatusIndicator.vue 搬移，且該站已實際換用本殼層元件，為定案內容</b>；分析平臺列因該站尚無 ds 化的 navbar 可供搬移，屬沿用同一套規格的新提案，非搬移，實作前仍需該站設計負責人拍板</div>
+    </section>
+
+    <!-- ============ Footer ( 2026.7.27 拍板新增,跨站共用殼 ) ============ -->
+    <section class="band" id="comp-footer">
+      <div class="band-head"><h2>Footer</h2><span class="src custom">自訂</span><span class="use-b">殼 + slot · 存取節點 / 分析平臺共用</span></div>
+      <p class="band-sub">兩站頁尾結構幾乎相同，統一為靠左版權、靠右服務條款 / 隱私權政策連結；版權文字用參數帶入，各站標示自己的產品全名與副名。</p>
+
+      <div class="nv-label"><span>存取節點</span> · Access Node</div>
+      <div class="nv-frame">
+        <div class="ftbar">
+          <div class="inner">
+            <span>© 2026 政府資料匯流分析平臺｜資料存取節點</span>
+            <span class="links"><a href="#" onclick="return false">服務條款</a><a href="#" onclick="return false">隱私權政策</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-label"><span>分析平臺</span> · Platform</div>
+      <div class="nv-frame">
+        <div class="ftbar">
+          <div class="inner">
+            <span>© 2026 政府資料匯流分析平臺｜管理平台</span>
+            <span class="links"><a href="#" onclick="return false">服務條款</a><a href="#" onclick="return false">隱私權政策</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-line">白底 · 頂部 1px stroke 分隔線 · 外層僅上下內距 ( py-4 )，內層 max-width 1024px 置中 + 左右內距 ( 對齊真實 AppFooter.vue 結構 ) · 版權 Caption ( 12px ) 大寫、字距 tracking-widest ( 0.1em )，靠左；服務條款 / 隱私權政策連結靠右，hover 轉 primary-fg</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.27 )：實體為本 repo <code>components/Footer.vue</code> ( props：copyrightText / links，links 預設服務條款 + 隱私權政策 )。版權文字統一「© 年份 政府資料匯流分析平臺｜［站名副名］」格式，站名副名由各站帶入 ( 存取節點：資料存取節點；分析平臺：管理平台 )。存取節點列逐字對照 AppFooter.vue 搬移，且該站已實際換用本殼層元件，為定案內容</div>
     </section>
 
     <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->

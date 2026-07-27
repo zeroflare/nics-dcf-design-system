@@ -665,16 +665,16 @@
     </section>
 
 
-    <!-- ============ Skeleton ( 2026.7.20 盤點定案 ) ============ -->
+    <!-- ============ Skeleton ( 2026.7.20 盤點定案 · 2026.7.27 退役 ) ============ -->
     <section class="band" id="comp-skeleton">
-      <div class="band-head"><h2>Skeleton</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 27 處 / 9 檔</span></div>
-      <p class="band-sub">shadcn 原生載入骨架 ( animate-pulse 整塊明滅 )，配合即時 API 與 SSE 的等待狀態。原有 1 顆手刻骨架 ( RoleManagementCard ) 已收編。頁面級的 loading 骨架已改由下方自訂的 Shimmer 承接，此元件保留於卡片內 / 面板內的零散骨架，隨頁面遷移逐步收編。</p>
-      <div class="preview" style="flex-direction:column;align-items:stretch;gap:8px">
+      <div class="band-head"><h2>Skeleton</h2><span class="src">已退役</span><span class="use-b">全面由 Shimmer 取代 · 元件本體已移除</span></div>
+      <p class="band-sub">原 shadcn 原生載入骨架 ( animate-pulse 整塊明滅 )。2026.7.27 全面由下方自訂的 Shimmer ( 掃光 ) 取代:頁面級與次級 loading 骨架全數遷移,最後僅剩三個死碼元件 ( ResourceUsageCard / NodeControlCard / ResourceBar,總覽頁改版後被 navbar 節點指示器取代的殘骸 ) 在依賴,已一併清除。shadcn skeleton 的元件本體與認可清單資格皆已移除,保留本章供歷史對照,新的載入骨架一律見下方 Shimmer 章。</p>
+      <div class="preview" style="flex-direction:column;align-items:stretch;gap:8px;opacity:.45">
         <span class="skel" style="width:70%"></span>
         <span class="skel" style="width:100%"></span>
         <span class="skel" style="width:45%"></span>
       </div>
-      <div class="spec-line">bg-primary/10 淺 brand 底 · rounded-md · animate-pulse · 尺寸由呼叫端 class 決定 ( 屬佈局覆寫 )</div>
+      <div class="spec-line">( 已退役 ) 原規格:bg-primary/10 淺 brand 底 · rounded-md · animate-pulse · 尺寸由呼叫端 class 決定</div>
     </section>
 
     <!-- ============ Shimmer ( 2026.7.27 拍板新增 ) ============ -->

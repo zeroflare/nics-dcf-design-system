@@ -75,9 +75,9 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 
 ### 3. 安裝認可的 shadcn 元件並重放有意修改
 
-用 `npx shadcn-vue add <name>` 安裝需要的元件。**認可清單**：button、input、switch、checkbox、select、textarea、dialog、drawer、popover、command、dropdown-menu、tooltip、badge、skeleton、progress、sonner、card、table、separator、pagination、collapsible。
+用 `npx shadcn-vue add <name>` 安裝需要的元件。**認可清單**：button、input、switch、checkbox、select、textarea、dialog、drawer、popover、command、dropdown-menu、tooltip、badge、progress、sonner、card、table、separator、pagination、collapsible。
 
-**明確不使用**：alert、scroll-area、tabs ( 膠囊式；分頁採底線式規格，見 component.html Tabs 章 )。
+**明確不使用**：alert、scroll-area、tabs ( 膠囊式；分頁採底線式規格，見 component.html Tabs 章 )、skeleton ( 載入骨架改用自訂 Shimmer，2026.7.27 退役，見 component.html Shimmer 章 )。
 
 安裝後重放六個拍板過的 vendor 修改 ( 修改處都要留「有意的 vendor 修改」註解 )：
 

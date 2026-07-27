@@ -94,13 +94,14 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 
 **明確不使用**：alert、scroll-area、tabs ( 膠囊式；分頁採底線式規格，見 component.html Tabs 章 )、skeleton ( 載入骨架改用自訂 Shimmer，2026.7.27 退役，見 component.html Shimmer 章 )。
 
-安裝後重放六個拍板過的 vendor 修改 ( 修改處都要留「有意的 vendor 修改」註解 )：
+安裝後重放七個拍板過的 vendor 修改 ( 修改處都要留「有意的 vendor 修改」註解 )：
 
 | 檔案 | 修改 |
 |---|---|
 | `ui/dialog/DialogTitle.vue` | class 的 `'text-lg leading-none font-semibold'` → `'text-subtitle'` ( Subtitle 18 / 700 / 1.3 ) |
 | `ui/dialog/DialogContent.vue`<br>`ui/dialog/DialogScrollContent.vue` | class 的 `bg-background` → `bg-container` ( ds 白卡底;`--background` 橋接到 bg-surface 頁面底色淺灰,對話框應與卡片同為白底,不能沿用頁面底色 ) |
 | `ui/drawer/DrawerContent.vue` | class 的 `bg-background` → `bg-container` ( ds 白卡底,理由同 Dialog；2026.7.24 拍板 ) |
+| `ui/dialog/DialogOverlay.vue`<br>`ui/dialog/DialogScrollContent.vue`<br>`ui/drawer/DrawerOverlay.vue` | class 的 `bg-black/80` → `bg-black/60` ( 遮罩不透明度調淡,阿暖反饋 80% 太暗,全站遮罩統一；2026.7.28 拍板 ) |
 | `ui/card/Card.vue` | ① class 的 `rounded-xl` → `rounded-md` ( 卡片圓角一律 md 8px )<br>② 移除 `border` ( 框線與 shadow-sm 都在做與背景分離,並存會疊出灰邊使陰影顯重;需要框線的區塊自行加 `border-stroke` ) |
 | `ui/progress/Progress.vue` | 新增 `indicatorClass` prop 並以 `cn()` 併入 indicator class，供指定語意 solid 填色 |
 | `ui/switch/Switch.vue` | thumb 的 `bg-background` → `bg-fg-inverted-default` ( 純白;`--background` 橋接到頁面底色淺灰,疊在實色軌道上會顯髒 ) |

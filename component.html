@@ -646,7 +646,7 @@
         <span class="swch off"></span>
       </div>
       <div class="spec-line">軌道 32×18.4 · thumb 16px 圓 · checked bg-primary · unchecked bg-input · thumb 色 <code>fg-inverted-default</code> ( 純白 )</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.20 )：一項 vendor 修改 — <b>thumb 由 bg-background 改為 fg-inverted-default</b>，因 --background 在消費端是 #EEF1F5 淺灰，疊在 primary 實色軌道上會顯髒，滑塊應為純白。指標游標不寫在元件內，由 Foundation 的互動游標規則統一供給</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.20 )：一項 vendor 修改 — <b>thumb 由 bg-background 改為 fg-inverted-default</b>，因 --background 在消費端是 #eef1f5 淺灰，疊在 primary 實色軌道上會顯髒，滑塊應為純白。指標游標不寫在元件內，由 Foundation 的互動游標規則統一供給</div>
     </section>
 
     <!-- ============ Checkbox ( 2026.7.19 盤點定案 ) ============ -->
@@ -714,7 +714,7 @@
       <div class="spec-line">圓角 lg ( 16px ) · shadow-lg · 內距 p-6 · 預設寬 sm:max-w-lg · 遮罩黑 80%</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：DialogTitle 套 Subtitle 語意字級 ( 18 / 700 / 1.3，取代原 18 / 600 / leading-none，落實文字章的 ★ 拍板，屬有意的 vendor 修改 )；呼叫端覆寫僅限寬度 / 高度佈局類 ( max-w-* / max-h-* / p-0 )，不得覆寫樣式</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：Dialog 分兩型。<b>確認型</b>統一走共用元件 ConfirmDialog ( ds components/ )：標題與說明靠左 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、寬 sm:max-w-sm、DialogFooter 左取消 ( outline ) 右主動作 ( 一般 default / 破壞性 destructive )，說明文案帶入對象名稱；現行使用：協作請求核准 / 駁回 ( RequestConfirmDialog，駁回附 Textarea 理由欄 )、刪除 / 停用帳號、刪除角色、刪除資料集、未儲存變更警告 ( cancelLabel 覆寫為「繼續編輯」)。<b>表單型</b> ( 重設密碼、編輯角色、新增帳號 )：標題與說明靠左、保留右上角關閉鈕、欄位 label 用 text-caption font-bold text-fg-secondary、DialogFooter 同樣左取消右主動作。落地於 demo</div>
-      <div class="spec-line"><b>容器底色 vendor 修改 ( 2026.7.26 拍板 )</b>：DialogContent / DialogScrollContent 由 shadcn 預設 <code>bg-background</code> 改為 <code>bg-container</code>（ds 白卡底）。因 <code>--background</code> 在消費端非白 ( #EEF1F5 頁面底色 )，對話框應與卡片同為白底,不應和頁面背景同色;屬有意的 vendor 修改，檔內留「有意的 vendor 修改」註解，比照 Drawer 的先例 ( 見下方 Drawer 章 )</div>
+      <div class="spec-line"><b>容器底色 vendor 修改 ( 2026.7.26 拍板 )</b>：DialogContent / DialogScrollContent 由 shadcn 預設 <code>bg-background</code> 改為 <code>bg-container</code>（ds 白卡底）。因 <code>--background</code> 在消費端非白 ( #EEF1F5 頁面底色 )，對話框應與卡片同為白底，不應和頁面背景同色；屬有意的 vendor 修改，檔內留「有意的 vendor 修改」註解，比照 Drawer 的先例 ( 見下方 Drawer 章 )</div>
     </section>
 
     <!-- ============ ConfirmDialog ( 2026.7.20 盤點新增 ) ============ -->
@@ -745,8 +745,8 @@
           <div style="padding:16px;font-size:11.5px;color:var(--ink-2)">內容區</div>
         </div>
       </div>
-      <div class="spec-line">已拍板規則 ( 2026.7.24 )：前導矩形 4×20 ( w-1 h-5 ) bg-primary-solid、標題 Subtitle、border-b stroke 撐滿整卡、padding px-4 py-4 ( 上下對稱,左右與卡片內容對齊 16px )。矩形色 / 字級 / 分隔線不得覆寫,消費端僅可覆寫佈局類</div>
-      <div class="spec-line">純標記自訂元件,無 shadcn 依賴;消費端由 @nics/design-tokens/components/CardHeader.vue 引用</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.24 )：前導矩形 4×20 ( w-1 h-5 ) bg-primary-solid、標題 Subtitle、border-b stroke 撐滿整卡、padding px-4 py-4 ( 上下對稱，左右與卡片內容對齊 16px )。矩形色 / 字級 / 分隔線不得覆寫，消費端僅可覆寫佈局類</div>
+      <div class="spec-line">純標記自訂元件，無 shadcn 依賴；消費端由 @nics/design-tokens/components/CardHeader.vue 引用</div>
     </section>
 
     <!-- ============ Drawer ( 2026.7.20 盤點定案 ) ============ -->
@@ -859,13 +859,13 @@
     <!-- ============ Skeleton ( 2026.7.20 盤點定案 · 2026.7.27 退役 ) ============ -->
     <section class="band" id="comp-skeleton">
       <div class="band-head"><h2>Skeleton</h2><span class="src">已退役</span><span class="use-b">全面由 Shimmer 取代 · 元件本體已移除</span></div>
-      <p class="band-sub">原 shadcn 原生載入骨架 ( animate-pulse 整塊明滅 )。2026.7.27 全面由下方自訂的 Shimmer ( 掃光 ) 取代:頁面級與次級 loading 骨架全數遷移,最後僅剩三個死碼元件 ( ResourceUsageCard / NodeControlCard / ResourceBar,總覽頁改版後被 navbar 節點指示器取代的殘骸 ) 在依賴,已一併清除。shadcn skeleton 的元件本體與認可清單資格皆已移除,保留本章供歷史對照,新的載入骨架一律見下方 Shimmer 章。</p>
+      <p class="band-sub">原 shadcn 原生載入骨架 ( animate-pulse 整塊明滅 )。2026.7.27 全面由下方自訂的 Shimmer ( 掃光 ) 取代：頁面級與次級 loading 骨架全數遷移，最後僅剩三個死碼元件 ( ResourceUsageCard / NodeControlCard / ResourceBar，總覽頁改版後被 navbar 節點指示器取代的殘骸 ) 在依賴，已一併清除。shadcn skeleton 的元件本體與認可清單資格皆已移除，保留本章供歷史對照，新的載入骨架一律見下方 Shimmer 章。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:8px;opacity:.45">
         <span class="skel" style="width:70%"></span>
         <span class="skel" style="width:100%"></span>
         <span class="skel" style="width:45%"></span>
       </div>
-      <div class="spec-line">( 已退役 ) 原規格:bg-primary/10 淺 brand 底 · rounded-md · animate-pulse · 尺寸由呼叫端 class 決定</div>
+      <div class="spec-line">( 已退役 ) 原規格：bg-primary/10 淺 brand 底 · rounded-md · animate-pulse · 尺寸由呼叫端 class 決定</div>
     </section>
 
     <!-- ============ Shimmer ( 2026.7.27 拍板新增 ) ============ -->
@@ -878,20 +878,20 @@
         <span class="shimmerprev" style="width:45%"></span>
       </div>
       <div class="spec-line">骨架塊 skeleton-base ( neutral-200 中性底 ) · 掃光亮帶 skeleton-sheen ( neutral-50 近白 ) · linear-gradient 90deg 由 translateX(-100%) 掃到 100% · 動畫 shimmer 1.6s ease-in-out infinite · 預設 rounded-md，尺寸與圓角由呼叫端 class 決定 ( 佈局覆寫 )</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.27 )：總覽 / 資料來源 / 紀錄查詢 / 系統設定 / 協作請求 五頁的頁面級 loading 骨架首批採用，骨架形狀比照各頁真實版面 ( 卡片群、表格列、左右欄 )；prefers-reduced-motion 時停用掃光只留靜態底色；頁面級與次級 loading 骨架全面採用,並已全面取代、退役 shadcn skeleton ( 見上方 Skeleton 章,2026.7.27 元件本體已移除 )</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.27 )：總覽 / 資料來源 / 紀錄查詢 / 系統設定 / 協作請求 五頁的頁面級 loading 骨架首批採用，骨架形狀比照各頁真實版面 ( 卡片群、表格列、左右欄 )；prefers-reduced-motion 時停用掃光只留靜態底色；頁面級與次級 loading 骨架全面採用，並已全面取代、退役 shadcn skeleton ( 見上方 Skeleton 章，2026.7.27 元件本體已移除 )</div>
     </section>
 
     <!-- ============ Avatar ( 2026.7.27 拍板新增 ) ============ -->
     <section class="band" id="comp-avatar">
       <div class="band-head"><h2>Avatar</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · navbar 首採用</span></div>
-      <p class="band-sub">使用者頭像 ( 2026.7.27 拍板新增 )。後台沒有上傳大頭貼的功能,頭像一律取「名稱」首字 ( 中文一個字 / 英文一個字母大寫,空值退回問號 ) + 主色 brand 對角漸層底 ( 左上淺 brand-300 → 右下深 brand-500 )、白字置中。size 同時決定圓徑與字級 ( sm 24 / md 32 / lg 40 ),尺寸與字級綁定確保比例協調。實體住設計系統 components/,消費端由 <span style="font-family:var(--font-mono);color:var(--accent-ink)">@nics/design-tokens/components/Avatar.vue</span> 引用。</p>
+      <p class="band-sub">使用者頭像 ( 2026.7.27 拍板新增 )。後台沒有上傳大頭貼的功能，頭像一律取「名稱」首字 ( 中文一個字 / 英文一個字母大寫，空值退回問號 ) + 主色 brand 對角漸層底 ( 左上淺 brand-300 → 右下深 brand-500 )、白字置中。size 同時決定圓徑與字級 ( sm 24 / md 32 / lg 40 )，尺寸與字級綁定確保比例協調。實體住設計系統 components/，消費端由 <span style="font-family:var(--font-mono);color:var(--accent-ink)">@nics/design-tokens/components/Avatar.vue</span> 引用。</p>
       <div class="preview" style="gap:16px">
         <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:linear-gradient(135deg,#2dd4bf,#0d9488);color:#fff;font-weight:700;font-size:14px">S</span>
         <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:linear-gradient(135deg,#2dd4bf,#0d9488);color:#fff;font-weight:700;font-size:16px">陳</span>
         <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;background:linear-gradient(135deg,#2dd4bf,#0d9488);color:#fff;font-weight:700;font-size:18px">A</span>
       </div>
       <div class="spec-line">圓形 · bg-linear-to-br from-avatar-gradient-from ( brand-300 ) to-avatar-gradient-to ( brand-500 ) · 白字 fg-inverted · font-bold · 拉丁首字 sm body2 / md body1 / lg subtitle · 中文 ( CJK ) 首字字級自動降一階避免緊繃 ( sm caption / md body2 / lg body1 )</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.27 )：navbar 首採用 ( size sm );之後本機帳號管理、協作請求送件人等要顯示使用者頭像一律用此元件,不另手刻</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.27 )：navbar 首採用 ( size sm )；之後本機帳號管理、協作請求送件人等要顯示使用者頭像一律用此元件，不另手刻</div>
     </section>
 
     <!-- ============ Progress ( 2026.7.20 盤點定案 ) ============ -->
@@ -903,7 +903,7 @@
         <div style="height:8px;border-radius:999px;background:#f1f5f9;overflow:hidden"><div style="width:67%;height:100%;background:#f59e0b"></div></div>
         <div style="height:8px;border-radius:999px;background:#f1f5f9;overflow:hidden"><div style="width:30%;height:100%;background:#0d9488"></div></div>
       </div>
-      <div class="spec-line">h-2 · rounded-full · 軌道 bg-container-variant ( n100 ) · 填色用語意 solid token ( success / warning / primary )</div>
+      <div class="spec-line">h-2 · rounded-full · 軌道 <code>bg-primary/20</code> ( shadcn 橋接變數 --primary 20% 透明，即 brand-500/20，非 ds 語意 token，現況即規範 ) · 填色用語意 solid token ( success / warning / primary )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：元件新增 indicatorClass prop ( 有意的 vendor 擴充 ) 供指定語意填色；大面積實色一律走 solid=500，不用於文字</div>
     </section>
 
@@ -949,7 +949,7 @@
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden">
         <div style="display:flex;gap:16px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px"><span style="color:var(--accent-ink);font-weight:700;border-bottom:2px solid var(--accent);padding-bottom:6px">總覽</span><span style="color:var(--ink-3)">資料來源</span><span style="color:var(--ink-3)">紀錄</span></div>
       </div>
-      <div class="spec-line">底線式規格：px-6 py-3 · 文字 Body2 ( 14px ) · 選中態 primary-solid 底線 2px + 700 字重 + primary-fg 文字 · 未選 fg-secondary ( 400 )，hover 加深為 fg-primary · disabled 態 fg-tertiary + cursor-not-allowed，可帶 hint 以 shadcn Tooltip 呈現停用原因 ( 2026.7.20 資料來源頁需求新增，依賴契約：消費端須已安裝 shadcn tooltip )</div>
+      <div class="spec-line">底線式規格：px-6 py-3 · 文字 Body2 ( 14px ) · 選中態 primary-solid 底線 2px + 700 字重 + primary-fg 文字 · 未選 fg-secondary ( 400 )，hover 走同階的 fg-secondary-hover ( 與 fg-primary-hover 同為 neutral-700，視覺上一樣深，但是不同的語意 token ) · disabled 態 fg-secondary-disabled + cursor-not-allowed，可帶 hint 以 shadcn Tooltip 呈現停用原因 ( 2026.7.20 資料來源頁需求新增，依賴契約：消費端須已安裝 shadcn tooltip )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：消費端由 @nics/design-tokens/components/Tabs.vue 引用；6 組手刻頁籤隨頁面遷移收編 ( 首例：紀錄查詢頁，資料來源頁詳情頁籤含 disabled 首例 )</div>
     </section>
 

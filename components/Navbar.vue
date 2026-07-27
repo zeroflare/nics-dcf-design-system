@@ -8,6 +8,10 @@
  * 定位 ( fixed / sticky ) 交由消費端外層決定，本元件只管高度與內部排版；
  * 行動版漢堡選單 / Drawer 亦不屬本殼層範圍，由各站自行處理。
  *
+ * 根元素刻意用 div 不用 header：HTML5 規格禁止 header 巢狀在另一個 header 底下，
+ * 消費端通常會用自己的 <header class="fixed ..."> 包住本元件，header 語意角色留給
+ * 消費端外層 ( 一個頁面只該有一個導覽 header 地標 )。
+ *
  * 插槽：
  *   - brand   左側標誌區 ( logo + 站名，兩行文字建議 text-body2 font-bold text-fg-primary-default
  *             主名、-mt-1 text-caption text-fg-secondary-default 副名 )
@@ -18,7 +22,7 @@
 </script>
 
 <template>
-  <header
+  <div
     class="flex h-14 items-center justify-between gap-4 border-b border-stroke bg-bg-container px-4 md:px-6"
   >
     <div class="flex h-full min-w-0 shrink-0 items-center gap-6">
@@ -30,5 +34,5 @@
     <div class="flex h-full min-w-0 items-center gap-6">
       <slot name="actions" />
     </div>
-  </header>
+  </div>
 </template>

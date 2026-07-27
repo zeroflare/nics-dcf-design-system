@@ -948,6 +948,7 @@
       </div>
       <div class="spec-line">底線式規格：px-6 py-3 · 文字 Body2 ( 14px ) · 選中態 primary-solid 底線 2px + 700 字重 + primary-fg 文字 · 未選 fg-secondary ( 400 )，hover 走同階的 fg-secondary-hover ( 與 fg-primary-hover 同為 neutral-700，視覺上一樣深，但是不同的語意 token ) · disabled 態 fg-secondary-disabled + cursor-not-allowed，可帶 hint 以 shadcn Tooltip 呈現停用原因 ( 2026.7.20 資料來源頁需求新增，依賴契約：消費端須已安裝 shadcn tooltip )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：消費端由 @nics/design-tokens/components/Tabs.vue 引用；6 組手刻頁籤隨頁面遷移收編 ( 首例：紀錄查詢頁，資料來源頁詳情頁籤含 disabled 首例 )</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.27 )：新增選填 <code>count</code> prop，顯示筆數徽章 ( 圓角膠囊，選中態 primary-bg 底 + primary-fg 字、未選 bg-container-variant 底 + fg-secondary-default 字 )，0 或未帶時不顯示；首例為協作請求頁的待審核／已核准／已駁回筆數</div>
     </section>
 
     <!-- ============ Separator ( 2026.7.20 盤點定案 ) ============ -->

@@ -6,6 +6,9 @@
  * 未選 fg-secondary-default,hover 走同階的 fg-secondary-hover ( 2026.7.20 狀態 token 上線後改用 )
  * disabled tab ( 2026.7.20 資料來源頁需求新增 ):fg-secondary-disabled + cursor-not-allowed,
  * hint 以 shadcn Tooltip 呈現停用原因 ( 設計師反饋原生 title 太陽春,改回 Tooltip )
+ * count ( 2026.7.27 協作請求頁需求新增 ):選填筆數徽章,0 或未帶時不顯示;圓角膠囊,
+ * 選中態 primary-bg 底 + primary-fg 字,未選 bg-container-variant 底 + fg-secondary-default 字,
+ * 跟著文字的選中 / 未選狀態同步變色
  * 依賴契約:消費端須已依接入指南安裝 shadcn 的 tooltip,且 @ 別名指向 src
  */
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
@@ -16,6 +19,8 @@ export interface TabItem {
   disabled?: boolean
   /** disabled 時的提示文字,以 shadcn Tooltip 呈現 */
   hint?: string
+  /** 選填筆數徽章,0 或未帶時不顯示 */
+  count?: number
 }
 
 const props = defineProps<{
@@ -38,6 +43,12 @@ function tabClass(tab: TabItem): string {
     return 'border-b-2 border-primary-solid font-bold text-primary-fg'
   return 'font-normal text-fg-secondary-default hover:text-fg-secondary-hover'
 }
+
+function countClass(tab: TabItem): string {
+  return tab.value === props.modelValue
+    ? 'bg-primary-bg text-primary-fg'
+    : 'bg-bg-container-variant text-fg-secondary-default'
+}
 </script>
 
 <template>
@@ -50,10 +61,11 @@ function tabClass(tab: TabItem): string {
               type="button"
               role="tab"
               aria-disabled="true"
-              class="px-6 py-3 text-body2 transition-colors"
+              class="flex items-center gap-1.5 px-6 py-3 text-body2 transition-colors"
               :class="tabClass(tab)"
             >
               {{ tab.label }}
+              <span v-if="tab.count" class="rounded-full px-1.5 text-caption" :class="countClass(tab)">{{ tab.count }}</span>
             </button>
           </TooltipTrigger>
           <TooltipContent>{{ tab.hint }}</TooltipContent>
@@ -65,11 +77,12 @@ function tabClass(tab: TabItem): string {
         role="tab"
         :aria-selected="tab.value === modelValue"
         :aria-disabled="tab.disabled || undefined"
-        class="px-6 py-3 text-body2 transition-colors"
+        class="flex items-center gap-1.5 px-6 py-3 text-body2 transition-colors"
         :class="tabClass(tab)"
         @click="select(tab)"
       >
         {{ tab.label }}
+        <span v-if="tab.count" class="rounded-full px-1.5 text-caption" :class="countClass(tab)">{{ tab.count }}</span>
       </button>
     </template>
   </div>

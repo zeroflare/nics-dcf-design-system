@@ -334,6 +334,14 @@
      ------------------------------------------------------------------ */
   --color-skeleton-base: var(--color-neutral-200);
   --color-skeleton-sheen: var(--color-neutral-50);
+
+  /* ===================== Component 層 · Avatar 首字頭像漸層 =====================
+     後台沒有上傳大頭貼功能,頭像一律用名稱首字 + 主色漸層底 ( 2026.7.27 拍板新增 )。
+     主色 brand 單色系對角漸層 ( 左上淺 brand-300 → 右下深 brand-500 ),搭配白字置中。
+     元件載體為本 repo 的 components/Avatar.vue
+     ------------------------------------------------------------------ */
+  --color-avatar-gradient-from: var(--color-brand-300);
+  --color-avatar-gradient-to: var(--color-brand-500);
 }
 
 /* ============================================================

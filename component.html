@@ -687,7 +687,20 @@
         <span class="shimmerprev" style="width:45%"></span>
       </div>
       <div class="spec-line">骨架塊 skeleton-base ( neutral-200 中性底 ) · 掃光亮帶 skeleton-sheen ( neutral-50 近白 ) · linear-gradient 90deg 由 translateX(-100%) 掃到 100% · 動畫 shimmer 1.6s ease-in-out infinite · 預設 rounded-md，尺寸與圓角由呼叫端 class 決定 ( 佈局覆寫 )</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.27 )：總覽 / 資料來源 / 紀錄查詢 / 系統設定 / 協作請求 五頁的頁面級 loading 骨架首批採用，骨架形狀比照各頁真實版面 ( 卡片群、表格列、左右欄 )；prefers-reduced-motion 時停用掃光只留靜態底色；與 shadcn skeleton 並存期間，頁面級一律用 Shimmer，卡片 / 面板內零散骨架隨頁面遷移收編</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.27 )：總覽 / 資料來源 / 紀錄查詢 / 系統設定 / 協作請求 五頁的頁面級 loading 骨架首批採用，骨架形狀比照各頁真實版面 ( 卡片群、表格列、左右欄 )；prefers-reduced-motion 時停用掃光只留靜態底色；頁面級與次級 loading 骨架全面採用,並已全面取代、退役 shadcn skeleton ( 見上方 Skeleton 章,2026.7.27 元件本體已移除 )</div>
+    </section>
+
+    <!-- ============ Avatar ( 2026.7.27 拍板新增 ) ============ -->
+    <section class="band" id="comp-avatar">
+      <div class="band-head"><h2>Avatar</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · navbar 首採用</span></div>
+      <p class="band-sub">使用者頭像 ( 2026.7.27 拍板新增 )。後台沒有上傳大頭貼的功能,頭像一律取「名稱」首字 ( 中文一個字 / 英文一個字母大寫,空值退回問號 ) + 主色 brand 對角漸層底 ( 左上淺 brand-300 → 右下深 brand-500 )、白字置中。size 同時決定圓徑與字級 ( sm 24 / md 32 / lg 40 ),尺寸與字級綁定確保比例協調。實體住設計系統 components/,消費端由 <span style="font-family:var(--font-mono);color:var(--accent-ink)">@nics/design-tokens/components/Avatar.vue</span> 引用。</p>
+      <div class="preview" style="gap:16px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:linear-gradient(135deg,#2dd4bf,#0d9488);color:#fff;font-weight:700;font-size:14px">S</span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:linear-gradient(135deg,#2dd4bf,#0d9488);color:#fff;font-weight:700;font-size:16px">陳</span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;background:linear-gradient(135deg,#2dd4bf,#0d9488);color:#fff;font-weight:700;font-size:18px">A</span>
+      </div>
+      <div class="spec-line">圓形 · bg-linear-to-br from-avatar-gradient-from ( brand-300 ) to-avatar-gradient-to ( brand-500 ) · 白字 fg-inverted · font-bold · sm 24 / body2 · md 32 / body1 · lg 40 / subtitle</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.27 )：navbar 首採用 ( size sm );之後本機帳號管理、協作請求送件人等要顯示使用者頭像一律用此元件,不另手刻</div>
     </section>
 
     <!-- ============ Progress ( 2026.7.20 盤點定案 ) ============ -->

@@ -96,6 +96,7 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 import Tag from '@nics/design-tokens/components/Tag.vue'
 import ConfirmDialog from '@nics/design-tokens/components/ConfirmDialog.vue'
 import Shimmer from '@nics/design-tokens/components/Shimmer.vue' // 頁面級載入骨架 ( 掃光 )
+import Avatar from '@nics/design-tokens/components/Avatar.vue' // 使用者頭像 ( 首字 + 主色漸層 )
 ```
 
 **依賴契約**：自訂元件內部以 `@/components/ui/*` 引用 shadcn 元件 ( 如 ConfirmDialog 用到 dialog、button )，因此消費端必須：(1) `@` 別名指向 `src`；(2) 已完成步驟 3 安裝對應的 shadcn 元件。

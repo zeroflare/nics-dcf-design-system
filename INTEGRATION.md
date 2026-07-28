@@ -100,7 +100,7 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 |---|---|
 | `ui/dialog/DialogTitle.vue` | class 的 `'text-lg leading-none font-semibold'` → `'text-subtitle'` ( Subtitle 18 / 700 / 1.3 ) |
 | `ui/dialog/DialogContent.vue`<br>`ui/dialog/DialogScrollContent.vue` | class 的 `bg-background` → `bg-container` ( ds 白卡底;`--background` 橋接到 bg-surface 頁面底色淺灰,對話框應與卡片同為白底,不能沿用頁面底色 ) |
-| `ui/drawer/DrawerContent.vue` | class 的 `bg-background` → `bg-container` ( ds 白卡底,理由同 Dialog；2026.7.24 拍板 ) |
+| `ui/drawer/DrawerContent.vue` | ① class 的 `bg-background` → `bg-container` ( ds 白卡底,理由同 Dialog；2026.7.24 拍板 )<br>② 新增 `style="user-select: text"` ( vaul 對 `[data-vaul-drawer]` 內建 `user-select: none` ( 滑鼠裝置 ),導致抽屜內文字完全無法選取,阿暖反饋需可選字;2026.7.28 拍板 ) |
 | `ui/dialog/DialogOverlay.vue`<br>`ui/dialog/DialogScrollContent.vue`<br>`ui/drawer/DrawerOverlay.vue` | class 的 `bg-black/80` → `bg-black/60` ( 遮罩不透明度調淡,阿暖反饋 80% 太暗,全站遮罩統一；2026.7.28 拍板 ) |
 | `ui/card/Card.vue` | ① class 的 `rounded-xl` → `rounded-md` ( 卡片圓角一律 md 8px )<br>② 移除 `border` ( 框線與 shadow-sm 都在做與背景分離,並存會疊出灰邊使陰影顯重;需要框線的區塊自行加 `border-stroke` ) |
 | `ui/progress/Progress.vue` | 新增 `indicatorClass` prop 並以 `cn()` 併入 indicator class，供指定語意 solid 填色 |

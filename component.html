@@ -307,15 +307,16 @@
   .nv-label .pill { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--ink-3); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; font-weight: 400; }
   .nv-frame { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); background: var(--color-bg-container); margin-bottom: 22px; }
   .nv-frame:last-child { margin-bottom: 0; }
-  .nvbar { height: 56px; background: var(--color-bg-container); border-bottom: 1px solid var(--color-stroke); display: flex; align-items: stretch; justify-content: space-between; padding: 0 20px; gap: 16px; }
-  .nvbar .nv-l { display: flex; align-items: center; gap: 24px; min-width: 0; }
-  .nvbar .nv-r { display: flex; align-items: center; gap: 24px; }
+  .nvbar { height: 56px; background: var(--color-bg-container); border-bottom: 1px solid var(--color-stroke); }
+  .nvbar-inner { height: 100%; max-width: 1280px; margin: 0 auto; display: flex; align-items: stretch; padding: 0 20px; gap: 16px; }
+  .nvbar .nv-l { display: flex; align-items: center; min-width: 0; flex: none; }
+  .nvbar .nv-r { display: flex; align-items: center; gap: 24px; flex: none; }
   .nvlogo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
   .nvlogo img { width: 28px; height: 28px; flex: none; }
   .nvlogo .txt { display: flex; flex-direction: column; line-height: 1.25; }
   .nvlogo .txt .main { font-size: var(--text-body2); line-height: var(--text-body2--line-height); font-weight: 700; color: var(--color-fg-primary-default); letter-spacing: -0.025em; white-space: nowrap; }
   .nvlogo .txt .sub { margin-top: -4px; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-fg-secondary-default); white-space: nowrap; }
-  .nvitems { display: flex; align-items: stretch; height: 56px; }
+  .nvitems { display: flex; align-items: stretch; height: 56px; flex: 1; justify-content: center; }
   .nvitem { display: flex; align-items: center; padding: 0 16px; height: 100%; font-size: var(--text-body2); line-height: var(--text-body2--line-height); color: var(--color-fg-secondary-default); white-space: nowrap; position: relative; text-decoration: none; }
   .nvitem:hover { color: var(--color-fg-secondary-hover); }
   .nvitem.active { color: var(--color-primary-fg); font-weight: 700; }
@@ -517,11 +518,13 @@
       <div class="nv-label"><span>存取節點</span> · Access Node <span class="pill">登入後</span></div>
       <div class="nv-frame">
         <div class="nvbar">
-          <div class="nv-l">
-            <a class="nvlogo" href="#" onclick="return false">
-              <img src="favicon.png" alt="">
-              <span class="txt"><span class="main">政府資料匯流分析協作平臺</span><span class="sub">資料存取節點</span></span>
-            </a>
+          <div class="nvbar-inner">
+            <div class="nv-l">
+              <a class="nvlogo" href="#" onclick="return false">
+                <img src="favicon.png" alt="">
+                <span class="txt"><span class="main">政府資料匯流分析協作平臺</span><span class="sub">資料存取節點</span></span>
+              </a>
+            </div>
             <nav class="nvitems">
               <a class="nvitem active" href="#" onclick="return false">總覽</a>
               <a class="nvitem" href="#" onclick="return false">資料來源</a>
@@ -529,10 +532,10 @@
               <a class="nvitem" href="#" onclick="return false">紀錄查詢</a>
               <a class="nvitem" href="#" onclick="return false">系統設定</a>
             </nav>
-          </div>
-          <div class="nv-r">
-            <span class="nvstatus"><span class="dot"></span>連線正常</span>
-            <span class="nvuser"><span class="nvavatar latin">W</span><span class="name">WreckOP</span></span>
+            <div class="nv-r">
+              <span class="nvstatus"><span class="dot"></span>連線正常</span>
+              <span class="nvuser"><span class="nvavatar latin">W</span><span class="name">WreckOP</span></span>
+            </div>
           </div>
         </div>
       </div>
@@ -540,11 +543,13 @@
       <div class="nv-label"><span>分析平臺</span> · Platform <span class="pill">登入後</span></div>
       <div class="nv-frame">
         <div class="nvbar">
-          <div class="nv-l">
-            <a class="nvlogo" href="#" onclick="return false">
-              <img src="favicon.png" alt="">
-              <span class="txt"><span class="main">政府資料匯流分析平臺</span><span class="sub">管理平台</span></span>
-            </a>
+          <div class="nvbar-inner">
+            <div class="nv-l">
+              <a class="nvlogo" href="#" onclick="return false">
+                <img src="favicon.png" alt="">
+                <span class="txt"><span class="main">政府資料匯流分析平臺</span><span class="sub">管理平台</span></span>
+              </a>
+            </div>
             <nav class="nvitems">
               <a class="nvitem active" href="#" onclick="return false">儀表板</a>
               <a class="nvitem" href="#" onclick="return false">專案協作</a>
@@ -552,12 +557,12 @@
               <a class="nvitem" href="#" onclick="return false">稽核記錄</a>
               <a class="nvitem" href="#" onclick="return false">使用者管理</a>
             </nav>
-          </div>
-          <div class="nv-r" style="gap:8px">
-            <button class="nvicon" aria-label="設定">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.6"/></svg>
-            </button>
-            <span class="nvuser"><span class="nvavatar cjk">陳</span><span class="name">陳建良</span></span>
+            <div class="nv-r" style="gap:8px">
+              <button class="nvicon" aria-label="設定">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              </button>
+              <span class="nvuser"><span class="nvavatar cjk">陳</span><span class="name">陳建良</span></span>
+            </div>
           </div>
         </div>
       </div>
@@ -565,26 +570,29 @@
       <div class="nv-label"><span>分析平臺</span> · Platform <span class="pill">未登入</span></div>
       <div class="nv-frame">
         <div class="nvbar">
-          <div class="nv-l">
-            <a class="nvlogo" href="#" onclick="return false">
-              <img src="favicon.png" alt="">
-              <span class="txt"><span class="main">政府資料匯流分析平臺</span><span class="sub">管理平台</span></span>
-            </a>
+          <div class="nvbar-inner">
+            <div class="nv-l">
+              <a class="nvlogo" href="#" onclick="return false">
+                <img src="favicon.png" alt="">
+                <span class="txt"><span class="main">政府資料匯流分析平臺</span><span class="sub">管理平台</span></span>
+              </a>
+            </div>
             <nav class="nvitems">
               <a class="nvitem active" href="#" onclick="return false">操作紀錄</a>
             </nav>
-          </div>
-          <div class="nv-r">
-            <a class="nvloginbtn" href="#" onclick="return false">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              登入
-            </a>
+            <div class="nv-r">
+              <a class="nvloginbtn" href="#" onclick="return false">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                登入
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="spec-line">高度 56px 固定 · 白底 · 底部 1px stroke 分隔線 · logo 28px 無圓角 + 兩行文字堆疊 ( 主名 14/700 主要色、副名 12px 次要色，leading-tight + -mt-1 收窄行距 )</div>
       <div class="spec-line">選單項：文字 Body2 ( 14px ) · 選中態 primary-solid 底線 3px + primary-fg 文字 + 700 字重 · 未選 fg-secondary，hover 加深；徽章絕對定位貼文字右緣 ( -translate-y-1/2、ml-0.5、text-[0.6rem] )</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.28 )：左側 brand、中間選單、右側 actions 三塊包在一起設最大寬 1280px ( <code>mx-auto max-w-7xl px-4 md:px-6</code>，與頁面內容容器同一套 )，桌面斷點內容置中，其他斷點隨容器寬度自然收縮；中間選單改為在此最大寬容器內置中 ( <code>flex-1 justify-center</code> )，不再貼齊左側 brand</div>
       <div class="spec-line">右側動作區各站自訂內容，但元素樣式共用：連線狀態圓點 + 文字 ( gap-1 )、圖示按鈕 36px 圓形、使用者頭像 ( 見 Avatar 章 ) + 名稱 ( gap-1 )、登入按鈕 primary-solid 實色；連線狀態與使用者兩塊之間 gap-6 ( 24px )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.27 )：業主要求兩站視覺一致，navbar 以「殼 + slot」落地，實體為本 repo <code>components/Navbar.vue</code> ( 插槽 brand / 預設選單 / actions ) + <code>components/NavbarItem.vue</code> ( 單一選單項，props：to / active / badge )，樣式規格共用、選單與右側內容各站帶入。<b>存取節點列逐字對照 AppNav.vue / NodeStatusIndicator.vue 搬移，且該站已實際換用本殼層元件，為定案內容</b>；分析平臺列因該站尚無 ds 化的 navbar 可供搬移，屬沿用同一套規格的新提案，非搬移，實作前仍需該站設計負責人拍板</div>
     </section>

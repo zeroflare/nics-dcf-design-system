@@ -961,6 +961,7 @@
       <div class="spec-line">組合：DataTable + DataTableHeader / Body / Row / Head / Cell；density 同時管字級與 body 儲存格內距：default = 頁面級主資料表 ( Body1 16px 字 / body 儲存格垂直內距 16px )、dense = 內嵌於彈窗 / 面板 / 表單的輔助表 ( Body2 14px 字 / 12px )；文字色由呼叫端指定 fg 語意 token</div>
       <div class="spec-line">已拍板規則 ( 2026.7.28 )：<b>表頭 ( DataTableHead ) 垂直內距固定 <code>py-3</code> ( 12px )，不隨 density 變動</b>。原本表頭跟著 density ( default 16px / dense 12px )，阿暖反映 default 表頭 16px 太高，一律降為 12px；body 儲存格內距仍依 density 兩檔制。表頭恆為精簡高度、body 列才有寬鬆 / 精簡兩檔</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：15 顆手刻表格隨頁面遷移收編呼叫 DataTable ( 首例：紀錄查詢頁兩張表 )；shadcn Table vendor 保留於各專案供封裝內部使用，不直接呼叫</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.30 )：<b>拿掉 TableCell 內建的「checkbox 選取欄」特例</b> ( 原 shadcn 預設：儲存格內含 <code>role=checkbox</code> 時右內距歸零、checkbox 若為直接子節點下移 2px )。這組特例是給「整欄都是列選取用 checkbox」的情境設計的，但本站沒有列選取功能；角色詳情 dialog 的權限矩陣把 checkbox 當一般儲存格內容用，套用這個特例會讓含 checkbox 的儲存格內距變左右不對稱 ( 右內距被歸零 )，導致置中的 checkbox 視覺上偏右，跟其他儲存格對不齊。屬 <code>ui/table/TableCell.vue</code> 的 vendor 修改，已收錄進 INTEGRATION.md 對照表</div>
     </section>
 
     <!-- ============ Tabs ( 2026.7.20 盤點定案 ) ============ -->

@@ -94,7 +94,7 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 
 **明確不使用**：alert、scroll-area、tabs ( 膠囊式；分頁採底線式規格，見 component.html Tabs 章 )、skeleton ( 載入骨架改用自訂 Shimmer，2026.7.27 退役，見 component.html Shimmer 章 )。
 
-安裝後重放十一個拍板過的 vendor 修改 ( 修改處都要留「有意的 vendor 修改」註解 )：
+安裝後重放十二個拍板過的 vendor 修改 ( 修改處都要留「有意的 vendor 修改」註解 )：
 
 | 檔案 | 修改 |
 |---|---|
@@ -108,6 +108,7 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 | `ui/sonner/Sonner.vue` | ① `:style` 的 `--border-radius` 由 `var(--radius)` 改綁 `var(--radius-md)` ( bug fix：消費端沒有 `--radius` 這個 token,原綁定失效導致圓角掉回 0 變直角;2026.7.29 拍板 )<br>② `#error-icon` 由 `OctagonXIcon` 改為 `TriangleAlertIcon` ( 八角叉與關閉鈕的叉外觀太像,容易誤讀成「已關閉／已取消」;全站未使用 `toast.warning`,故 error 與 warning 暫時共用同一顆三角形驚嘆號圖示;2026.7.29 拍板 ) |
 | `ui/tooltip/TooltipContent.vue` | `withDefaults` 新增 `side: 'bottom'` ( bug fix：reka-ui 通用的 Popper 元件預設 side 是 bottom,但 Tooltip 家族自己的 `TooltipContentImpl` 覆寫了一份預設值 `top`,導致全站沒特別指定 side 的 tooltip 其實都往上冒,與「全站 tooltip 一律往下」的慣例不符;2026.7.29 拍板,呼叫端沒指定 side 時一律往下,個別例外才顯式覆寫 ) |
 | `ui/button/index.ts` | `size` 新增 `xs` 級距 ( `h-6 rounded-md gap-1 px-2 text-caption has-[>svg]:px-1.5` )：卡片/dialog 內 section 標題列旁的行內小按鈕 ( 如角色詳情 dialog 的編輯/取消/儲存 ) 需要比既有最小的 `sm` ( 14px/32px 高 ) 更小、字級對齊 caption ( 12px ) 的樣式,原本 default/sm/lg/icon 系列的階梯裡沒有這一級;2026.7.29 拍板 |
+| `ui/table/TableCell.vue` | 移除 `[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]` ( bug fix：這是 shadcn 給「整欄都是列選取用 checkbox」情境設計的特例,本站沒有列選取功能;角色詳情 dialog 的權限矩陣把 checkbox 當一般儲存格內容用,套用這個特例會讓含 checkbox 的儲存格右內距歸零、跟其他儲存格內距不對稱,導致置中的 checkbox 視覺偏右;2026.7.30 拍板 ) |
 
 ### 4. 自訂元件直接從套件 import
 

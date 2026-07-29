@@ -835,12 +835,15 @@
 
     <!-- ============ Tooltip ( 2026.7.20 盤點定案 ) ============ -->
     <section class="band" id="comp-tooltip">
-      <div class="band-head"><h2>Tooltip</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 9 處 / 5 檔</span></div>
-      <p class="band-sub">滑鼠停留提示，多用於圖示按鈕的補充說明。全站零覆寫，現況即規範。</p>
-      <div class="preview" style="justify-content:center">
+      <div class="band-head"><h2>Tooltip</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 9 處 / 5 檔</span></div>
+      <p class="band-sub">滑鼠停留提示，多用於圖示按鈕的補充說明。</p>
+      <div class="preview" style="justify-content:center;flex-direction:column;align-items:center;gap:6px">
         <div style="background:var(--color-fg-primary-default);color:var(--color-bg-surface);font-size:12px;padding:5px 10px;border-radius:7px">重新整理節點狀態</div>
+        <div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:5px solid var(--color-fg-primary-default)"></div>
+        <div style="width:24px;height:24px;border-radius:6px;background:var(--color-bg-container-variant)"></div>
       </div>
       <div class="spec-line">深底淺字 ( bg-foreground / text-background ) · rounded-md · text-xs · px-3 py-1.5 · 箭頭的 rounded-[2px] 為審計 10 拍板不動項</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.29 )：<b>全站 tooltip 一律預設出現在觸發元件下方</b>。查證發現 reka-ui 通用的 Popper 元件預設 side 是 bottom，但 Tooltip 家族自己的 TooltipContentImpl 覆寫了一份預設值 top，導致全站沒特別指定 side 的 tooltip 實際上都往上冒，與慣例不符。屬 <code>ui/tooltip/TooltipContent.vue</code> 的 vendor 修改 ( withDefaults 補上 <code>side: 'bottom'</code> )，已收錄進 INTEGRATION.md 對照表；呼叫端不需要每處都手動加 <code>side="bottom"</code>，只有真的要往其他方向的例外才需要顯式覆寫</div>
     </section>
 
     <!-- ============ Badge ( 2026.7.20 盤點定案 ) ============ -->

@@ -785,6 +785,8 @@
       <div class="spec-line">right 方向 · 預設寬 w-3/4 ( sm 上限 max-w-sm ) · DrawerFooter 未使用</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：寬度用 !important 逃逸 vaul 上限 ( sm:!max-w-none 等 ) 認可為許可的佈局覆寫；DrawerHeader 的 border-slate-200 隨頁面遷移改 border-stroke；RequestDetailPanel 已在 Drawer 內，其自帶 shadow-xl 與左框屬雙重分隔，隨頁面遷移移除 ( 陰影章舊懸案結案 )</div>
       <div class="spec-line"><b>容器底色 vendor 修改 ( 2026.7.24 拍板 )</b>：DrawerContent 由 shadcn 預設 <code>bg-background</code> 改為 <code>bg-container</code> ( ds 白卡底 )。因 <code>--background</code> 在消費端非白，抽屜面板應與卡片同為白底；屬有意的 vendor 修改，檔內留「有意的 vendor 修改」註解</div>
+      <div class="spec-line"><b>可選字 vendor 修改 ( 2026.7.28 拍板 )</b>：vaul 對 <code>[data-vaul-drawer]</code> 內建 <code>user-select: none</code> ( 滑鼠裝置 )，導致抽屜內文字完全無法選取；DrawerContent 加 <code>style="user-select: text"</code> 覆寫回可選取</div>
+      <div class="spec-line"><b>non-modal 遮罩 vendor 修改 ( 2026.7.28 拍板 )</b>：DrawerContent 新增選填 <code>hideOverlay</code> prop，為 true 時不渲染 DrawerOverlay，供 non-modal 面板拿掉暗色遮罩、背景可直接點擊 ( 開著面板時點其他列可就地換內容而不關閉面板 )；預設 false 不影響既有用法。首例為協作請求頁的請求詳情面板，經 MasterDetailLayout 的 <code>non-modal</code> prop 轉入</div>
     </section>
 
     <!-- ============ Popover ( 2026.7.20 盤點定案 ) ============ -->

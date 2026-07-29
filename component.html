@@ -913,14 +913,18 @@
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：元件新增 indicatorClass prop ( 有意的 vendor 擴充 ) 供指定語意填色；大面積實色一律走 solid=500，不用於文字</div>
     </section>
 
-    <!-- ============ Sonner Toast ( 2026.7.20 盤點定案 ) ============ -->
+    <!-- ============ Sonner Toast ( 2026.7.20 盤點定案，2026.7.29 更新 ) ============ -->
     <section class="band" id="comp-toast">
-      <div class="band-head"><h2>Sonner Toast</h2><span class="src">shadcn 原生</span><span class="use-b">App.vue 掛載 · toast() 呼叫 10+ 檔</span></div>
-      <p class="band-sub">全域提示訊息 ( vue-sonner )。Toaster 於 App.vue 掛載一次，各 store 與元件透過 toast() 觸發，為表單送出與 API 結果的回饋主力。</p>
-      <div class="preview" style="justify-content:center">
-        <div style="display:flex;align-items:center;gap:10px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:10px;box-shadow:var(--shadow-lift);padding:12px 16px;font-size:12.5px"><span style="color:var(--color-success-fg)">✓</span>資料集已成功發佈</div>
+      <div class="band-head"><h2>Sonner Toast</h2><span class="src mod">有意修改</span><span class="use-b">App.vue 掛載 · toast() 呼叫 10+ 檔</span></div>
+      <p class="band-sub">全域提示訊息 ( vue-sonner )。Toaster 於 App.vue 掛載一次，各 store 與元件透過 toast() 觸發，為表單送出與 API 結果的回饋主力。全站僅用 toast.success / toast.error 兩種，無 warning / info 呼叫。</p>
+      <div class="preview" style="justify-content:center;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:8px;box-shadow:var(--shadow-lift);padding:12px 16px;font-size:12.5px;position:relative"><span style="color:var(--color-success-fg)">✓</span>節點狀態已更新<span style="margin-left:auto;color:var(--color-fg-tertiary-default);opacity:.7">✕</span></div>
+        <div style="display:flex;align-items:center;gap:10px;background:var(--color-danger-bg);border:1px solid var(--color-stroke);border-radius:8px;box-shadow:var(--shadow-lift);padding:12px 16px;font-size:12.5px;position:relative"><span style="color:var(--color-danger-fg)">▲</span><span style="color:var(--color-danger-fg)">API Error 500: {"code":"5.300.201"}</span><span style="margin-left:auto;color:var(--color-danger-fg);opacity:.7">✕</span></div>
       </div>
-      <div class="spec-line">右下角浮出 · 元件檔含客製成功 / 資訊 icon · 現況即規範</div>
+      <div class="spec-line">頁面頂端置中浮出 ( position="top-center" ) · 停留 5 秒 ( duration=5000 ) · rich-colors ( 語意底色 + 文字色隨 success / error 變化 )</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.29 )：開啟 close-button，每則 toast 可自行關閉。關閉鈕沿用 vue-sonner 內建結構，但其預設樣式是懸在 toast 左上角「外緣」的圓圈 ( 用於原本的右下角浮出情境 )，改為置頂置中後會凸出去蓋到導覽列，故在消費端全域 style.css 用 <code>[data-sonner-toaster] [data-close-button]</code> 覆寫：收進 toast 內、貼右側垂直置中、無邊框透明底、平時淡出 hover 才浮出淺底 ( 屬全域 CSS 覆寫，非元件檔案修改，故不列入 INTEGRATION.md 的 vendor 修改對照表，改記錄於此 )</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.29 )：<b>error icon 改用三角形驚嘆號</b> ( 原為八角叉 OctagonXIcon )。八角叉的視覺與關閉鈕的叉太像，容易誤讀成「已關閉 / 已取消」而非「錯誤」；因全站未使用 toast.warning，error 直接沿用 warning 的三角形驚嘆號圖示，兩者暫時共用同一顆圖示，之後若啟用 warning 也不需額外設計。屬 <code>ui/sonner/Sonner.vue</code> 的 vendor 修改，已收錄進 INTEGRATION.md 對照表</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.29 )：圓角修正為 <b>--radius-md ( 8px )</b>。元件檔原將 --border-radius 綁定 var(--radius)，但消費端專案沒有 --radius 這個 token ( 只有 --radius-sm/md/lg )，變數失效使圓角掉回 0 變直角；改綁 --radius-md。屬 <code>ui/sonner/Sonner.vue</code> 的 vendor 修改，已收錄進 INTEGRATION.md 對照表</div>
     </section>
 
     <!-- ============ Card ( 2026.7.20 盤點定案 ) ============ -->

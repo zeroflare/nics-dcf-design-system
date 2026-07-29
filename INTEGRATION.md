@@ -94,7 +94,7 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 
 **明確不使用**：alert、scroll-area、tabs ( 膠囊式；分頁採底線式規格，見 component.html Tabs 章 )、skeleton ( 載入骨架改用自訂 Shimmer，2026.7.27 退役，見 component.html Shimmer 章 )。
 
-安裝後重放七個拍板過的 vendor 修改 ( 修改處都要留「有意的 vendor 修改」註解 )：
+安裝後重放八個拍板過的 vendor 修改 ( 修改處都要留「有意的 vendor 修改」註解 )：
 
 | 檔案 | 修改 |
 |---|---|
@@ -105,6 +105,7 @@ shadcn 元件透過橋接變數吃色，安裝 shadcn 後在 `style.css` 的 `:r
 | `ui/card/Card.vue` | ① class 的 `rounded-xl` → `rounded-md` ( 卡片圓角一律 md 8px )<br>② 移除 `border` ( 框線與 shadow-sm 都在做與背景分離,並存會疊出灰邊使陰影顯重;需要框線的區塊自行加 `border-stroke` ) |
 | `ui/progress/Progress.vue` | 新增 `indicatorClass` prop 並以 `cn()` 併入 indicator class，供指定語意 solid 填色 |
 | `ui/switch/Switch.vue` | thumb 的 `bg-background` → `bg-fg-inverted-default` ( 純白;`--background` 橋接到頁面底色淺灰,疊在實色軌道上會顯髒 ) |
+| `ui/sonner/Sonner.vue` | ① `:style` 的 `--border-radius` 由 `var(--radius)` 改綁 `var(--radius-md)` ( bug fix：消費端沒有 `--radius` 這個 token,原綁定失效導致圓角掉回 0 變直角;2026.7.29 拍板 )<br>② `#error-icon` 由 `OctagonXIcon` 改為 `TriangleAlertIcon` ( 八角叉與關閉鈕的叉外觀太像,容易誤讀成「已關閉／已取消」;全站未使用 `toast.warning`,故 error 與 warning 暫時共用同一顆三角形驚嘆號圖示;2026.7.29 拍板 ) |
 
 ### 4. 自訂元件直接從套件 import
 

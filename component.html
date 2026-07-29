@@ -630,7 +630,7 @@
     <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-button">
       <div class="band-head"><h2>Button</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 19 處 / 9 檔 · 另有手刻 ~56 顆待收編</span></div>
-      <p class="band-sub">6 種 variant × 6 種 size，不再新增 variant。基底規格：文字 14px / 500 ( Button token )、圓角一律 md ( 8px )、預設高度 h-9 ( 36px )。主色與危險色分別走 --primary ( brand-500 ) 與 --destructive ( red-500 )，focus ring 為 brand-300 半透明。</p>
+      <p class="band-sub">6 種 variant × 7 種 size，不再新增 variant。基底規格：文字 14px / 500 ( Button token )、圓角一律 md ( 8px )、預設高度 h-9 ( 36px )。主色與危險色分別走 --primary ( brand-500 ) 與 --destructive ( red-500 )，focus ring 為 brand-300 半透明。</p>
       <div class="preview">
         <span class="btn default">主要動作</span>
         <span class="pv-unused"><span class="btn secondary">次要</span><span class="pv-tag">未使用</span></span>
@@ -639,8 +639,9 @@
         <span class="btn destructive">刪除</span>
         <span class="pv-unused"><span class="btn link">連結</span><span class="pv-tag">未使用</span></span>
       </div>
-      <div class="spec-line">variant: default · secondary ( 未使用 ) · outline · ghost · destructive · link ( 未使用 )<br>size: default(h-9) · sm(h-8) · lg(h-10) · icon(36) · icon-sm(32) · icon-lg(40)</div>
+      <div class="spec-line">variant: default · secondary ( 未使用 ) · outline · ghost · destructive · link ( 未使用 )<br>size: xs(h-6) · default(h-9) · sm(h-8) · lg(h-10) · icon(36) · icon-sm(32) · icon-lg(40)</div>
       <div class="spec-line">已拍板規則 ( 2026.7.19 )：icon 按鈕一律 size="icon-sm"，頁碼類用 size="icon"，不得用 class 覆寫尺寸；手刻的 brand 外框按鈕樣式廢除，收斂為 outline 或 default；全站約 56 顆手刻按鈕隨頁面遷移分批收編呼叫 Button ( 手刻 teal-600 與 brand-500 同值，收編視覺幾乎零變化 )；Tab 切換、篩選 pill、選擇卡等 ~18 顆不屬 Button 職責，歸各自元件。secondary 與 link 為 shadcn 原生保留，標示未使用</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.29 )：新增 <code>xs</code> size ( h-6 24px、gap-1、px-2、字級對齊 caption 12px )。卡片 / dialog 內 section 標題列旁的行內小按鈕 ( 如角色詳情 dialog 的編輯 / 取消 / 儲存 ) 需要比既有最小的 sm ( h-8 32px、文字仍是 button token 14px ) 更小、字級也對應縮到 caption，原本的 size 階梯裡沒有這一級。屬 <code>ui/button/index.ts</code> 的 vendor 修改，已收錄進 INTEGRATION.md 對照表</div>
     </section>
 
     <!-- ============ Input ( 2026.7.19 盤點定案 ) ============ -->

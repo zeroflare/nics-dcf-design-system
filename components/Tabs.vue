@@ -6,9 +6,9 @@
  * 未選 fg-secondary-default,hover 走同階的 fg-secondary-hover ( 2026.7.20 狀態 token 上線後改用 )
  * disabled tab ( 2026.7.20 資料來源頁需求新增 ):fg-secondary-disabled + cursor-not-allowed,
  * hint 以 shadcn Tooltip 呈現停用原因 ( 設計師反饋原生 title 太陽春,改回 Tooltip )
- * count ( 2026.7.27 協作請求頁需求新增 ):選填筆數徽章,0 或未帶時不顯示;圓角膠囊,
- * 選中態 primary-bg 底 + primary-fg 字,未選 bg-container-variant 底 + fg-secondary-default 字,
- * 跟著文字的選中 / 未選狀態同步變色
+ * count ( 2026.7.27 協作請求頁需求新增,2026.7.30 改版 ):選填筆數徽章,0 或未帶時不顯示;圓角膠囊,
+ * 一律 primary-solid 底 + fg-inverted-default 白字,不隨選中/未選狀態變化 ( 阿暖預覽中,尚未走完整
+ * ds 治理流程,component.html 拍板紀錄與版本號待她確認效果後再補 )
  * 依賴契約:消費端須已依接入指南安裝 shadcn 的 tooltip,且 @ 別名指向 src
  */
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
@@ -44,10 +44,8 @@ function tabClass(tab: TabItem): string {
   return 'font-normal text-fg-secondary-default hover:text-fg-secondary-hover'
 }
 
-function countClass(tab: TabItem): string {
-  return tab.value === props.modelValue
-    ? 'bg-primary-bg text-primary-fg'
-    : 'bg-bg-container-variant text-fg-secondary-default'
+function countClass(): string {
+  return 'bg-primary-solid text-fg-inverted-default'
 }
 </script>
 
@@ -65,7 +63,7 @@ function countClass(tab: TabItem): string {
               :class="tabClass(tab)"
             >
               {{ tab.label }}
-              <span v-if="tab.count" class="rounded-full px-1.5 text-caption" :class="countClass(tab)">{{ tab.count }}</span>
+              <span v-if="tab.count" class="rounded-full px-1.5 text-caption" :class="countClass()">{{ tab.count }}</span>
             </button>
           </TooltipTrigger>
           <TooltipContent>{{ tab.hint }}</TooltipContent>
@@ -82,7 +80,7 @@ function countClass(tab: TabItem): string {
         @click="select(tab)"
       >
         {{ tab.label }}
-        <span v-if="tab.count" class="rounded-full px-1.5 text-caption" :class="countClass(tab)">{{ tab.count }}</span>
+        <span v-if="tab.count" class="rounded-full px-1.5 text-caption" :class="countClass()">{{ tab.count }}</span>
       </button>
     </template>
   </div>

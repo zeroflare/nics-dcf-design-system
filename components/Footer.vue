@@ -16,9 +16,10 @@ withDefaults(
   defineProps<{
     siteLabel?: string
     homeHref?: string
+    logoSrc?: string
     web?: boolean
   }>(),
-  { homeHref: '/', web: false }
+  { homeHref: '/', logoSrc: '/favicon.png', web: false }
 )
 
 const year = computed(() => new Date().getFullYear())
@@ -36,7 +37,7 @@ const modaAddressUrl =
         <div class="flex items-center gap-2">
           <a :href="homeHref" class="shrink-0" title="政府資料匯流分析協作平臺首頁">
             <img
-              src="/favicon.png"
+              :src="logoSrc"
               alt=""
               class="h-10 w-10 object-contain"
               width="40"

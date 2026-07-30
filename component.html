@@ -358,25 +358,29 @@
   .ft-copy { border-top: 1px solid var(--color-neutral-300); background: var(--color-neutral-200); padding: 16px 24px; text-align: center; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-fg-secondary-default); }
 
   /* LoginCard preview */
-  .lc-bg { display:flex; align-items:center; justify-content:center; padding:40px 20px; background: radial-gradient(ellipse 70% 50% at 10% 20%, rgba(13,148,136,0.08) 0%, transparent 55%), radial-gradient(ellipse 55% 60% at 90% 80%, rgba(20,184,166,0.1) 0%, transparent 58%), var(--color-bg-container-subtle); }
-  .lc-card { width:100%; max-width:400px; background:var(--color-bg-container); border:1px solid var(--color-neutral-200); border-radius:var(--radius-lg); padding:36px 32px; box-shadow:0 8px 28px rgba(13,148,136,0.08); box-sizing:border-box; }
-  .lc-brand { text-align:center; margin-bottom:28px; }
-  .lc-logo { width:40px; height:40px; margin:0 auto 12px; display:block; }
-  .lc-title { font-size:var(--text-body1); line-height:var(--text-body1--line-height); font-weight:800; color:var(--color-fg-primary-default); letter-spacing:-0.02em; margin:0 0 4px; }
-  .lc-sub { font-size:var(--text-caption); line-height:var(--text-caption--line-height); color:var(--color-fg-secondary-default); margin:0; }
-  .lc-form { display:flex; flex-direction:column; gap:18px; }
+  .lc-bg { display:flex; align-items:center; justify-content:center; padding:40px 16px; background:#f1f5f9; }
+  .lc-card { width:100%; max-width:384px; background:var(--color-bg-container); border:1px solid var(--color-neutral-200); border-radius:12px; padding:24px; box-shadow:0 1px 2px 0 rgb(0 0 0/0.05); box-sizing:border-box; }
+  .lc-brand { text-align:center; margin-bottom:24px; }
+  .lc-logo { width:48px; height:48px; margin:0 auto 8px; display:block; }
+  .lc-title { font-size:20px; line-height:1.4; font-weight:700; color:var(--color-fg-primary-default); margin:0 0 4px; }
+  .lc-sub { font-size:var(--text-body2); line-height:var(--text-body2--line-height); color:var(--color-fg-secondary-default); margin:0; }
+  .lc-form { display:flex; flex-direction:column; gap:20px; }
   .lc-field { display:flex; flex-direction:column; gap:6px; }
-  .lc-label { font-size:var(--text-body2); line-height:var(--text-body2--line-height); font-weight:700; color:var(--color-fg-secondary-default); }
-  .lc-input { height:44px; border:1px solid var(--color-neutral-200); border-radius:var(--radius-md); padding:0 12px; font-size:var(--text-body1); line-height:1; color:var(--color-fg-primary-default); background:var(--color-bg-container); width:100%; box-sizing:border-box; outline:none; font-family:inherit; }
+  .lc-label { font-size:var(--text-body2); line-height:var(--text-body2--line-height); font-weight:500; color:var(--color-fg-secondary-default); }
+  .lc-pw-wrap { position:relative; }
+  .lc-input { height:40px; border:1px solid var(--color-neutral-200); border-radius:var(--radius-md); padding:0 12px; font-size:var(--text-body2); line-height:1; color:var(--color-fg-primary-default); background:var(--color-bg-container); width:100%; box-sizing:border-box; outline:none; font-family:inherit; }
+  .lc-input.has-toggle { padding-right:40px; }
   .lc-input:focus { border-color:var(--color-primary-solid); box-shadow:0 0 0 3px rgba(13,148,136,0.15); }
-  .lc-submit { width:100%; height:44px; border-radius:var(--radius-md); background:var(--color-primary-solid); color:var(--color-fg-inverted-default); font-size:var(--text-body1); line-height:1; font-weight:700; border:none; cursor:pointer; margin-top:4px; transition:background 0.15s; font-family:inherit; }
+  .lc-pw-btn { position:absolute; top:50%; right:10px; transform:translateY(-50%); background:none; border:none; padding:0; cursor:pointer; color:var(--color-fg-tertiary-default); display:flex; align-items:center; }
+  .lc-pw-btn svg { width:16px; height:16px; }
+  .lc-submit { width:100%; height:40px; border-radius:var(--radius-md); background:var(--color-primary-solid); color:var(--color-fg-inverted-default); font-size:var(--text-body2); line-height:1; font-weight:500; border:none; cursor:pointer; transition:background 0.15s; font-family:inherit; }
   .lc-submit:hover { background:#0f766e; }
-  .lc-divider { display:flex; align-items:center; gap:12px; margin:4px 0 20px; color:var(--color-fg-tertiary-default); font-size:var(--text-caption); line-height:var(--text-caption--line-height); }
+  .lc-divider { display:flex; align-items:center; gap:12px; margin:20px 0; color:var(--color-fg-tertiary-default); font-size:var(--text-caption); line-height:var(--text-caption--line-height); }
   .lc-divider::before,.lc-divider::after { content:''; flex:1; height:1px; background:var(--color-neutral-200); }
-  .lc-social { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; height:44px; border:1px solid var(--color-neutral-200); border-radius:var(--radius-md); background:var(--color-bg-container); font-size:var(--text-body2); line-height:1; font-weight:600; color:var(--color-fg-primary-default); cursor:pointer; margin-bottom:12px; transition:background 0.15s,border-color 0.15s; font-family:inherit; }
+  .lc-social { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; height:40px; border:1px solid var(--color-neutral-200); border-radius:var(--radius-md); background:var(--color-bg-container); font-size:var(--text-body2); line-height:1; font-weight:500; color:var(--color-fg-primary-default); cursor:pointer; margin-bottom:8px; transition:background 0.15s,border-color 0.15s; font-family:inherit; }
   .lc-social:last-child { margin-bottom:0; }
   .lc-social:hover { background:var(--color-bg-container-subtle); border-color:var(--color-neutral-300); }
-  .lc-social svg { width:20px; height:20px; flex:none; }
+  .lc-social svg { width:18px; height:18px; flex:none; }
 
   /* audit */
   .audit-intro { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; padding: 22px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 24px; }
@@ -739,10 +743,10 @@
       <div class="spec-line">已拍板規則 ( 2026.7.30 )：Footer 全面改版，比照存取節點 AppFooter.vue 定案內容重寫。左側為品牌 logo + 兩行文字 ( 主名「政府資料匯流分析協作平臺」body1-bold + 副名 caption )；右側為機關聯絡資訊 ( 數位發展部連結 + 電話 / 地址，皆用 secondary 文字色，連結 hover 轉 fg-primary-hover 而非品牌色 primary-fg )；下方版權列水平置中。機關聯絡資訊與版權列內容<b>兩站完全相同</b> ( 同一個數位發展部 )，唯一因站別而異的只有 logo 主名下方的副名 ( 存取節點：資料存取節點；分析平臺：管理平台 )，故元件改為 <code>siteLabel</code> prop 而非整段 <code>copyrightText</code> 字串。存取節點列逐字對照 AppFooter.vue 搬移，且該站已實際換用本殼層元件 ( 移除本地 AppFooter.vue，直接引用 <code>@nics/design-tokens/components/Footer.vue</code> )，為定案內容；分析平臺列沿用同一套規格，實作前仍需該站設計負責人拍板</div>
     </section>
 
-    <!-- ============ LoginCard ( 2026.7.30 拍板新增 ) ============ -->
+    <!-- ============ LoginCard ( 2026.7.30 拍板 / 2026.7.30 更新對齊存取節點設計 ) ============ -->
     <section class="band" id="comp-logincard">
       <div class="band-head"><h2>LoginCard</h2><span class="src custom">自訂</span><span class="use-b">版面外殼 · 存取節點 / Web 端 / 分析平臺共用</span></div>
-      <p class="band-sub">登入頁的卡片外殼，居中浮卡佈局，白底 + neutral-200 框線 + radius-lg ( 16px ) 圓角 + 品牌色 8% 透明度陰影。結構：頂部 logo 居中品牌區 → 帳號密碼表單 → 主要登入按鈕；存取節點為純表單制，Web 端與分析平臺在主按鈕下方加「或以其他方式登入」分隔線 + Google / Passkey 快捷按鈕。</p>
+      <p class="band-sub">登入頁的卡片外殼，居中浮卡佈局，白底 + neutral-200 框線 + 12px 圓角 + shadow-sm。結構：頂部 logo 居中品牌區（標題 + 副標「請登入以繼續操作」）→ 帳號 / 密碼表單（密碼欄含 eye toggle）→ 主要登入按鈕；存取節點為純表單制，Web 端與分析平臺在主按鈕下方加「或以其他方式登入」分隔線 + Google / Passkey 快捷按鈕。</p>
 
       <div class="nv-label"><span>存取節點</span> · Access Demo</div>
       <div class="nv-frame">
@@ -750,17 +754,22 @@
           <div class="lc-card">
             <div class="lc-brand">
               <img src="favicon.png" alt="" class="lc-logo">
-              <h2 class="lc-title">登入平臺</h2>
-              <p class="lc-sub">資料存取節點</p>
+              <h2 class="lc-title">資料存取節點</h2>
+              <p class="lc-sub">請登入以繼續操作</p>
             </div>
             <div class="lc-form">
               <div class="lc-field">
                 <label class="lc-label">帳號</label>
-                <input class="lc-input" type="text" placeholder="user@moda.gov.tw" value="user@moda.gov.tw">
+                <input class="lc-input" type="text" placeholder="請輸入帳號">
               </div>
               <div class="lc-field">
                 <label class="lc-label">密碼</label>
-                <input class="lc-input" type="password" value="meowmeow">
+                <div class="lc-pw-wrap">
+                  <input class="lc-input has-toggle" type="password" placeholder="請輸入密碼">
+                  <button type="button" class="lc-pw-btn" tabindex="-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
               </div>
               <button class="lc-submit">登入</button>
             </div>
@@ -774,17 +783,22 @@
           <div class="lc-card">
             <div class="lc-brand">
               <img src="favicon.png" alt="" class="lc-logo">
-              <h2 class="lc-title">登入平臺</h2>
-              <p class="lc-sub">政府資料匯流分析協作平臺</p>
+              <h2 class="lc-title">政府資料匯流分析協作平臺</h2>
+              <p class="lc-sub">請登入以繼續操作</p>
             </div>
             <div class="lc-form">
               <div class="lc-field">
                 <label class="lc-label">帳號</label>
-                <input class="lc-input" type="text" placeholder="user@moda.gov.tw" value="user@moda.gov.tw">
+                <input class="lc-input" type="text" placeholder="請輸入帳號">
               </div>
               <div class="lc-field">
                 <label class="lc-label">密碼</label>
-                <input class="lc-input" type="password" value="meowmeow">
+                <div class="lc-pw-wrap">
+                  <input class="lc-input has-toggle" type="password" placeholder="請輸入密碼">
+                  <button type="button" class="lc-pw-btn" tabindex="-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
               </div>
               <button class="lc-submit">登入</button>
             </div>
@@ -799,7 +813,7 @@
               以 Google 帳號登入
             </button>
             <button class="lc-social">
-              <svg viewBox="0 -960 960 960" fill="#434343" aria-hidden="true">
+              <svg viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true">
                 <path d="M120-160v-112q0-34 17.5-62.5T184-378q62-31 126-46.5T440-440q20 0 40 1.5t40 4.5q-4 58 21 109.5t73 84.5v80H120ZM760-40l-60-60v-186q-44-13-72-49.5T600-420q0-58 41-99t99-41q58 0 99 41t41 99q0 45-25.5 80T790-290l50 50-60 60 60 60-80 80ZM440-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm328.5 68.5Q780-423 780-440t-11.5-28.5Q757-480 740-480t-28.5 11.5Q700-457 700-440t11.5 28.5Q723-400 740-400t28.5-11.5Z"/>
               </svg>
               以 Passkey 登入
@@ -808,11 +822,11 @@
         </div>
       </div>
 
-      <div class="spec-line">卡片：白底 bg-container · 1px neutral-200 框線 · radius-lg ( 16px ) · padding 36px 32px · 品牌色 8% 透明陰影 <code>0 8px 28px rgba(13,148,136,0.08)</code> · 最大寬 400px，置中於漸層淡底頁面背景</div>
-      <div class="spec-line">品牌區：logo 40×40px 居中 · 下距 12px · 標題 body1 ( 16px ) 800 字重 fg-primary letter-spacing -0.02em · 副名 caption fg-secondary（站別標示）</div>
-      <div class="spec-line">表單：欄位縱向 gap 18px · label body2 700 fg-secondary · input height 44px radius-md ( 8px ) neutral-200 框線，focus 態 primary-solid 框 + 3px primary 15% 透明光暈 · 登入按鈕 height 44px radius-md full-width primary-solid 實色 body1 700</div>
-      <div class="spec-line">社群快捷（Web 端 / 分析平臺限定）：分隔線「或以其他方式登入」caption fg-tertiary + neutral-200 線 · 快捷按鈕 height 44px radius-md neutral-200 框線白底 body2 600 · icon 20px · 間距 mb-12px · hover neutral-50 底 + neutral-300 框</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.30 )：存取節點為純帳密表單，無快捷登入按鈕；Web 端與分析平臺在主按鈕下方加 Google + Passkey 兩組快捷，樣式規格三站共用，差異僅在快捷按鈕的有無。副名文字各站自訂（存取節點：資料存取節點；Web 端：政府資料匯流分析協作平臺；分析平臺：管理平台）</div>
+      <div class="spec-line">卡片：白底 bg-container · 1px neutral-200 框線 · 12px 圓角 · padding 24px · shadow-sm <code>0 1px 2px 0 rgb(0 0 0/0.05)</code> · 最大寬 384px，置中於 bg-container-subtle 頁面背景</div>
+      <div class="spec-line">品牌區：logo 48×48px 居中 · 下距 8px · 標題 20px 700 fg-primary · 副標 body2 fg-secondary「請登入以繼續操作」（固定文字，三站共用）· 標題文字各站自訂（存取節點：資料存取節點；Web 端：政府資料匯流分析協作平臺；分析平臺：管理平台）</div>
+      <div class="spec-line">表單：欄位縱向 gap 20px · label body2 500 fg-secondary · input height 40px radius-md neutral-200 框線 body2 · 密碼欄含 eye toggle（16px icon，絕對定位右側 10px）· focus 態 primary-solid 框 + 3px primary 15% 透明光暈 · 登入按鈕 height 40px radius-md full-width primary-solid body2 500</div>
+      <div class="spec-line">社群快捷（Web 端 / 分析平臺限定）：分隔線「或以其他方式登入」caption fg-tertiary + neutral-200 線，margin 20px 0 · 快捷按鈕 height 40px radius-md neutral-200 框線白底 body2 500 · icon 18px · 間距 mb-8px · hover bg-container-subtle + neutral-300 框</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.30 )：存取節點為純帳密表單，無快捷登入按鈕；Web 端與分析平臺在主按鈕下方加 Google + Passkey 兩組快捷，樣式規格三站共用，差異僅在快捷按鈕的有無。</div>
     </section>
 
     <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->

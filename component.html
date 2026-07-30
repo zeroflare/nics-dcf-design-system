@@ -526,8 +526,8 @@
 
     <!-- ============ Navbar ( 2026.7.27 拍板新增,跨站共用殼 ) ============ -->
     <section class="band" id="comp-navbar">
-      <div class="band-head"><h2>Navbar</h2><span class="src custom">自訂</span><span class="use-b">殼 + slot · 存取節點 / 分析平臺共用</span></div>
-      <p class="band-sub">業主要求存取節點與分析平臺兩站要有一致的視覺識別，導覽列是使用者最直接感受到一致性的地方。做法是把「長相」收進設計系統：56px 高、白底、logo 排版、底線式選中態、使用者頭像 ( 見 Avatar 章 )、按鈕與圖示尺寸全部共用；各站帶入自己的選單項目與右側動作 ( 差異只留在內容層，不留在樣式層 )。</p>
+      <div class="band-head"><h2>Navbar</h2><span class="src custom">自訂</span><span class="use-b">殼 + slot · 存取節點 / 分析平臺 / Web 端共用</span></div>
+      <p class="band-sub">業主要求各站要有一致的視覺識別，導覽列是使用者最直接感受到一致性的地方。做法是把「長相」收進設計系統：56px 高、白底、logo 排版、底線式選中態、使用者頭像 ( 見 Avatar 章 )、按鈕與圖示尺寸全部共用；各站帶入自己的選單項目與右側動作 ( 差異只留在內容層，不留在樣式層 )。</p>
 
       <div class="nv-label"><span>存取節點</span> · Access Demo <span class="pill">登入後</span></div>
       <div class="nv-frame">
@@ -581,17 +581,61 @@
         </div>
       </div>
 
+      <div class="nv-label"><span>Web 端</span> · DCF Website <span class="pill">登入後</span></div>
+      <div class="nv-frame">
+        <div class="nvbar">
+          <div class="nvbar-inner">
+            <div class="nv-l">
+              <a class="nvlogo" href="#" onclick="return false">
+                <img src="favicon.png" alt="">
+                <span class="txt"><span class="main" style="font-size:1rem">政府資料匯流分析協作平臺</span></span>
+              </a>
+            </div>
+            <nav class="nvitems">
+              <a class="nvitem active" href="#" onclick="return false">儀表板</a>
+              <a class="nvitem" href="#" onclick="return false">資料目錄</a>
+              <a class="nvitem" href="#" onclick="return false">最新公告</a>
+              <a class="nvitem" href="#" onclick="return false" style="gap:4px">文件區 <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;flex:none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </nav>
+            <div class="nv-r" style="gap:16px">
+              <a class="nvloginbtn" href="#" onclick="return false">
+                <svg viewBox="0 0 256 256" fill="currentColor" style="width:16px;height:16px;flex:none"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></svg>
+                需求清單
+              </a>
+              <span class="nvuser"><span class="nvavatar cjk">王</span><span class="name">王小明</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-label"><span>Web 端</span> · DCF Website <span class="pill">未登入</span></div>
+      <div class="nv-frame">
+        <div class="nvbar">
+          <div class="nvbar-inner">
+            <div class="nv-l">
+              <a class="nvlogo" href="#" onclick="return false">
+                <img src="favicon.png" alt="">
+                <span class="txt"><span class="main" style="font-size:1rem">政府資料匯流分析協作平臺</span></span>
+              </a>
+            </div>
+            <nav class="nvitems"></nav>
+            <div class="nv-r"></div>
+          </div>
+        </div>
+      </div>
+
       <div class="spec-line">高度 56px 固定 · 白底 · 底部 1px stroke 分隔線 · logo 28px 無圓角 + 兩行文字堆疊 ( 主名 14/700 主要色、副名 12px 次要色，leading-tight + -mt-1 收窄行距 )</div>
       <div class="spec-line">選單項：文字 Body2 ( 14px ) · 選中態 primary-solid 底線 3px + primary-fg 文字 + 700 字重 · 未選 fg-secondary，hover 加深；徽章絕對定位貼文字右緣 ( -translate-y-1/2、ml-0.5、text-[0.6rem] )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.28 )：左側 brand、中間選單、右側 actions 三塊包在一起設最大寬 1280px ( <code>mx-auto max-w-7xl px-4 md:px-6</code>，與頁面內容容器同一套 )，桌面斷點內容置中，其他斷點隨容器寬度自然收縮；中間選單改為在此最大寬容器內置中 ( <code>flex-1 justify-center</code> )，不再貼齊左側 brand</div>
       <div class="spec-line">已拍板規則 ( 2026.7.28 )：新增 <code>fluid</code> 佈局 prop ( 預設 false )。全寬工作頁 ( 如資料來源桌面式分割版面 ) 內容撐滿整個視窗寬，navbar 若仍鎖 1280 會像「戴小帽子」；<code>fluid=true</code> 時拿掉 <code>max-w-7xl</code> 讓內層也撐滿 ( <code>max-w-full</code> )，logo 貼左緣、actions 貼右緣，對齊底下全寬內容。中間選單中心點在 1280 置中與全寬兩模式下數學上相同 ( 左右內縮量對消 )，切頁時選單不位移、只有 logo/actions 滑向邊緣，切換順滑。各站由路由決定何時傳入 ( demo 用 <code>route.meta.fullWidth</code> )</div>
       <div class="spec-line">右側動作區各站自訂內容，但元素樣式共用：連線狀態圓點 + 文字 ( gap-1 )、圖示按鈕 36px 圓形、使用者頭像 ( 見 Avatar 章 ) + 名稱 ( gap-1 )、登入按鈕 primary-solid 實色；連線狀態與使用者兩塊之間 gap-6 ( 24px )</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.27 )：業主要求兩站視覺一致，navbar 以「殼 + slot」落地，實體為本 repo <code>components/Navbar.vue</code> ( 插槽 brand / 預設選單 / actions ) + <code>components/NavbarItem.vue</code> ( 單一選單項，props：to / active / badge )，樣式規格共用、選單與右側內容各站帶入。<b>存取節點列逐字對照 AppNav.vue / NodeStatusIndicator.vue 搬移，且該站已實際換用本殼層元件，為定案內容</b>；分析平臺列因該站尚無 ds 化的 navbar 可供搬移，屬沿用同一套規格的新提案，非搬移，實作前仍需該站設計負責人拍板</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.29 )：<b>Web 端 ( dcf-website-demo )</b> 已實際換用本殼層元件，為定案內容。與其他站差異：(1) logo 僅單行主名，font-size 1rem，無副名第二行；(2) 中間選單 4 項：儀表板 / 資料目錄 / 最新公告 / 文件區，文件區為 shadcn DropdownMenu 觸發器，排版與 active 樣式對齊 NavbarItem，非原生 NavbarItem 元件；(3) 右側 actions：需求清單按鈕 ( nvloginbtn 樣式 + file-text icon ) + 使用者 avatar 下拉選單；(4) 未登入狀態中間選單與右側 actions 全部隱藏，僅顯示 brand 插槽；(5) &lt; 1024px 顯示漢堡選單按鈕，展開 mobile drawer</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.27 )：業主要求各站視覺一致，navbar 以「殼 + slot」落地，實體為本 repo <code>components/Navbar.vue</code> ( 插槽 brand / 預設選單 / actions ) + <code>components/NavbarItem.vue</code> ( 單一選單項，props：to / active / badge )，樣式規格共用、選單與右側內容各站帶入。<b>存取節點列逐字對照 AppNav.vue / NodeStatusIndicator.vue 搬移，且該站已實際換用本殼層元件，為定案內容</b>；分析平臺列因該站尚無 ds 化的 navbar 可供搬移，屬沿用同一套規格的新提案，非搬移，實作前仍需該站設計負責人拍板</div>
     </section>
 
     <!-- ============ Footer ( 2026.7.27 拍板新增,跨站共用殼 ) ============ -->
     <section class="band" id="comp-footer">
-      <div class="band-head"><h2>Footer</h2><span class="src custom">自訂</span><span class="use-b">殼 + slot · 存取節點 / 分析平臺共用</span></div>
+      <div class="band-head"><h2>Footer</h2><span class="src custom">自訂</span><span class="use-b">殼 + prop · 存取節點 / 分析平臺 / Web 端共用</span></div>
       <p class="band-sub">兩站頁尾結構完全相同：品牌 logo + 機關聯絡資訊 ( 數位發展部電話/地址 )，下方接版權列；唯一因站別而異的只有 logo 主名下方的副名。</p>
 
       <div class="nv-label"><span>存取節點</span> · Access Demo</div>
@@ -644,7 +688,32 @@
         </div>
       </div>
 
+      <div class="nv-label"><span>Web 端</span> · DCF Website</div>
+      <div class="nv-frame">
+        <div class="ftfoot">
+          <div class="ft-top">
+            <div class="ft-top-inner">
+              <div class="ft-brand">
+                <img src="favicon.png" alt="">
+                <div>
+                  <div class="main" style="font-size:18px">政府資料匯流分析協作平臺</div>
+                </div>
+              </div>
+              <div class="ft-org">
+                <a href="#" onclick="return false" class="name">數位發展部 Ministry of Digital Affairs</a>
+                <dl>
+                  <div><span>電話：</span><span>(02) 2531-1998</span></div>
+                  <div><span>地址：</span><a href="#" onclick="return false">100057 臺北市中正區延平南路143號</a></div>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="ft-copy">© 2026 數位發展部</div>
+        </div>
+      </div>
+
       <div class="spec-line">底色 neutral-200 · 上半部外層僅上下內距 32px ( py-8 )，內層 max-width 1280px 置中 + 左右內距，品牌區塊靠左、機關資訊區塊靠右對齊容器但內部文字靠左 ( lg:ml-auto lg:text-left ) · 下半部版權列同樣 neutral-200 底色，與上半部間僅用 1px neutral-300 分隔線區隔 ( 無額外對比底色 )，文字置中</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.30 )：新增 <code>web</code> boolean prop ( 預設 false )。<code>web=true</code> 時主名字級放大至 18px ( body1+2px )、副名行隱藏 ( 單行主名 )，對應 dcf-website-demo 的設計規格；<code>siteLabel</code> prop 在 web=true 時忽略。各站傳入方式：存取節點 / 分析平臺 <code>:site-label="..."</code>，Web 端 <code>:web="true"</code> 即可，不需傳 siteLabel</div>
       <div class="spec-line">已拍板規則 ( 2026.7.30 )：Footer 全面改版，比照存取節點 AppFooter.vue 定案內容重寫。左側為品牌 logo + 兩行文字 ( 主名「政府資料匯流分析協作平臺」body1-bold + 副名 caption )；右側為機關聯絡資訊 ( 數位發展部連結 + 電話 / 地址，皆用 secondary 文字色，連結 hover 轉 fg-primary-hover 而非品牌色 primary-fg )；下方版權列水平置中。機關聯絡資訊與版權列內容<b>兩站完全相同</b> ( 同一個數位發展部 )，唯一因站別而異的只有 logo 主名下方的副名 ( 存取節點：資料存取節點；分析平臺：管理平台 )，故元件改為 <code>siteLabel</code> prop 而非整段 <code>copyrightText</code> 字串。存取節點列逐字對照 AppFooter.vue 搬移，且該站已實際換用本殼層元件 ( 移除本地 AppFooter.vue，直接引用 <code>@nics/design-tokens/components/Footer.vue</code> )，為定案內容；分析平臺列沿用同一套規格，實作前仍需該站設計負責人拍板</div>
     </section>
 

@@ -4,17 +4,21 @@ import { computed } from 'vue'
 /**
  * Footer — 頁尾殼層 ( 2026.7.27 拍板新增，2026.7.30 比照存取節點 AppFooter.vue 定案內容全面改版，跨站共用 )
  * 實體住在 nics-dcf-design-system，消費端由 @nics/design-tokens/components/Footer.vue 引用。
- * 機關資訊 ( 數位發展部聯絡方式 )、版權列、整體結構固定，兩站唯一的差異是 logo 主名下方的副名。
+ * 機關資訊 ( 數位發展部聯絡方式 )、版權列、整體結構固定，各站差異收斂為以下 props：
  *
- * siteLabel：logo 主名下方的小字，標示該站產品名稱 ( 存取節點：資料存取節點；分析平臺：管理平台 )
+ * siteLabel：logo 主名下方的小字，標示該站產品名稱 ( 存取節點：資料存取節點；分析平臺：管理平台 )；
+ *            web=true 時忽略此 prop ( 主名單行顯示，無副名 )
  * homeHref：logo 連結目標，預設首頁 "/"
+ * web：Web 端變體，預設 false。true 時主名字級放大至 18px ( body1+2px ) 且不顯示副名，
+ *       對應 dcf-website-demo 公開頁面 footer 的設計規格 ( 2026.7.30 拍板 )
  */
 withDefaults(
   defineProps<{
-    siteLabel: string
+    siteLabel?: string
     homeHref?: string
+    web?: boolean
   }>(),
-  { homeHref: '/' }
+  { homeHref: '/', web: false }
 )
 
 const year = computed(() => new Date().getFullYear())
@@ -40,8 +44,11 @@ const modaAddressUrl =
             />
           </a>
           <div>
-            <p class="text-body1 font-bold text-fg-primary-default">政府資料匯流分析協作平臺</p>
-            <p class="text-caption text-fg-secondary-default">{{ siteLabel }}</p>
+            <p
+              class="font-bold text-fg-primary-default"
+              :style="web ? 'font-size:18px;line-height:1.5' : 'font-size:16px;line-height:1.5'"
+            >政府資料匯流分析協作平臺</p>
+            <p v-if="!web && siteLabel" class="text-caption text-fg-secondary-default">{{ siteLabel }}</p>
           </div>
         </div>
 

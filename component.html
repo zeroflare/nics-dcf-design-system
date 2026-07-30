@@ -116,12 +116,11 @@
   nav.toc .grp { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin: 18px 0 6px 8px; }
   nav.toc .grp-toggle {
     display: flex; align-items: center; justify-content: space-between; width: 100%;
-    background: none; border: none; cursor: pointer; padding: 0 8px;
+    padding: 0 8px;
     font-size: 16px; color: var(--ink);
     margin: 18px 0 6px; font-weight: 700;
   }
   nav.toc .grp-toggle:first-child { margin-top: 0; }
-  nav.toc .grp-toggle:hover { color: var(--ink); }
   nav.toc .grp-body { display: flex; flex-direction: column; gap: 2px; }
   nav.toc a {
     text-decoration: none; color: var(--ink); font-size: 14px; padding: 6px 12px 6px 20px; border-radius: 7px;
@@ -295,6 +294,9 @@
     --color-skeleton-base: #e2e8f0;
     --color-skeleton-sheen: #f8fafc;
     --color-brand-300: #2dd4bf;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
     --shadow-sm: 0 2px 6px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
     --text-body1: 16px;
     --text-body1--line-height: 1.5;
@@ -466,9 +468,9 @@
       <div class="name">政府資料匯流分析協作平臺設計系統</div>
     </a>
     <nav class="toc">
-      <button class="grp-toggle" type="button" data-page="foundation.html">
+      <div class="grp-toggle">
         <span>設計規範</span>
-      </button>
+      </div>
       <div class="grp-body" id="grp-spec">
         <a href="foundation.html#color"><span>顏色</span></a>
         <a href="foundation.html#type"><span>文字</span></a>
@@ -481,13 +483,14 @@
         <a href="foundation.html#audit" class="crit-link"><span>審計清單</span></a>
       </div>
 
-      <button class="grp-toggle" type="button" data-page="component.html">
+      <div class="grp-toggle">
         <span>元件</span>
-      </button>
+      </div>
       <div class="grp-body" id="grp-comp">
         <a href="#comp-guide"><span>接入指南</span></a>
         <div class="grp sub">版面外殼</div>
         <a href="#comp-navbar" class="comp-link"><span>Navbar</span></a>
+        <a href="#comp-userdropdown" class="comp-link"><span>UserDropdown</span></a>
         <a href="#comp-footer" class="comp-link"><span>Footer</span></a>
         <a href="#comp-logincard" class="comp-link"><span>LoginCard</span></a>
         <div class="grp sub">動作與表單</div>
@@ -657,6 +660,90 @@
       <div class="spec-line">右側動作區各站自訂內容，但元素樣式共用：連線狀態圓點 + 文字 ( gap-1 )、圖示按鈕 36px 圓形、使用者頭像 ( 見 Avatar 章 ) + 名稱 ( gap-1 )、登入按鈕 primary-solid 實色；連線狀態與使用者兩塊之間 gap-6 ( 24px )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.29 )：<b>Web 端 ( dcf-website-demo )</b> 已實際換用本殼層元件，為定案內容。與其他站差異：(1) logo 僅單行主名，font-size 1rem，無副名第二行；(2) 中間選單 4 項：儀表板 / 資料目錄 / 最新公告 / 文件區，文件區為 shadcn DropdownMenu 觸發器，排版與 active 樣式對齊 NavbarItem，非原生 NavbarItem 元件；(3) 右側 actions：需求清單按鈕 ( nvloginbtn 樣式 + file-text icon ) + 使用者 avatar 下拉選單；(4) 未登入狀態中間選單與右側 actions 全部隱藏，僅顯示 brand 插槽；(5) &lt; 1024px 顯示漢堡選單按鈕，展開 mobile drawer</div>
       <div class="spec-line">已拍板規則 ( 2026.7.27 )：業主要求各站視覺一致，navbar 以「殼 + slot」落地，實體為本 repo <code>components/Navbar.vue</code> ( 插槽 brand / 預設選單 / actions ) + <code>components/NavbarItem.vue</code> ( 單一選單項，props：to / active / badge )，樣式規格共用、選單與右側內容各站帶入。<b>存取節點列逐字對照 AppNav.vue / NodeStatusIndicator.vue 搬移，且該站已實際換用本殼層元件，為定案內容</b>；分析平臺列因該站尚無 ds 化的 navbar 可供搬移，屬沿用同一套規格的新提案，非搬移，實作前仍需該站設計負責人拍板</div>
+    </section>
+
+    <!-- ============ UserDropdown ( 2026.7.30 拍板新增 ) ============ -->
+    <section class="band" id="comp-userdropdown">
+      <div class="band-head"><h2>UserDropdown</h2><span class="src custom">自訂</span><span class="use-b">版面規範 · 存取節點 / 分析平臺 / Web 端共用排版格式</span></div>
+      <p class="band-sub">Navbar 右側使用者頭像點擊後展開的下拉選單。各站資訊欄位不同，但排版格式統一：小標（caption / fg-secondary）＋值（body2 / fg-primary）堆疊，無冒號；動作列靠 Dropdown Menu 底層；登出固定使用 danger-fg。</p>
+
+      <div class="nv-label"><span>Web 端</span> · 名稱 + 帳號 + 帳號管理 + 登出</div>
+      <div class="preview" style="justify-content:center;gap:32px;flex-wrap:wrap">
+        <div style="width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:8px;box-shadow:var(--shadow-sm);overflow:hidden">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--color-stroke)">
+            <div style="margin-bottom:10px">
+              <div style="font-size:11px;font-weight:500;color:var(--color-fg-secondary-default);margin-bottom:2px">名稱</div>
+              <div style="font-size:14px;color:var(--color-fg-primary-default)">王小明</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:500;color:var(--color-fg-secondary-default);margin-bottom:2px">帳號</div>
+              <div style="font-size:14px;color:var(--color-fg-primary-default)">user@moda.gov.tw</div>
+            </div>
+          </div>
+          <div style="padding:4px">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-fg-primary-default);cursor:pointer">
+              <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none;color:var(--color-fg-secondary-default)"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              帳號管理
+            </div>
+          </div>
+          <div style="height:1px;background:var(--color-stroke);margin:0 4px"></div>
+          <div style="padding:4px">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-danger-fg);cursor:pointer">
+              <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              登出
+            </div>
+          </div>
+        </div>
+
+        <div style="width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:8px;box-shadow:var(--shadow-sm);overflow:hidden">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--color-stroke)">
+            <div style="margin-bottom:10px">
+              <div style="font-size:11px;font-weight:500;color:var(--color-fg-secondary-default);margin-bottom:2px">帳號</div>
+              <div style="font-size:14px;color:var(--color-fg-primary-default)">admin@platform.gov.tw</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:500;color:var(--color-fg-secondary-default);margin-bottom:2px">角色</div>
+              <div style="font-size:14px;color:var(--color-fg-primary-default)">superuser</div>
+            </div>
+          </div>
+          <div style="padding:4px">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-fg-primary-default);cursor:pointer">
+              <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none;color:var(--color-fg-secondary-default)"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              帳號管理
+            </div>
+          </div>
+          <div style="height:1px;background:var(--color-stroke);margin:0 4px"></div>
+          <div style="padding:4px">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-danger-fg);cursor:pointer">
+              <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              登出
+            </div>
+          </div>
+        </div>
+
+        <div style="width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:8px;box-shadow:var(--shadow-sm);overflow:hidden">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--color-stroke)">
+            <div style="margin-bottom:10px">
+              <div style="font-size:11px;font-weight:500;color:var(--color-fg-secondary-default);margin-bottom:2px">帳號</div>
+              <div style="font-size:14px;color:var(--color-fg-primary-default)">admin</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:500;color:var(--color-fg-secondary-default);margin-bottom:2px">角色</div>
+              <div style="font-size:14px;color:var(--color-fg-primary-default)">superuser</div>
+            </div>
+          </div>
+          <div style="padding:4px">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-danger-fg);cursor:pointer">
+              <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              登出
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-line">已拍板規則 ( 2026.7.30 )：資訊欄位採小標 + 值堆疊，<b>小標</b> caption ( 11px ) / 500 / fg-secondary / mb-0.5，<b>值</b> body2 ( 14px ) / fg-primary；<b>無冒號</b>。欄位間距 mb-2.5 ( 10px )。資訊區整塊 px-4 py-3 + border-b stroke 與動作區分隔</div>
+      <div class="spec-line">動作列底層為 shadcn Dropdown Menu，action item：flex items-center gap-2 px-3 py-2 rounded-md text-body2；登出固定 danger-fg，其餘 fg-primary；icon 15px fg-secondary（登出 icon 繼承 danger-fg）。動作列與資訊區之間無額外間距，靠資訊區 border-b 分隔；帳號管理與登出之間加 separator ( 1px stroke，mx-1 )</div>
+      <div class="spec-line">各站欄位對照：<b>Web 端</b> 名稱 + 帳號 + 帳號管理 + 登出；<b>分析平臺</b> 帳號 + 角色 + 帳號管理 + 登出；<b>存取節點</b> 帳號 + 角色 + 登出（無帳號管理入口）</div>
     </section>
 
     <!-- ============ Footer ( 2026.7.27 拍板新增,跨站共用殼 ) ============ -->
@@ -1236,25 +1323,11 @@
       hb.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     if (scrim) scrim.addEventListener('click', close);
-    document.querySelectorAll('nav.toc a, nav.toc .grp-toggle').forEach(function (el) {
+    document.querySelectorAll('nav.toc a').forEach(function (el) {
       el.addEventListener('click', close);
     });
   })();
 
-  /* 側邊欄「設計規範」「元件」切換：點另一頁的群組就跳轉過去，點自己這頁的群組回到頁面最上方 */
-  (function () {
-    var currentPage = location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.grp-toggle').forEach(function (toggle) {
-      toggle.addEventListener('click', function () {
-        var targetPage = toggle.getAttribute('data-page');
-        if (targetPage && targetPage !== currentPage) {
-          location.href = targetPage;
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
-    });
-  })();
 
   /* scrollspy：章節頂部進入視窗頂 32px 內時，亮起側欄對應連結 */
   (function () {

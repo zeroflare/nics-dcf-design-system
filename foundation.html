@@ -113,12 +113,11 @@
   nav.toc .grp { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin: 18px 0 6px 8px; }
   nav.toc .grp-toggle {
     display: flex; align-items: center; justify-content: space-between; width: 100%;
-    background: none; border: none; cursor: pointer; padding: 0 8px;
+    padding: 0 8px;
     font-size: 16px; color: var(--ink);
     margin: 18px 0 6px; font-weight: 700;
   }
   nav.toc .grp-toggle:first-child { margin-top: 0; }
-  nav.toc .grp-toggle:hover { color: var(--ink); }
   nav.toc .grp-body { display: flex; flex-direction: column; gap: 2px; }
   nav.toc a {
     text-decoration: none; color: var(--ink); font-size: 14px; padding: 6px 12px 6px 20px; border-radius: 7px;
@@ -336,9 +335,9 @@
       <div class="name">政府資料匯流分析協作平臺設計系統</div>
     </a>
     <nav class="toc">
-      <button class="grp-toggle" type="button" data-page="foundation.html">
+      <div class="grp-toggle">
         <span>設計規範</span>
-      </button>
+      </div>
       <div class="grp-body" id="grp-spec">
         <a href="#color"><span>顏色</span></a>
         <a href="#type"><span>文字</span></a>
@@ -351,11 +350,16 @@
         <a href="#audit" class="crit-link"><span>審計清單</span></a>
       </div>
 
-      <button class="grp-toggle" type="button" data-page="component.html">
+      <div class="grp-toggle">
         <span>元件</span>
-      </button>
+      </div>
       <div class="grp-body" id="grp-comp">
         <a href="component.html#comp-guide"><span>接入指南</span></a>
+        <div class="grp sub">版面外殼</div>
+        <a href="component.html#comp-navbar" class="comp-link"><span>Navbar</span></a>
+        <a href="component.html#comp-userdropdown" class="comp-link"><span>UserDropdown</span></a>
+        <a href="component.html#comp-footer" class="comp-link"><span>Footer</span></a>
+        <a href="component.html#comp-logincard" class="comp-link"><span>LoginCard</span></a>
         <div class="grp sub">動作與表單</div>
         <a href="component.html#comp-button" class="comp-link"><span>Button</span></a>
         <a href="component.html#comp-input" class="comp-link"><span>Input</span></a>
@@ -1030,25 +1034,11 @@
       hb.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     if (scrim) scrim.addEventListener('click', close);
-    document.querySelectorAll('nav.toc a, nav.toc .grp-toggle').forEach(function (el) {
+    document.querySelectorAll('nav.toc a').forEach(function (el) {
       el.addEventListener('click', close);
     });
   })();
 
-  /* 側邊欄「設計規範」「元件」切換：點另一頁的群組就跳轉過去，點自己這頁的群組回到頁面最上方 */
-  (function () {
-    var currentPage = location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.grp-toggle').forEach(function (toggle) {
-      toggle.addEventListener('click', function () {
-        var targetPage = toggle.getAttribute('data-page');
-        if (targetPage && targetPage !== currentPage) {
-          location.href = targetPage;
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
-    });
-  })();
 
   /* scrollspy：章節頂部進入視窗頂 32px 內時，亮起側欄對應連結 */
   (function () {

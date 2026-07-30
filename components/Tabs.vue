@@ -45,7 +45,10 @@ function tabClass(tab: TabItem): string {
 }
 
 function countClass(): string {
-  return 'bg-primary-solid text-fg-inverted-default'
+  // font-bold 要明寫,不能靠繼承父層 button 的字重:tabClass() 選中態是 font-bold、
+  // 未選是 font-normal,徽章數字若不明寫字重,同一顆徽章會因為所在頁籤選中與否而字重不同,
+  // 違反「一律 primary-solid 底 + 白字,不隨選中/未選狀態變化」的設計意圖
+  return 'bg-primary-solid font-bold text-fg-inverted-default'
 }
 </script>
 

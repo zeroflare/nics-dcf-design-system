@@ -41,7 +41,7 @@ component.html 每個元件的標題旁都有來源標籤，一眼可辨。
 # 文字規則
 
 1. 繁體中文、台灣用語,不能出現簡體中文和支語
-2. 中文句子中使用半形括號並前後空格,例如:存取節點 (Access Node)
+2. 中文句子中使用半形括號並前後空格,例如:存取節點 (Access Demo)
 3. 數字使用千分號,例如:1,000
 4. 嚴禁在句子中間使用 —— 破折號銜接或引出結論
 5. 不清楚就先問再實作,不要自行推論腦補
@@ -119,7 +119,7 @@ import Shimmer from '@nics/design-tokens/components/Shimmer.vue' // 頁面級載
 import Avatar from '@nics/design-tokens/components/Avatar.vue' // 使用者頭像 ( 首字 + 主色漸層 )
 import Navbar from '@nics/design-tokens/components/Navbar.vue' // 導覽列殼層,插槽 brand / 預設 / actions
 import NavbarItem from '@nics/design-tokens/components/NavbarItem.vue' // 搭配 Navbar 的選單項
-import Footer from '@nics/design-tokens/components/Footer.vue' // 頁尾殼層
+import Footer from '@nics/design-tokens/components/Footer.vue' // 頁尾殼層,props：siteLabel ( 站名副名,必填 ) / homeHref ( logo 連結,預設 "/" )
 ```
 
 **依賴契約**：自訂元件內部以 `@/components/ui/*` 引用 shadcn 元件 ( 如 ConfirmDialog 用到 dialog、button )，因此消費端必須：(1) `@` 別名指向 `src`；(2) 已完成步驟 3 安裝對應的 shadcn 元件。`NavbarItem` 額外依賴 `vue-router`( 所有消費站都是 vue-router SPA，視為既有前提，不需額外安裝 )。

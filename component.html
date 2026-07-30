@@ -337,11 +337,21 @@
   .nvuser:hover .name { color: var(--color-fg-primary-hover); }
   .nvloginbtn { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 8px; background: var(--color-primary-solid); color: var(--color-fg-inverted-default); font-size: var(--text-button); line-height: var(--text-button--line-height); font-weight: 500; text-decoration: none; }
   .nvloginbtn svg { width: 16px; height: 16px; }
-  .ftbar { background: var(--color-bg-container); padding: 16px 0; font-size: var(--text-caption); line-height: var(--text-caption--line-height); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-fg-tertiary-default); }
-  .ftbar .inner { max-width: 1024px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .ftbar .links { display: flex; gap: 24px; }
-  .ftbar a { color: var(--color-fg-tertiary-default); text-decoration: none; }
-  .ftbar a:hover { color: var(--color-primary-fg); }
+  .ftfoot { background: var(--color-neutral-200); }
+  .ft-top { padding: 32px 24px; }
+  .ft-top-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+  .ft-brand { display: flex; align-items: center; gap: 8px; }
+  .ft-brand img { width: 40px; height: 40px; }
+  .ft-brand .main { font-size: var(--text-body1); line-height: var(--text-body1--line-height); font-weight: 700; color: var(--color-fg-primary-default); }
+  .ft-brand .sub { font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-fg-secondary-default); }
+  .ft-org { text-align: left; }
+  .ft-org .name { font-size: var(--text-body2); line-height: var(--text-body2--line-height); font-weight: 700; color: var(--color-fg-primary-default); text-decoration: none; }
+  .ft-org .name:hover { color: var(--color-fg-primary-hover); }
+  .ft-org dl { margin: 8px 0 0; display: flex; flex-direction: column; gap: 4px; font-size: var(--text-body2); line-height: var(--text-body2--line-height); color: var(--color-fg-secondary-default); }
+  .ft-org dl div { display: flex; gap: 4px; }
+  .ft-org dl a { color: inherit; text-decoration: none; }
+  .ft-org dl a:hover { color: var(--color-fg-primary-hover); }
+  .ft-copy { border-top: 1px solid var(--color-neutral-300); background: var(--color-neutral-200); padding: 16px 24px; text-align: center; font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-fg-secondary-default); }
 
   /* audit */
   .audit-intro { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; padding: 22px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); margin-bottom: 24px; }
@@ -515,7 +525,7 @@
       <div class="band-head"><h2>Navbar</h2><span class="src custom">自訂</span><span class="use-b">殼 + slot · 存取節點 / 分析平臺共用</span></div>
       <p class="band-sub">業主要求存取節點與分析平臺兩站要有一致的視覺識別，導覽列是使用者最直接感受到一致性的地方。做法是把「長相」收進設計系統：56px 高、白底、logo 排版、底線式選中態、使用者頭像 ( 見 Avatar 章 )、按鈕與圖示尺寸全部共用；各站帶入自己的選單項目與右側動作 ( 差異只留在內容層，不留在樣式層 )。</p>
 
-      <div class="nv-label"><span>存取節點</span> · Access Node <span class="pill">登入後</span></div>
+      <div class="nv-label"><span>存取節點</span> · Access Demo <span class="pill">登入後</span></div>
       <div class="nv-frame">
         <div class="nvbar">
           <div class="nvbar-inner">
@@ -567,29 +577,6 @@
         </div>
       </div>
 
-      <div class="nv-label"><span>分析平臺</span> · Platform <span class="pill">未登入</span></div>
-      <div class="nv-frame">
-        <div class="nvbar">
-          <div class="nvbar-inner">
-            <div class="nv-l">
-              <a class="nvlogo" href="#" onclick="return false">
-                <img src="favicon.png" alt="">
-                <span class="txt"><span class="main">政府資料匯流分析平臺</span><span class="sub">管理平台</span></span>
-              </a>
-            </div>
-            <nav class="nvitems">
-              <a class="nvitem active" href="#" onclick="return false">操作紀錄</a>
-            </nav>
-            <div class="nv-r">
-              <a class="nvloginbtn" href="#" onclick="return false">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                登入
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="spec-line">高度 56px 固定 · 白底 · 底部 1px stroke 分隔線 · logo 28px 無圓角 + 兩行文字堆疊 ( 主名 14/700 主要色、副名 12px 次要色，leading-tight + -mt-1 收窄行距 )</div>
       <div class="spec-line">選單項：文字 Body2 ( 14px ) · 選中態 primary-solid 底線 3px + primary-fg 文字 + 700 字重 · 未選 fg-secondary，hover 加深；徽章絕對定位貼文字右緣 ( -translate-y-1/2、ml-0.5、text-[0.6rem] )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.28 )：左側 brand、中間選單、右側 actions 三塊包在一起設最大寬 1280px ( <code>mx-auto max-w-7xl px-4 md:px-6</code>，與頁面內容容器同一套 )，桌面斷點內容置中，其他斷點隨容器寬度自然收縮；中間選單改為在此最大寬容器內置中 ( <code>flex-1 justify-center</code> )，不再貼齊左側 brand</div>
@@ -601,30 +588,60 @@
     <!-- ============ Footer ( 2026.7.27 拍板新增,跨站共用殼 ) ============ -->
     <section class="band" id="comp-footer">
       <div class="band-head"><h2>Footer</h2><span class="src custom">自訂</span><span class="use-b">殼 + slot · 存取節點 / 分析平臺共用</span></div>
-      <p class="band-sub">兩站頁尾結構幾乎相同，統一為靠左版權、靠右服務條款 / 隱私權政策連結；版權文字用參數帶入，各站標示自己的產品全名與副名。</p>
+      <p class="band-sub">兩站頁尾結構完全相同：品牌 logo + 機關聯絡資訊 ( 數位發展部電話/地址 )，下方接版權列；唯一因站別而異的只有 logo 主名下方的副名。</p>
 
-      <div class="nv-label"><span>存取節點</span> · Access Node</div>
+      <div class="nv-label"><span>存取節點</span> · Access Demo</div>
       <div class="nv-frame">
-        <div class="ftbar">
-          <div class="inner">
-            <span>© 2026 政府資料匯流分析平臺｜資料存取節點</span>
-            <span class="links"><a href="#" onclick="return false">服務條款</a><a href="#" onclick="return false">隱私權政策</a></span>
+        <div class="ftfoot">
+          <div class="ft-top">
+            <div class="ft-top-inner">
+              <div class="ft-brand">
+                <img src="favicon.png" alt="">
+                <div>
+                  <div class="main">政府資料匯流分析協作平臺</div>
+                  <div class="sub">資料存取節點</div>
+                </div>
+              </div>
+              <div class="ft-org">
+                <a href="#" onclick="return false" class="name">數位發展部 Ministry of Digital Affairs</a>
+                <dl>
+                  <div><span>電話：</span><span>(02) 2531-1998</span></div>
+                  <div><span>地址：</span><a href="#" onclick="return false">100057 臺北市中正區延平南路143號</a></div>
+                </dl>
+              </div>
+            </div>
           </div>
+          <div class="ft-copy">© 2026 數位發展部</div>
         </div>
       </div>
 
       <div class="nv-label"><span>分析平臺</span> · Platform</div>
       <div class="nv-frame">
-        <div class="ftbar">
-          <div class="inner">
-            <span>© 2026 政府資料匯流分析平臺｜管理平台</span>
-            <span class="links"><a href="#" onclick="return false">服務條款</a><a href="#" onclick="return false">隱私權政策</a></span>
+        <div class="ftfoot">
+          <div class="ft-top">
+            <div class="ft-top-inner">
+              <div class="ft-brand">
+                <img src="favicon.png" alt="">
+                <div>
+                  <div class="main">政府資料匯流分析協作平臺</div>
+                  <div class="sub">管理平台</div>
+                </div>
+              </div>
+              <div class="ft-org">
+                <a href="#" onclick="return false" class="name">數位發展部 Ministry of Digital Affairs</a>
+                <dl>
+                  <div><span>電話：</span><span>(02) 2531-1998</span></div>
+                  <div><span>地址：</span><a href="#" onclick="return false">100057 臺北市中正區延平南路143號</a></div>
+                </dl>
+              </div>
+            </div>
           </div>
+          <div class="ft-copy">© 2026 數位發展部</div>
         </div>
       </div>
 
-      <div class="spec-line">白底 · 頂部 1px stroke 分隔線 · 外層僅上下內距 ( py-4 )，內層 max-width 1024px 置中 + 左右內距 ( 對齊真實 AppFooter.vue 結構 ) · 版權 Caption ( 12px ) 大寫、字距 tracking-widest ( 0.1em )，靠左；服務條款 / 隱私權政策連結靠右，hover 轉 primary-fg</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.27 )：實體為本 repo <code>components/Footer.vue</code> ( props：copyrightText / links，links 預設服務條款 + 隱私權政策 )。版權文字統一「© 年份 政府資料匯流分析平臺｜［站名副名］」格式，站名副名由各站帶入 ( 存取節點：資料存取節點；分析平臺：管理平台 )。存取節點列逐字對照 AppFooter.vue 搬移，且該站已實際換用本殼層元件，為定案內容</div>
+      <div class="spec-line">底色 neutral-200 · 上半部外層僅上下內距 32px ( py-8 )，內層 max-width 1280px 置中 + 左右內距，品牌區塊靠左、機關資訊區塊靠右對齊容器但內部文字靠左 ( lg:ml-auto lg:text-left ) · 下半部版權列同樣 neutral-200 底色，與上半部間僅用 1px neutral-300 分隔線區隔 ( 無額外對比底色 )，文字置中</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.30 )：Footer 全面改版，比照存取節點 AppFooter.vue 定案內容重寫。左側為品牌 logo + 兩行文字 ( 主名「政府資料匯流分析協作平臺」body1-bold + 副名 caption )；右側為機關聯絡資訊 ( 數位發展部連結 + 電話 / 地址，皆用 secondary 文字色，連結 hover 轉 fg-primary-hover 而非品牌色 primary-fg )；下方版權列水平置中。機關聯絡資訊與版權列內容<b>兩站完全相同</b> ( 同一個數位發展部 )，唯一因站別而異的只有 logo 主名下方的副名 ( 存取節點：資料存取節點；分析平臺：管理平台 )，故元件改為 <code>siteLabel</code> prop 而非整段 <code>copyrightText</code> 字串。存取節點列逐字對照 AppFooter.vue 搬移，且該站已實際換用本殼層元件 ( 移除本地 AppFooter.vue，直接引用 <code>@nics/design-tokens/components/Footer.vue</code> )，為定案內容；分析平臺列沿用同一套規格，實作前仍需該站設計負責人拍板</div>
     </section>
 
     <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->

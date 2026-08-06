@@ -262,6 +262,12 @@
   --color-bg-container-variant: var(--color-neutral-100); /* 卡片上的元件 */
   --color-bg-container-high: var(--color-neutral-200);    /* 更重的強調區塊 */
 
+  /* 表單控制元件的停用態底色 ( 2026.8.6 拍板新增 )：Input/Select/Textarea 等 disabled 時
+     需要一塊看得出來的灰底,不能只靠 opacity 淡化 ( 透明背景疊 opacity 等於沒有底色變化 )。
+     數值與 bg-container-variant 相同,但語意是「元件狀態」不是「卡片疊層」,故獨立命名,
+     不與 bg-container 家族共用同一顆 token */
+  --color-bg-disabled: var(--color-neutral-100);
+
   /* 可互動表面 ( 可點的列/項目,如待處理協作請求列 ):靜置 neutral-100、hover 提亮一階到
      neutral-50,作為互動回饋。中性骨架的 bg-container 那組是「疊層高低」語意、只有單一態,
      這組刻意獨立出來帶 default/hover,補上互動列需要的 hover slot ( 2026.7.24 拍板 ) */

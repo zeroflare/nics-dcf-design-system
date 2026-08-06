@@ -247,6 +247,7 @@
   .sbadge { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; border: 1px solid; }
   .field { height: 34px; border: 1px solid var(--color-stroke); border-radius: 8px; background: var(--color-bg-container); padding: 0 12px; display: flex; align-items: center; color: var(--color-fg-tertiary-default); font-size: 13px; width: 100%; }
   .field.focus { border-color: var(--color-brand-300); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-brand-300) 50%, transparent); }
+  .field.disabled { background: var(--color-bg-disabled); cursor: not-allowed; }
   .swch { width: 34px; height: 20px; border-radius: 999px; background: var(--color-primary-solid); position: relative; }
   .swch::after { content: ""; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--color-fg-inverted-default); top: 2px; right: 2px; }
   .swch.off { background: var(--color-stroke); }
@@ -935,14 +936,16 @@
 
     <!-- ============ Input ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-input">
-      <div class="band-head"><h2>Input</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 12 處 / 7 檔 · 另有手刻 11 顆待收編</span></div>
+      <div class="band-head"><h2>Input</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 12 處 / 7 檔 · 另有手刻 11 顆待收編</span></div>
       <p class="band-sub">單行輸入。h-9 ( 36px )、rounded-md、文字 14px，焦點時顯示 3px brand-300 焦點環。</p>
       <div class="preview" style="flex-direction:column;align-items:stretch;gap:10px">
         <span class="field">預設輸入框</span>
         <span class="field focus">焦點狀態</span>
+        <span class="field disabled">停用狀態</span>
       </div>
-      <div class="spec-line">h-9 · rounded-md · border = stroke ( n200 ) · focus ring 3px brand-300</div>
+      <div class="spec-line">h-9 · rounded-md · border = stroke ( n200 ) · focus ring 3px brand-300 · disabled 底色 <code>bg-disabled</code></div>
       <div class="spec-line">已拍板規則 ( 2026.7.19 )：元件不加 size prop ( vendor 檔不 fork )，小尺寸定慣例 class="h-8 text-xs"；搜尋框 icon 空間用 pl-9、密碼顯示鈕用 pr-10 屬合理佈局覆寫；手刻 11 顆 ( 標準款 6、表格迷你款 4 吸附小尺寸慣例、無框搜尋款 1 ) 隨頁面遷移收編</div>
+      <div class="spec-line">已拍板規則 ( 2026.8.6 )：一項 vendor 修改 — disabled 的 <code>opacity-50</code> 改為 <code>bg-disabled</code>，理由：透明背景疊 opacity 看不出停用態的底色變化，改用實際灰底 ( neutral-100 ) 才有明確的「不可編輯」視覺，阿暖反饋新增 ( 資料來源頁「部門」欄位改自動帶入、不再手動輸入時發現 )</div>
     </section>
 
     <!-- ============ Switch ( 2026.7.19 盤點定案 ) ============ -->

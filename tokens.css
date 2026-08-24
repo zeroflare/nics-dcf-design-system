@@ -252,7 +252,7 @@
      前景本身恆為純白;若日後真的出現需要變化的情境再補 */
   --color-fg-inverted-default: var(--color-neutral-0);
 
-  --color-stroke: var(--color-neutral-300);            /* 邊框 / 分隔線 ( 不叫 border ) */
+  --color-stroke: var(--color-neutral-200);            /* 邊框 / 分隔線 ( 不叫 border ) */
   --color-bg-surface: var(--color-neutral-100);        /* 頁面底層背景 */
   --color-bg-container: var(--color-neutral-0);        /* 卡片本身 ( 白 ) */
   --color-bg-container-subtle: var(--color-neutral-50);   /* 卡片上輕量區隔 */

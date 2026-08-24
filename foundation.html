@@ -702,68 +702,62 @@
         <table>
           <thead><tr><th>角色</th><th>字體</th><th>字重</th><th>狀態</th></tr></thead>
           <tbody>
-            <tr><td>中文</td><td class="mono">Noto Sans TC</td><td class="mono">400 / 500 / 700</td><td><span class="st new">★ 新規則 · 需載入字體並修正 fallback</span></td></tr>
-            <tr><td>英文 / 數字</td><td class="mono">Public Sans</td><td class="mono">400 / 500 / 700</td><td><span class="st new">★ 載入字重改為 400 / 500 / 700 ( 現況含 600 )</span></td></tr>
+            <tr><td>中文</td><td class="mono">Noto Sans TC</td><td class="mono">400 / 500 / 700</td><td><span class="st new">★ 需載入字體並修正 fallback；500 用於非標題重點內容</span></td></tr>
+            <tr><td>英文 / 數字</td><td class="mono">Public Sans</td><td class="mono">400 / 500 / 700</td><td><span class="st new">★ 載入字重改為 400 / 500 / 700，廢除 600</span></td></tr>
             <tr><td>等寬 ( Code )</td><td class="mono">ui-monospace 系統堆疊</td><td class="mono">400</td><td><span class="st keep">✓ 現況 font-mono</span></td></tr>
           </tbody>
         </table>
       </div>
 
       <h3 class="sub">字級語意 <span class="tag">Type Scale</span></h3>
-      <p class="sub-note">行高規則：<strong>標題一律 1.3、內文一律 1.5</strong>，Button / Tag 為 100%，Code 編輯器 2.0。字重規則：<strong>文字內容只有 400 / 700 兩檔，500 為 Button / Tag 元件專屬</strong>，600 廢除，現況 86 處 font-semibold ( 含 Subtitle ) 一律升為 700。預覽受平台限制以系統字渲染，正式字體以本表為準。</p>
+      <p class="sub-note">行高規則：<strong>標題一律 1.3、內文一律 1.5</strong>，Button / Tag 為 100%，Code 編輯器 2.0。字重規則：<strong>400 / 500 / 700 三種，500 用於非標題重點內容</strong>，600 廢除，現況 86 處 font-semibold 一律收斂。Title2 廢除，原用途合併至 Title1。預覽受平台限制以系統字渲染，正式字體以本表為準。</p>
       <div class="type-list">
         <div class="type-row">
           <span class="nm">Title1 <span class="st new">★</span></span>
-          <span class="demo" style="font-size:30px;font-weight:700;line-height:1.3">節點狀態總覽</span>
-          <span class="spec">30px / 700 / lh 1.3</span>
-          <p class="note">頁面主標題，一頁一個。行高由現況 1.2 改 1.3；現況 4 處有 1 處誤用 font-black ( 900 )，收斂為 700</p>
-        </div>
-        <div class="type-row">
-          <span class="nm">Title2 <span class="st new">★</span></span>
-          <span class="demo" style="font-size:20px;font-weight:700;line-height:1.3">資料來源管理</span>
-          <span class="spec">20px / 700 / lh 1.3</span>
-          <p class="note">卡片 / 區塊主標題。行高由現況 1.4 改 1.3</p>
+          <span class="demo" style="font-size:1.25rem;font-weight:700;line-height:1.3">節點狀態總覽</span>
+          <span class="spec">1.25rem (20px) / 700 / lh 1.3</span>
+          <p class="note">頁面與區塊主標題，統一使用此 token。原 Title1 30px 廢除，Title2 20px 合併至此</p>
         </div>
         <div class="type-row">
           <span class="nm">Subtitle <span class="st new">★</span></span>
-          <span class="demo" style="font-size:18px;font-weight:700;line-height:1.3">欄位對應設定</span>
-          <span class="spec">18px / 700 / lh 1.3</span>
-          <p class="note">字重由現況 600 升為 700、行高由 1.56 改 1.3。Dialog 標題不另立 token，直接套用 Subtitle，現況的 leading-none 需移除</p>
+          <span class="demo" style="font-size:1rem;font-weight:700;line-height:1.3">欄位對應設定</span>
+          <span class="spec">1rem (16px) / 700 / lh 1.3</span>
+          <p class="note">Dialog 標題、卡片標題直接套用此 token，不另立語意。字重由現況 600 升為 700，行高由 1.56 改 1.3</p>
         </div>
         <div class="type-row">
           <span class="nm">Body1 <span class="st new">★</span></span>
-          <span class="demo" style="font-size:16px;line-height:1.5"><span style="font-weight:400">核准後，對方節點即可依欄位對應存取</span><span style="font-weight:700">指定資料集</span></span>
-          <span class="spec">16px / 400 · 700 / lh 1.5</span>
-          <p class="note">升級為主內文字級：一般內文、表單標籤、說明文字，含 regular 與 bold 兩種字重。現況 6 處 leading-relaxed 長段落收斂併回此語意</p>
+          <span class="demo" style="font-size:0.9375rem;line-height:1.5"><span style="font-weight:400">核准後，對方節點即可依欄位對應存取</span><span style="font-weight:500">指定資料集</span><span style="font-weight:700">（重要）</span></span>
+          <span class="spec">0.9375rem (15px) / 400 · 500 · 700 / lh 1.5</span>
+          <p class="note">主內文：一般內文、表單標籤、說明文字。500 用於非標題的重點內容，700 用於強調</p>
         </div>
         <div class="type-row">
           <span class="nm">Body2 <span class="st new">★</span></span>
-          <span class="demo" style="font-size:14px;line-height:1.5"><span style="font-weight:400">用於密集表格與紀錄列表的</span><span style="font-weight:700">內容文字</span></span>
-          <span class="spec">14px / 400 · 700 / lh 1.5</span>
+          <span class="demo" style="font-size:0.875rem;line-height:1.5"><span style="font-weight:400">用於密集表格與紀錄列表的</span><span style="font-weight:700">內容文字</span></span>
+          <span class="spec">0.875rem (14px) / 400 · 700 / lh 1.5</span>
           <p class="note">密集表格 / 紀錄列表專用，含 regular 與 bold 兩種字重。行高由現況 1.43 改 1.5</p>
         </div>
         <div class="type-row">
           <span class="nm">Caption <span class="st new">★</span></span>
-          <span class="demo" style="font-size:12px;font-weight:400;line-height:1.5;color:var(--ink-3)">最後更新於 2026.07.06 14:32</span>
-          <span class="spec">12px / 400 / lh 1.5</span>
+          <span class="demo" style="font-size:0.75rem;font-weight:400;line-height:1.5;color:var(--ink-3)">最後更新於 2026.07.06 14:32</span>
+          <span class="spec">0.75rem (12px) / 400 / lh 1.5</span>
           <p class="note">僅限次要輔助標註，行高由現況 1.33 改 1.5。現況 138 處 text-xs 中，承載實質資訊者應升級為 Body2</p>
         </div>
         <div class="type-row">
           <span class="nm">Button <span class="st new">★</span></span>
-          <span class="demo"><span style="display:inline-flex;align-items:center;font-size:14px;font-weight:500;line-height:1;background:var(--accent);color:#fff;padding:9px 16px;border-radius:8px">核准請求</span></span>
-          <span class="spec">14px / 500 / lh 100%</span>
+          <span class="demo"><span style="display:inline-flex;align-items:center;font-size:0.875rem;font-weight:500;line-height:1;background:var(--accent);color:#fff;padding:9px 16px;border-radius:8px">核准請求</span></span>
+          <span class="spec">0.875rem (14px) / 500 / lh 100%</span>
           <p class="note">現況 Button 元件未設行高，吃預設 1.43，需在元件補 leading-none</p>
         </div>
         <div class="type-row">
           <span class="nm">Tag <span class="st new">★</span></span>
-          <span class="demo"><span style="display:inline-flex;align-items:center;font-size:12px;font-weight:500;line-height:1;background:#f0fdf4;color:#15803d;padding:5px 10px;border-radius:999px">已核准</span></span>
-          <span class="spec">12px / 500 / lh 100%</span>
+          <span class="demo"><span style="display:inline-flex;align-items:center;font-size:0.75rem;font-weight:500;line-height:1;background:#f0fdf4;color:#15803d;padding:5px 10px;border-radius:999px">已核准</span></span>
+          <span class="spec">0.75rem (12px) / 500 / lh 100%</span>
           <p class="note">現況 Badge 元件未設行高，吃預設 1.33，需在元件補 leading-none</p>
         </div>
         <div class="type-row">
           <span class="nm">Code <span class="st keep">✓</span></span>
-          <span class="demo" style="font-family:var(--font-mono);font-size:12px;line-height:2">dataset_id: tpe-edu-001</span>
-          <span class="spec">12px / mono / lh 24px ( 2.0 )</span>
+          <span class="demo" style="font-family:var(--font-mono);font-size:0.75rem;line-height:2">dataset_id: tpe-edu-001</span>
+          <span class="spec">0.75rem (12px) / mono / lh 2.0</span>
           <p class="note">YAML 編輯器專用 ( CreateDatasetForm、DatasetYamlTab )，獨立語意不併入 Caption</p>
         </div>
       </div>

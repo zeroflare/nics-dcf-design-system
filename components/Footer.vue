@@ -18,6 +18,8 @@ withDefaults(
     homeHref?: string
     logoSrc?: string
     web?: boolean
+    version?: string
+    buildDate?: string
   }>(),
   { homeHref: '/', logoSrc: '/favicon.png', web: false }
 )
@@ -89,9 +91,13 @@ const modaAddressUrl =
     <!-- 版權列 -->
     <div class="border-t border-neutral-300 bg-neutral-200">
       <div
-        class="mx-auto max-w-7xl px-4 py-4 text-center text-caption text-fg-secondary-default md:px-6 lg:px-8"
+        class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 text-caption text-fg-secondary-default md:px-6 lg:px-8"
       >
-        © {{ year }} 數位發展部
+        <span>© {{ year }} 數位發展部</span>
+        <span v-if="version || buildDate" class="flex gap-3">
+          <span v-if="version">{{ version }}</span>
+          <span v-if="buildDate">{{ buildDate }}</span>
+        </span>
       </div>
     </div>
   </footer>

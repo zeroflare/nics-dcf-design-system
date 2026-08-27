@@ -28,7 +28,7 @@ const year = computed(() => new Date().getFullYear())
 
 const modaUrl = 'https://moda.gov.tw/'
 const modaAddressUrl =
-  'https://www.google.com.tw/maps/place/100臺北市中正區南門里延平南路143號/@25.0362981,121.508228,17z/data=!3m1!4b1!4m6!3m5!1s0x3442a9a6d27e2995:0xe6f09916f3255a16!8m2!3d25.0362981!4d121.508228!16s%2Fg%2F12jm1019x?entry=ttu&g_ep=EgoyMDI2MDgxOS4wIKXMDSoASAFQAw%3D%3D'
+  'https://maps.google.com/maps?q=100057+臺北市中正區延平南路143號'
 </script>
 
 <template>

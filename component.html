@@ -998,6 +998,7 @@
       </div>
       <div class="spec-line">min-h-16 · rounded-md · border = stroke · focus ring 3px brand-300</div>
       <div class="spec-line">已拍板規則 ( 2026.7.19 )：標準款 2 顆直接收編；YAML 編輯器款 3 顆收編後以 class 覆寫 font-mono text-xs；駁回理由框 1 顆收編後圓角回 md，錯誤態紅框改走 aria-invalid 機制 ( 2026.7.20 已隨 RequestConfirmDialog 收編完成 )</div>
+      <div class="spec-line">已拍板規則 ( 2026.8.27 )：有 <code>maxlength</code> 限制的欄位，右下角靠右加字數計數器（格式 <code>{目前字數}/{上限}</code>，text-caption；預設 text-fg-tertiary-default，達上限變 text-danger-fg），計數以 <code>Array.from(字串).length</code> 逐字計算，不要用字串 <code>.length</code>（emoji 等超出 BMP 的字元會被算成兩倍）。欄位本身若可能長出多行內容，額外設 <code>max-h-*</code> + <code>overflow-y-auto</code> 讓長文字在欄位內部捲動，不要放任 <code>field-sizing-content</code> 無上限撐高；駁回理由框已依此收編（<code>max-h-40</code>，見 ConfirmDialog 章）。純提示用的欄位 label 若內容已由 placeholder 完整表達，可以不放（駁回理由框已拿掉「駁回理由」label）</div>
     </section>
 
     <!-- ============ Dialog ( 2026.7.20 盤點定案 ) ============ -->
@@ -1033,6 +1034,8 @@
     <section class="band" id="comp-confirmdialog">
       <div class="band-head"><h2>ConfirmDialog</h2><span class="src custom">自訂</span><span class="use-b">自訂元件 · 確認型對話框統一樣式</span></div>
       <p class="band-sub">確認型對話框的統一封裝 ( 2026.7.20 拍板新增 )：靠左標題與說明 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、左取消右主動作。主動作 variant 支援 default 與 destructive ( 破壞性操作 )，可經 slot 插入表單內容 ( 如重設密碼 )，取消鈕文字可用 cancelLabel 覆寫 ( 預設「取消」，如資料來源頁的「繼續編輯」)。</p>
+      <div class="spec-line">已拍板規則 ( 2026.8.27 )：高度上限 <code>max-h-[80vh]</code> + <code>overflow-y-auto</code>，內容過長時對話框改內部捲動，不隨內容無限撐高超出視窗</div>
+      <div class="spec-line">已拍板規則 ( 2026.8.27 )：協作請求駁回的主動作維持 <code>destructive</code>（阿暖確認，2026.8.27）</div>
       <div class="preview" style="justify-content:center">
         <div style="width:100%;max-width:230px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:left">
           <div style="font-weight:700;font-size:13px">確認刪除此帳號？</div>

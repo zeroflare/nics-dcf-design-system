@@ -28,6 +28,8 @@ const props = defineProps<{
   cancelLabel?: string
   /** 隱藏取消鈕，僅顯示主動作按鈕，用於單一出口的通知型對話框，預設 true */
   showCancel?: boolean
+  /** 鎖定對話框，禁止點擊遮罩或按 Escape 關閉，用於工作階段逾時等強制操作場景 */
+  persistent?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -45,7 +47,11 @@ const openModel = computed({
 
 <template>
   <Dialog v-model:open="openModel">
-    <DialogContent :show-close-button="false" class="sm:max-w-sm max-h-[80vh] overflow-y-auto">
+    <DialogContent
+      :show-close-button="false"
+      class="sm:max-w-sm max-h-[80vh] overflow-y-auto"
+      v-bind="persistent ? { onInteractOutside: (e: Event) => e.preventDefault(), onEscapeKeyDown: (e: Event) => e.preventDefault() } : {}"
+    >
       <DialogHeader class="text-left">
         <DialogTitle>{{ title }}</DialogTitle>
         <DialogDescription v-if="description" class="leading-relaxed">

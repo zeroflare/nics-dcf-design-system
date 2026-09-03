@@ -215,12 +215,14 @@
   --radius-xl: 16px;
   /* full 直接用 rounded-full ( 9999px ),不需 token */
 
-  /* ===================== Base · 陰影 ===================== */
-  /* sm 客製雙層柔和陰影 ( 卡片主力 );其餘沿用 Tailwind 預設
-     2026.7.20 調輕:模糊半徑 12px→6px、不透明度 8%→6% ( 第二層 3px→2px、5%→4% )。
-     原值之所以顯重不是因為顏色濃 ( 8% 其實低於 Tailwind md 的 10% ),
-     而是 12px 模糊為全系統最大、攤得太開,面積大所以存在感強 */
+  /* ===================== Base · 陰影 ( 全系列雙層柔和陰影 ) =====================
+     採雙層結構：第一層大範圍擴散、第二層近距收邊，整體比 Tailwind 預設更柔和。
+     sm = 卡片靜態主力；md = Dropdown / 卡片 hover；lg = Dialog / Modal */
+  --shadow-xs: 0 1px 3px rgb(0 0 0 / 0.04), 0 1px 2px rgb(0 0 0 / 0.03);
   --shadow-sm: 0 2px 6px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.08), 0 2px 4px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 8px 24px rgb(0 0 0 / 0.10), 0 4px 8px rgb(0 0 0 / 0.06);
+  --shadow-xl: 0 16px 40px rgb(0 0 0 / 0.12), 0 8px 16px rgb(0 0 0 / 0.08);
 
   /* ===================== Function 層 · 中性骨架 =====================
      放在 @theme 並用 --color- 前綴,Tailwind 才會自動生成

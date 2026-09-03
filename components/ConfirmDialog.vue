@@ -26,6 +26,8 @@ const props = defineProps<{
   confirmDisabled?: boolean
   /** 取消鈕文字,預設「取消」( 2026.7.20 資料來源頁「繼續編輯」需求新增 ) */
   cancelLabel?: string
+  /** 隱藏取消鈕，僅顯示主動作按鈕，用於單一出口的通知型對話框，預設 true */
+  showCancel?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -52,7 +54,7 @@ const openModel = computed({
       </DialogHeader>
       <slot />
       <DialogFooter>
-        <Button variant="outline" @click="openModel = false">{{ cancelLabel ?? '取消' }}</Button>
+        <Button v-if="showCancel !== false" variant="outline" @click="openModel = false">{{ cancelLabel ?? '取消' }}</Button>
         <Button :variant="variant ?? 'default'" :disabled="confirmDisabled" @click="emit('confirm')">
           {{ confirmLabel }}
         </Button>

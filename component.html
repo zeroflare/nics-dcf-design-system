@@ -298,7 +298,12 @@
     --radius-sm: 4px;
     --radius-md: 8px;
     --radius-lg: 12px;
+    --radius-xl: 16px;
+    --shadow-xs: 0 1px 3px rgb(0 0 0 / 0.04), 0 1px 2px rgb(0 0 0 / 0.03);
     --shadow-sm: 0 2px 6px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
+    --shadow-md: 0 4px 12px rgb(0 0 0 / 0.08), 0 2px 4px rgb(0 0 0 / 0.05);
+    --shadow-lg: 0 8px 24px rgb(0 0 0 / 0.10), 0 4px 8px rgb(0 0 0 / 0.06);
+    --shadow-xl: 0 16px 40px rgb(0 0 0 / 0.12), 0 8px 16px rgb(0 0 0 / 0.08);
     --text-body1: 16px;
     --text-body1--line-height: 1.5;
     --text-body2: 14px;
@@ -347,7 +352,8 @@
   .ftfoot { background: var(--color-neutral-200); }
   .ft-top { padding: 32px 24px; }
   .ft-top-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
-  .ft-brand { display: flex; align-items: center; gap: 8px; }
+  .ft-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; transition: opacity 0.15s; }
+  .ft-brand:hover { opacity: 0.8; }
   .ft-brand img { width: 40px; height: 40px; }
   .ft-brand .main { font-size: var(--text-body1); line-height: var(--text-body1--line-height); font-weight: 700; color: var(--color-fg-primary-default); }
   .ft-brand .sub { font-size: var(--text-caption); line-height: var(--text-caption--line-height); color: var(--color-fg-secondary-default); }
@@ -758,13 +764,13 @@
         <div class="ftfoot">
           <div class="ft-top">
             <div class="ft-top-inner">
-              <div class="ft-brand">
+              <a class="ft-brand" href="#" onclick="return false" title="政府資料匯流分析協作平臺首頁">
                 <img src="favicon.png" alt="">
                 <div>
                   <div class="main">政府資料匯流分析協作平臺</div>
                   <div class="sub">資料存取節點</div>
                 </div>
-              </div>
+              </a>
               <div class="ft-org">
                 <a href="#" onclick="return false" class="name">數位發展部 Ministry of Digital Affairs</a>
                 <dl>
@@ -783,13 +789,13 @@
         <div class="ftfoot">
           <div class="ft-top">
             <div class="ft-top-inner">
-              <div class="ft-brand">
+              <a class="ft-brand" href="#" onclick="return false" title="政府資料匯流分析協作平臺首頁">
                 <img src="favicon.png" alt="">
                 <div>
                   <div class="main">政府資料匯流分析協作平臺</div>
                   <div class="sub">管理平台</div>
                 </div>
-              </div>
+              </a>
               <div class="ft-org">
                 <a href="#" onclick="return false" class="name">數位發展部 Ministry of Digital Affairs</a>
                 <dl>
@@ -808,12 +814,12 @@
         <div class="ftfoot">
           <div class="ft-top">
             <div class="ft-top-inner">
-              <div class="ft-brand">
+              <a class="ft-brand" href="#" onclick="return false" title="政府資料匯流分析協作平臺首頁">
                 <img src="favicon.png" alt="">
                 <div>
                   <div class="main" style="font-size:18px">政府資料匯流分析協作平臺</div>
                 </div>
-              </div>
+              </a>
               <div class="ft-org">
                 <a href="#" onclick="return false" class="name">數位發展部 Ministry of Digital Affairs</a>
                 <dl>
@@ -828,6 +834,7 @@
       </div>
 
       <div class="spec-line">底色 neutral-200 · 上半部外層僅上下內距 32px ( py-8 )，內層 max-width 1280px 置中 + 左右內距，品牌區塊靠左、機關資訊區塊靠右對齊容器但內部文字靠左 ( lg:ml-auto lg:text-left ) · 下半部版權列同樣 neutral-200 底色，與上半部間僅用 1px neutral-300 分隔線區隔 ( 無額外對比底色 )，文字置中</div>
+      <div class="spec-line">已拍板規則 ( 2026.9.4 )：Logo + 平台名稱整體改為 <code>&lt;a&gt;</code> 可點連結回首頁 ( <code>homeHref</code> prop，預設 <code>/</code> )，hover 加 <code>transition-opacity hover:opacity-80</code> 淡出效果；原先僅 logo 圖片是連結，文字區塊不可點的設計廢除</div>
       <div class="spec-line">已拍板規則 ( 2026.7.30 )：新增 <code>web</code> boolean prop ( 預設 false )。<code>web=true</code> 時主名字級放大至 18px ( body1+2px )、副名行隱藏 ( 單行主名 )，對應 dcf-website-demo 的設計規格；<code>siteLabel</code> prop 在 web=true 時忽略。各站傳入方式：存取節點 / 分析平臺 <code>:site-label="..."</code>，Web 端 <code>:web="true"</code> 即可，不需傳 siteLabel</div>
       <div class="spec-line">已拍板規則 ( 2026.7.30 )：Footer 全面改版，比照存取節點 AppFooter.vue 定案內容重寫。左側為品牌 logo + 兩行文字 ( 主名「政府資料匯流分析協作平臺」body1-bold + 副名 caption )；右側為機關聯絡資訊 ( 數位發展部連結 + 電話 / 地址，皆用 secondary 文字色，連結 hover 轉 fg-primary-hover 而非品牌色 primary-fg )；下方版權列水平置中。機關聯絡資訊與版權列內容<b>兩站完全相同</b> ( 同一個數位發展部 )，唯一因站別而異的只有 logo 主名下方的副名 ( 存取節點：資料存取節點；分析平臺：管理平台 )，故元件改為 <code>siteLabel</code> prop 而非整段 <code>copyrightText</code> 字串。存取節點列逐字對照 AppFooter.vue 搬移，且該站已實際換用本殼層元件 ( 移除本地 AppFooter.vue，直接引用 <code>@nics/design-tokens/components/Footer.vue</code> )，為定案內容；分析平臺列沿用同一套規格，實作前仍需該站設計負責人拍板</div>
     </section>
@@ -1006,17 +1013,17 @@
       <div class="band-head"><h2>Dialog</h2><span class="src mod">有意修改</span><span class="use-b">元件呼叫 15 組 / 13 檔</span></div>
       <p class="band-sub">最高頻的覆蓋層元件，用於審核、確認、編輯等流程。全站零手刻覆蓋層，一律使用元件。</p>
       <div class="preview" style="justify-content:center;flex-wrap:wrap;gap:12px;align-items:flex-start">
-        <div style="width:100%;max-width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
+        <div style="width:100%;max-width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:12px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
           <div style="font-weight:700;font-size:13px">確認核准此協作請求？</div>
           <div style="font-size:11.5px;color:var(--color-fg-secondary-default);margin:6px 0 12px">核准後，[申請單位] 將可依申請範圍使用「[資料集名稱]」進行後續資料協作流程。</div>
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn default" style="height:28px;font-size:12px">確認核准</span></div>
         </div>
-        <div style="width:100%;max-width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
+        <div style="width:100%;max-width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:12px;box-shadow:var(--shadow-lift);padding:16px;text-align:center">
           <div style="font-weight:700;font-size:13px">確認刪除此帳號？</div>
           <div style="font-size:11.5px;color:var(--color-fg-secondary-default);margin:6px 0 12px">刪除後，帳號「[帳號]」將自系統移除，此操作無法復原。</div>
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn destructive" style="height:28px;font-size:12px">確認刪除</span></div>
         </div>
-        <div style="width:100%;max-width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px">
+        <div style="width:100%;max-width:220px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:12px;box-shadow:var(--shadow-lift);padding:16px">
           <div style="font-weight:700;font-size:13px">重設密碼</div>
           <div style="font-size:11.5px;color:var(--color-fg-secondary-default);margin:4px 0 10px">為帳號「[帳號]」設定新密碼</div>
           <div style="font-size:10.5px;font-weight:700;color:var(--color-fg-secondary-default);margin-bottom:4px">新密碼</div>
@@ -1024,7 +1031,7 @@
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn default" style="height:28px;font-size:12px">確認重設</span></div>
         </div>
       </div>
-      <div class="spec-line">圓角 lg ( 16px ) · shadow-lg · 內距 p-6 · 預設寬 sm:max-w-lg · 遮罩黑 80%</div>
+      <div class="spec-line">圓角 lg ( 12px，2026.9.3 更新 ) · shadow-lg · 內距 p-6 · 預設寬 sm:max-w-lg · 遮罩黑 80%</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：DialogTitle 套 Subtitle 語意字級 ( 18 / 700 / 1.3，取代原 18 / 600 / leading-none，落實文字章的 ★ 拍板，屬有意的 vendor 修改 )；呼叫端覆寫僅限寬度 / 高度佈局類 ( max-w-* / max-h-* / p-0 )，不得覆寫樣式</div>
       <div class="spec-line">已拍板規則 ( 2026.7.20 )：Dialog 分兩型。<b>確認型</b>統一走共用元件 ConfirmDialog ( ds components/ )：標題與說明靠左 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、寬 sm:max-w-sm、DialogFooter 左取消 ( outline ) 右主動作 ( 一般 default / 破壞性 destructive )，說明文案帶入對象名稱；現行使用：協作請求核准 / 駁回 ( RequestConfirmDialog，駁回附 Textarea 理由欄 )、刪除 / 停用帳號、刪除角色、刪除資料集、未儲存變更警告 ( cancelLabel 覆寫為「繼續編輯」)。<b>表單型</b> ( 重設密碼、編輯角色、新增帳號 )：標題與說明靠左、保留右上角關閉鈕、欄位 label 用 text-caption font-bold text-fg-secondary、DialogFooter 同樣左取消右主動作。落地於 demo</div>
       <div class="spec-line"><b>容器底色 vendor 修改 ( 2026.7.26 拍板 )</b>：DialogContent / DialogScrollContent 由 shadcn 預設 <code>bg-background</code> 改為 <code>bg-container</code>（ds 白卡底）。因 <code>--background</code> 在消費端非白 ( #EEF1F5 頁面底色 )，對話框應與卡片同為白底，不應和頁面背景同色；屬有意的 vendor 修改，檔內留「有意的 vendor 修改」註解，比照 Drawer 的先例 ( 見下方 Drawer 章 )</div>
@@ -1036,8 +1043,9 @@
       <p class="band-sub">確認型對話框的統一封裝 ( 2026.7.20 拍板新增 )：靠左標題與說明 ( 2026.7.20 由置中改為靠左 )、無圖示、無右上角關閉鈕、左取消右主動作。主動作 variant 支援 default 與 destructive ( 破壞性操作 )，可經 slot 插入表單內容 ( 如重設密碼 )，取消鈕文字可用 cancelLabel 覆寫 ( 預設「取消」，如資料來源頁的「繼續編輯」)。</p>
       <div class="spec-line">已拍板規則 ( 2026.8.27 )：高度上限 <code>max-h-[80vh]</code> + <code>overflow-y-auto</code>，內容過長時對話框改內部捲動，不隨內容無限撐高超出視窗</div>
       <div class="spec-line">已拍板規則 ( 2026.8.27 )：協作請求駁回的主動作維持 <code>destructive</code>（阿暖確認，2026.8.27）</div>
+      <div class="spec-line">已拍板規則 ( 2026.9.3 )：<code>showCancel</code> prop — 預設 <code>true</code>（顯示取消鈕）；傳 <code>:show-cancel="false"</code> 隱藏取消鈕，僅顯示主動作按鈕，適用於單一出口的通知型對話框（如工作階段逾時通知）。<code>persistent</code> prop — 預設 <code>false</code>；傳 <code>:persistent="true"</code> 鎖定對話框，禁止點擊遮罩或按 Escape 關閉，適用於強制操作場景（如逾時後必須重新登入）</div>
       <div class="preview" style="justify-content:center">
-        <div style="width:100%;max-width:230px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:16px;box-shadow:var(--shadow-lift);padding:16px;text-align:left">
+        <div style="width:100%;max-width:230px;background:var(--color-bg-container);border:1px solid var(--color-stroke);border-radius:12px;box-shadow:var(--shadow-lift);padding:16px;text-align:left">
           <div style="font-weight:700;font-size:13px">確認刪除此帳號？</div>
           <div style="font-size:11.5px;color:var(--color-fg-secondary-default);margin:8px 0 14px;line-height:1.6">刪除後，帳號「[帳號]」將自系統移除，此操作無法復原。</div>
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn destructive" style="height:28px;font-size:12px">確認刪除</span></div>

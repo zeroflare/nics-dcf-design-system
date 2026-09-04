@@ -795,7 +795,7 @@
     <!-- ============ 04 圓角 ============ -->
     <section class="band" id="radius">
       <div class="band-head"><h2>圓角</h2></div>
-      <p class="band-sub">四檔制 ( 阿暖拍板 )：<strong>sm 4 / md 8 / lg 16 / full</strong>，xl 以上檔位廢除。現況 shadcn 推導制實際渲染為 6 / 8 / 10 / 14，收斂後按鈕 ( 現況實際 8px ) 對到 md 零視覺變化，選單項 6→4、卡片 10→8、面板 14→16 微調 <span class="st new">★ 需改 style.css 並重排檔位</span></p>
+      <p class="band-sub">五檔制 ( 2026.9.3 更新 )：<strong>sm 4 / md 8 / lg 12 / xl 16 / full</strong>。lg 由原 16px 調整為 12px，同步新增 xl 16px。</p>
       <div class="type-list">
         <div class="sp-row">
           <span class="v">sm</span><span class="n">4px</span>
@@ -812,9 +812,14 @@
           <span class="u">按鈕、輸入框、卡片、Dialog · 承接現況 md 70 + lg 36 處<br>Button / Input / SelectTrigger / OverviewView 卡片 / DialogContent</span>
         </div>
         <div class="sp-row">
-          <span class="v">lg</span><span class="n">16px</span>
+          <span class="v">lg</span><span class="n">12px</span>
+          <span style="justify-self:start"><span style="display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 20px 14px;font-size:12.5px;min-width:170px"><span style="font-weight:700">LoginCard</span><br><span style="color:var(--ink-3)">中型容器</span></span></span>
+          <span class="u">登入卡片、中型容器<br>LoginCard / 卡片類浮層</span>
+        </div>
+        <div class="sp-row">
+          <span class="v">xl</span><span class="n">16px</span>
           <span style="justify-self:start"><span style="display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 20px 14px;font-size:12.5px;min-width:170px"><span style="font-weight:700">詳情面板</span><br><span style="color:var(--ink-3)">表格外框、大型容器</span></span></span>
-          <span class="u">詳情面板與表格外框 · 承接現況 xl 28 處<br>RequestDetailPanel / 資料集表格容器</span>
+          <span class="u">詳情面板與表格外框、DialogContent<br>RequestDetailPanel / 資料集表格容器</span>
         </div>
         <div class="sp-row">
           <span class="v">full</span><span class="n">膠囊</span>
@@ -826,19 +831,19 @@
           <span class="u">狀態圓點、進度條、Badge · 承接現況 full 47 處<br>OverviewView / ResourceBar / AppNav 通知數</span>
         </div>
       </div>
-      <p class="sub-note" style="margin-top:14px">硬寫值收斂：<code style="font-family:var(--font-mono);color:var(--accent-ink)">rounded-[4px]</code> 與 <code style="font-family:var(--font-mono);color:var(--accent-ink)">rounded-[2px]</code> 各 1 處吸附至 sm。現況的 rounded-xl 全部改寫為新 lg；RequestDetailPanel 的核准 / 駁回大按鈕現況用 xl 與全站按鈕不一致，收斂時按鈕一律 md</p>
+      <p class="sub-note" style="margin-top:14px">2026.9.3 更新：lg 由 16px 調整為 12px，原 16px 大容器圓角改用新 xl (16px)。硬寫值收斂：<code style="font-family:var(--font-mono);color:var(--accent-ink)">rounded-[4px]</code> 與 <code style="font-family:var(--font-mono);color:var(--accent-ink)">rounded-[2px]</code> 各 1 處吸附至 sm；RequestDetailPanel 的核准 / 駁回大按鈕收斂時按鈕一律 md</p>
     </section>
 
     <!-- ============ 05 陰影 ============ -->
     <section class="band" id="shadow">
       <div class="band-head"><h2>陰影</h2></div>
-      <p class="band-sub"><code style="font-family:var(--font-mono);color:var(--accent-ink)">--shadow-sm</code> 有被客製為柔和的雙層陰影，是卡片的主要用法；其餘 xs / md / lg / xl 沿用 Tailwind 預設。</p>
+      <p class="band-sub">全系列五檔均已客製為雙層柔和陰影 ( 2026.9.3 更新 )：雙層結構第一層大範圍擴散、第二層近距收邊，整體比 Tailwind 預設更柔和。<strong>sm = 卡片靜態主力；md = Dropdown / 卡片 hover；lg = Dialog / Modal</strong>。</p>
       <div class="demo-grid">
-        <div class="demo-tile"><div class="box sh" style="box-shadow:0 1px 2px rgba(0,0,0,0.05)"></div><div class="nm">xs</div><div class="v">Tailwind 預設 · 使用 5</div></div>
-        <div class="demo-tile"><div class="box sh" style="box-shadow:0 2px 6px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04)"></div><div class="nm">sm</div><div class="v">客製卡片主力 · 使用 22</div></div>
-        <div class="demo-tile"><div class="box sh" style="box-shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -2px rgba(0,0,0,0.1)"></div><div class="nm">md</div><div class="v">Tailwind 預設 · 使用 3</div></div>
-        <div class="demo-tile"><div class="box sh" style="box-shadow:0 10px 15px -3px rgba(0,0,0,0.1),0 4px 6px -4px rgba(0,0,0,0.1)"></div><div class="nm">lg</div><div class="v">Tailwind 預設 · 使用 4</div></div>
-        <div class="demo-tile"><div class="box sh" style="box-shadow:0 20px 25px -5px rgba(0,0,0,0.1),0 8px 10px -6px rgba(0,0,0,0.1)"></div><div class="nm">xl</div><div class="v">Tailwind 預設 · 使用 1</div></div>
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 1px 3px rgb(0 0 0/0.04),0 1px 2px rgb(0 0 0/0.03)"></div><div class="nm">xs</div><div class="v">客製 · 輕量分離</div></div>
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 2px 6px rgb(0 0 0/0.06),0 1px 2px rgb(0 0 0/0.04)"></div><div class="nm">sm</div><div class="v">客製 · 卡片主力</div></div>
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 4px 12px rgb(0 0 0/0.08),0 2px 4px rgb(0 0 0/0.05)"></div><div class="nm">md</div><div class="v">客製 · Dropdown / 卡片 hover</div></div>
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 8px 24px rgb(0 0 0/0.10),0 4px 8px rgb(0 0 0/0.06)"></div><div class="nm">lg</div><div class="v">客製 · Dialog / Modal</div></div>
+        <div class="demo-tile"><div class="box sh" style="box-shadow:0 16px 40px rgb(0 0 0/0.12),0 8px 16px rgb(0 0 0/0.08)"></div><div class="nm">xl</div><div class="v">客製 · 高層浮層</div></div>
       </div>
       <h3 class="sub" style="margin-top:36px">互動游標</h3>
       <p class="sub-note">瀏覽器對 <code style="font-family:var(--font-mono)">&lt;button&gt;</code> 的預設游標是 <code style="font-family:var(--font-mono)">default</code> 而不是 <code style="font-family:var(--font-mono)">pointer</code>（只有 <code style="font-family:var(--font-mono)">&lt;a&gt;</code> 是 pointer），Tailwind 的 preflight 也沒有補這一條。實務結果是每顆按鈕都要各自寫 <code style="font-family:var(--font-mono)">cursor-pointer</code>，必然會漏 — demo 曾出現 69 處 <code style="font-family:var(--font-mono)">@click</code> 只有 1 處寫了游標的情況，使用者難以第一時間辨識何處可點。</p>

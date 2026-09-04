@@ -36,16 +36,18 @@ const modaAddressUrl =
     <div class="mx-auto max-w-7xl px-4 py-8 md:px-6 lg:px-8">
       <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
         <!-- 品牌 -->
-        <div class="flex items-center gap-2">
-          <a :href="homeHref" class="shrink-0" title="政府資料匯流分析協作平臺首頁">
-            <img
-              :src="logoSrc"
-              alt=""
-              class="h-10 w-10 object-contain"
-              width="40"
-              height="40"
-            />
-          </a>
+        <a
+          :href="homeHref"
+          class="flex items-center gap-2 transition-opacity hover:opacity-80"
+          title="政府資料匯流分析協作平臺首頁"
+        >
+          <img
+            :src="logoSrc"
+            alt=""
+            class="h-10 w-10 shrink-0 object-contain"
+            width="40"
+            height="40"
+          />
           <div>
             <p
               class="font-bold text-fg-primary-default"
@@ -53,7 +55,7 @@ const modaAddressUrl =
             >政府資料匯流分析協作平臺</p>
             <p v-if="!web && siteLabel" class="text-caption text-fg-secondary-default">{{ siteLabel }}</p>
           </div>
-        </div>
+        </a>
 
         <!-- 機關資訊 -->
         <div class="lg:ml-auto lg:text-left">

@@ -696,6 +696,13 @@
           </div>
           <div style="height:1px;background:var(--color-stroke);margin:0 4px"></div>
           <div style="padding:4px">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-fg-primary-default);cursor:pointer">
+              <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none;color:var(--color-fg-secondary-default)" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+              切換至管理平台
+            </div>
+          </div>
+          <div style="height:1px;background:var(--color-stroke);margin:0 4px"></div>
+          <div style="padding:4px">
             <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-danger-fg);cursor:pointer">
               <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               登出
@@ -718,6 +725,13 @@
             <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-fg-primary-default);cursor:pointer">
               <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none;color:var(--color-fg-secondary-default)"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.6"/></svg>
               帳號管理
+            </div>
+          </div>
+          <div style="height:1px;background:var(--color-stroke);margin:0 4px"></div>
+          <div style="padding:4px">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-fg-primary-default);cursor:pointer">
+              <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none;color:var(--color-fg-secondary-default)" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+              切換至資料目錄
             </div>
           </div>
           <div style="height:1px;background:var(--color-stroke);margin:0 4px"></div>
@@ -751,7 +765,8 @@
 
       <div class="spec-line">已拍板規則 ( 2026.7.30 )：資訊欄位採小標 + 值堆疊，<b>小標</b> caption ( 11px ) / 500 / fg-secondary / mb-0.5，<b>值</b> body2 ( 14px ) / fg-primary；<b>無冒號</b>。欄位間距 mb-2.5 ( 10px )。資訊區整塊 px-4 py-3 + border-b stroke 與動作區分隔</div>
       <div class="spec-line">動作列底層為 shadcn Dropdown Menu，action item：flex items-center gap-2 px-3 py-2 rounded-md text-body2；登出固定 danger-fg，其餘 fg-primary；icon 15px fg-secondary（登出 icon 繼承 danger-fg）。動作列與資訊區之間無額外間距，靠資訊區 border-b 分隔；帳號管理與登出之間加 separator ( 1px stroke，mx-1 )</div>
-      <div class="spec-line">各站欄位對照：<b>Web 端</b> 名稱 + 帳號 + 帳號管理 + 登出；<b>分析平臺</b> 帳號 + 角色 + 帳號管理 + 登出；<b>存取節點</b> 帳號 + 角色 + 登出（無帳號管理入口）</div>
+      <div class="spec-line">各站欄位對照：<b>Web 端</b> 名稱 + 帳號 + 帳號管理 + 切換至管理平台 + 登出；<b>分析平臺</b> 帳號 + 角色 + 帳號管理 + 切換至資料目錄 + 登出；<b>存取節點</b> 帳號 + 角色 + 登出（無帳號管理入口）</div>
+      <div class="spec-line">切換平台項目（2026.9.9 拍板）：使用 ArrowRightLeft icon（15px, fg-secondary），文字 fg-primary，置於帳號管理與登出之間，以 separator 分隔；Web 端導往管理平台，分析平臺導往資料目錄；另開新分頁（noopener,noreferrer）</div>
     </section>
 
     <!-- ============ Footer ( 2026.7.27 拍板新增,跨站共用殼 ) ============ -->

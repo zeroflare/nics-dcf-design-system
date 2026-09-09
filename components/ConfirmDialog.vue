@@ -16,21 +16,27 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 
-const props = defineProps<{
-  open: boolean
-  title: string
-  description?: string
-  confirmLabel: string
-  /** 主動作按鈕的 variant，破壞性操作用 destructive */
-  variant?: 'default' | 'destructive'
-  confirmDisabled?: boolean
-  /** 取消鈕文字,預設「取消」( 2026.7.20 資料來源頁「繼續編輯」需求新增 ) */
-  cancelLabel?: string
-  /** 隱藏取消鈕，僅顯示主動作按鈕，用於單一出口的通知型對話框，預設 true */
-  showCancel?: boolean
-  /** 鎖定對話框，禁止點擊遮罩或按 Escape 關閉，用於工作階段逾時等強制操作場景 */
-  persistent?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    open: boolean
+    title: string
+    description?: string
+    confirmLabel: string
+    /** 主動作按鈕的 variant，破壞性操作用 destructive */
+    variant?: 'default' | 'destructive'
+    confirmDisabled?: boolean
+    /** 取消鈕文字,預設「取消」( 2026.7.20 資料來源頁「繼續編輯」需求新增 ) */
+    cancelLabel?: string
+    /** 隱藏取消鈕，僅顯示主動作按鈕，用於單一出口的通知型對話框，預設 true */
+    showCancel?: boolean
+    /** 鎖定對話框，禁止點擊遮罩或按 Escape 關閉，用於工作階段逾時等強制操作場景 */
+    persistent?: boolean
+  }>(),
+  // Vue 對純 Boolean 型別 prop 的預設行為:沒給 default 時,未傳遞 = false,不是 undefined
+  // ( 2026.9 踩坑修正 )。showCancel 語意是「預設顯示」,不明確給 true 會讓上面那句註解說謊,
+  // 全站 9 處呼叫都因此漏了取消鈕
+  { showCancel: true }
+)
 
 const emit = defineEmits<{
   (e: 'confirm'): void

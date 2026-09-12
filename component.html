@@ -942,8 +942,8 @@
 
     <!-- ============ Button ( 2026.7.19 盤點定案 ) ============ -->
     <section class="band" id="comp-button">
-      <div class="band-head"><h2>Button</h2><span class="src">shadcn 原生</span><span class="use-b">元件呼叫 19 處 / 9 檔 · 另有手刻 ~56 顆待收編</span></div>
-      <p class="band-sub">6 種 variant × 7 種 size，不再新增 variant。基底規格：文字 14px / 500 ( Button token )、圓角一律 md ( 8px )、預設高度 h-9 ( 36px )。主色與危險色分別走 --primary ( brand-500 ) 與 --destructive ( red-500 )，focus ring 為 brand-300 半透明。</p>
+      <div class="band-head"><h2>Button</h2><span class="src custom">自訂</span><span class="use-b">元件呼叫 19 處 / 9 檔 · 另有手刻 ~56 顆待收編</span></div>
+      <p class="band-sub">6 種 variant × 7 種 size，不再新增 variant。基底規格：文字 14px / 500 ( Button token )、圓角一律 md ( 8px )、預設高度 h-9 ( 36px )。主色與危險色分別走 DS token ( color-primary-solid / color-danger-solid )，focus ring 為 primary-solid 40% 透明。</p>
       <div class="preview">
         <span class="btn default">主要動作</span>
         <span class="pv-unused"><span class="btn secondary">次要</span><span class="pv-tag">未使用</span></span>
@@ -955,6 +955,7 @@
       <div class="spec-line">variant: default · secondary ( 未使用 ) · outline · ghost · destructive · link ( 未使用 )<br>size: xs(h-6) · default(h-9) · sm(h-8) · lg(h-10) · icon(36) · icon-sm(32) · icon-lg(40)</div>
       <div class="spec-line">已拍板規則 ( 2026.7.19 )：icon 按鈕一律 size="icon-sm"，頁碼類用 size="icon"，不得用 class 覆寫尺寸；手刻的 brand 外框按鈕樣式廢除，收斂為 outline 或 default；全站約 56 顆手刻按鈕隨頁面遷移分批收編呼叫 Button ( 手刻 teal-600 與 brand-500 同值，收編視覺幾乎零變化 )；Tab 切換、篩選 pill、選擇卡等 ~18 顆不屬 Button 職責，歸各自元件。secondary 與 link 為 shadcn 原生保留，標示未使用</div>
       <div class="spec-line">已拍板規則 ( 2026.7.29 )：新增 <code>xs</code> size ( h-6 24px、gap-1、px-2、字級對齊 caption 12px )。卡片 / dialog 內 section 標題列旁的行內小按鈕 ( 如角色詳情 dialog 的編輯 / 取消 / 儲存 ) 需要比既有最小的 sm ( h-8 32px、文字仍是 button token 14px ) 更小、字級也對應縮到 caption，原本的 size 階梯裡沒有這一級。屬 <code>ui/button/index.ts</code> 的 vendor 修改，已收錄進 INTEGRATION.md 對照表</div>
+      <div class="spec-line">已拍板規則 ( 2026.9.12 )：Button 元件已遷入 DS，可由 <code>@nics/design-tokens/components/Button.vue</code> 引用。同時 export <code>buttonVariants</code> 供消費端 CVA 組合使用。色彩全面改用 DS semantic token ( color-primary-solid / color-stroke / color-danger-solid 等 )，尺寸與行為規格不變。ConfirmDialog 已改從 DS 內部直接 import Button，消費端不再需要為 ConfirmDialog 安裝 shadcn button。依賴契約：消費端需安裝 <code>reka-ui</code>、<code>class-variance-authority</code>，且 <code>@</code> 別名指向 src</div>
     </section>
 
     <!-- ============ Input ( 2026.7.19 盤點定案 ) ============ -->
@@ -1066,8 +1067,9 @@
           <div style="display:flex;gap:8px;justify-content:flex-end"><span class="btn outline" style="height:28px;font-size:12px">取消</span><span class="btn destructive" style="height:28px;font-size:12px">確認刪除</span></div>
         </div>
       </div>
-      <div class="spec-line">基於 Dialog ( sm:max-w-sm · show-close-button=false ) · 標題套 Subtitle · 按鈕走 Button 元件</div>
-      <div class="spec-line">依賴契約：內部以 @/components/ui/* 引用消費端的 shadcn dialog 與 button，接入時需先完成 shadcn 安裝步驟</div>
+      <div class="spec-line"><b>Vue Boolean prop 踩坑修正 ( 2026.9.9 )：</b><code>showCancel</code> 已透過 <code>withDefaults({ showCancel: true })</code> 補上明確預設值。Vue 對純 Boolean 型別 prop 的隱性行為：沒給 default 時，未傳遞會被視為 <code>false</code> 而非 <code>undefined</code>，導致全站呼叫若沒明確傳 <code>:show-cancel="true"</code> 取消鈕全部消失。消費端<b>不需任何修改</b>，元件自身已修正</div>
+      <div class="spec-line">基於 Dialog ( sm:max-w-sm · show-close-button=false ) · 標題套 Subtitle · 按鈕走 DS Button 元件（2026.9.12 改由 DS 內部 import，消費端不再需要 shadcn button）</div>
+      <div class="spec-line">依賴契約：內部以 @/components/ui/* 引用消費端的 shadcn dialog；button 已改由 DS 自帶，接入時消費端只需完成 shadcn dialog 安裝步驟即可</div>
     </section>
 
     <!-- ============ CardHeader ( 2026.7.24 拍板新增 ) ============ -->

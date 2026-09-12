@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts">
 /**
  * Button — DS 統一按鈕元件（2026.9.12 拍板）
  * variant: default · secondary · outline · ghost · destructive · link（secondary / link 保留未使用）
@@ -8,12 +8,8 @@
  * 依賴契約：消費端需安裝 reka-ui、class-variance-authority，且 @ 別名指向 src
  */
 import { cva, type VariantProps } from 'class-variance-authority'
-import type { PrimitiveProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
-import { Primitive } from 'reka-ui'
-import { cn } from '@/lib/utils'
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   [
     'inline-flex items-center justify-center gap-2 whitespace-nowrap',
     'rounded-[var(--radius-md)] font-medium transition-all cursor-pointer',
@@ -55,7 +51,13 @@ const buttonVariants = cva(
 )
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>
-export { buttonVariants }
+</script>
+
+<script setup lang="ts">
+import type { PrimitiveProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { Primitive } from 'reka-ui'
+import { cn } from '@/lib/utils'
 
 interface Props extends PrimitiveProps {
   variant?: ButtonVariants['variant']

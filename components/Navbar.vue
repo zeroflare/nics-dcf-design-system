@@ -30,7 +30,16 @@
  * props：fluid ( 佈局用，是否撐滿全寬，預設 false = 鎖 1280 )
  * 消費端只覆寫佈局類 ( 寬高、間距、fluid )，不得覆寫顏色 / 字級 / 圓角。
  */
-withDefaults(defineProps<{ fluid?: boolean }>(), { fluid: false })
+withDefaults(
+  defineProps<{
+    fluid?: boolean
+    /** 切換平台 ghost 按鈕：目標 URL（未傳則不顯示） */
+    switchUrl?: string
+    /** 切換平台 ghost 按鈕：顯示文字（預設「切換平台」） */
+    switchLabel?: string
+  }>(),
+  { fluid: false, switchLabel: '切換平台' }
+)
 </script>
 
 <template>
@@ -45,8 +54,20 @@ withDefaults(defineProps<{ fluid?: boolean }>(), { fluid: false })
       <nav class="flex h-full flex-1 items-center justify-center text-body2 text-fg-secondary-default">
         <slot />
       </nav>
-      <div class="flex h-full min-w-0 shrink-0 items-center gap-6">
+      <div class="flex h-full min-w-0 shrink-0 items-center gap-3">
         <slot name="actions" />
+        <a
+          v-if="switchUrl"
+          :href="switchUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border-stroke text-fg-secondary-default hover:bg-bg-container-subtle inline-flex h-9 items-center gap-1.5 rounded-md border bg-transparent px-3 text-sm font-medium whitespace-nowrap transition-colors"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-[15px] w-[15px] shrink-0" aria-hidden="true">
+            <path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/>
+          </svg>
+          {{ switchLabel }}
+        </a>
       </div>
     </div>
   </div>

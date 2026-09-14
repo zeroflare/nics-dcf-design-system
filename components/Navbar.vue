@@ -55,7 +55,8 @@ withDefaults(
         <slot />
       </nav>
       <div class="flex h-full min-w-0 shrink-0 items-center gap-3">
-        <slot name="actions" />
+        <!-- countdown slot：排最左，切換鈕夾在 countdown 與 actions 之間 -->
+        <slot name="countdown" />
         <a
           v-if="switchUrl"
           :href="switchUrl"
@@ -68,6 +69,7 @@ withDefaults(
           </svg>
           {{ switchLabel }}
         </a>
+        <slot name="actions" />
       </div>
     </div>
   </div>

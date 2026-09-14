@@ -536,6 +536,9 @@
         <a href="#comp-separator" class="comp-link"><span>Separator</span></a>
         <a href="#comp-pagination" class="comp-link"><span>Pagination</span></a>
         <a href="#comp-collapsible" class="comp-link"><span>Collapsible</span></a>
+        <a href="#comp-list-panel" class="comp-link"><span>ListPanel</span></a>
+        <a href="#comp-list-panel-item" class="comp-link"><span>ListPanelItem</span></a>
+        <a href="#comp-detail-panel" class="comp-link"><span>DetailPanel</span></a>
       </div>
     </nav>
   </aside>
@@ -1347,10 +1350,101 @@
       </div>
       <div class="spec-line">無自帶樣式，展示樣式由呼叫端決定 · 現況即規範</div>
     </section>
+
+    <!-- ============ ListPanel ( 2026.9 新增 ) ============ -->
+    <section class="band" id="comp-list-panel">
+      <div class="band-head"><h2>ListPanel</h2><span class="src">DS 原生</span><span class="use-b">platform · access 共用</span></div>
+      <p class="band-sub">左側列表面板外框。card 變體為 platform 白底卡片風格；sidebar 變體為 access 側邊欄風格（無框線，右側陰影）。三槽：<code>#header</code>（搜尋/篩選區）、<code>default</code>（可捲動列表）、<code>#footer</code>（計數 + 操作按鈕）。</p>
+      <div class="preview" style="gap:24px;align-items:flex-start">
+        <!-- card variant -->
+        <div style="width:240px;border:1px solid var(--color-stroke);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);background:var(--color-bg-container);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:12px;flex-shrink:0">
+            <div style="height:32px;border:1px solid var(--color-stroke);border-radius:8px;padding:0 10px;display:flex;align-items:center;font-size:12px;color:var(--color-fg-tertiary-default)">🔍 搜尋…</div>
+            <div style="margin-top:8px;display:flex;gap:6px">
+              <span style="background:var(--color-primary-solid);color:#fff;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700">全部 3</span>
+              <span style="border:1px solid var(--color-stroke);border-radius:999px;padding:3px 10px;font-size:11px;color:var(--color-fg-secondary-default)">執行中 1</span>
+            </div>
+          </div>
+          <div style="border-top:1px solid var(--color-stroke);flex:1">
+            <div style="border-left:4px solid var(--color-primary-solid);background:var(--color-selected-bg);padding:10px 14px;border-bottom:1px solid var(--color-stroke);font-size:12px;font-weight:600">專案 A</div>
+            <div style="border-left:4px solid transparent;padding:10px 14px;border-bottom:1px solid var(--color-stroke);font-size:12px">專案 B</div>
+          </div>
+          <div style="border-top:1px solid var(--color-stroke);padding:10px 12px;flex-shrink:0;background:var(--color-bg-container)">
+            <div style="font-size:11px;color:var(--color-fg-tertiary-default);text-align:center;margin-bottom:6px">顯示 2 / 3 筆</div>
+            <div style="background:var(--color-primary-solid);color:#fff;border-radius:8px;padding:6px 0;text-align:center;font-size:12px;font-weight:600">＋ 新增</div>
+          </div>
+        </div>
+        <!-- sidebar variant -->
+        <div style="width:240px;background:var(--color-bg-container-subtle);box-shadow:2px 0 6px rgba(0,0,0,.06);display:flex;flex-direction:column;overflow:hidden">
+          <div style="padding:12px;flex-shrink:0">
+            <div style="height:32px;border:1px solid var(--color-stroke);border-radius:8px;padding:0 10px;display:flex;align-items:center;font-size:12px;color:var(--color-fg-tertiary-default)">🔍 搜尋…</div>
+          </div>
+          <div style="border-top:1px solid var(--color-stroke);flex:1">
+            <div style="position:relative;padding:10px 14px;border-bottom:1px solid var(--color-stroke);background:var(--color-bg-container);font-size:12px;font-weight:700">
+              <span style="position:absolute;inset-block:0;left:2px;width:4px;background:var(--color-primary-solid)"></span>資料來源 A
+            </div>
+            <div style="padding:10px 14px;border-bottom:1px solid var(--color-stroke);font-size:12px;background:var(--color-bg-container)">資料來源 B</div>
+          </div>
+          <div style="border-top:1px solid var(--color-stroke);padding:10px 12px;flex-shrink:0;background:var(--color-bg-container)">
+            <div style="font-size:11px;color:var(--color-fg-tertiary-default);text-align:center;margin-bottom:6px">顯示 2 / 2 筆</div>
+            <div style="background:var(--color-primary-solid);color:#fff;border-radius:8px;padding:6px 0;text-align:center;font-size:12px;font-weight:600">＋ 新增</div>
+          </div>
+        </div>
+      </div>
+      <div class="spec-line">variant="card"（預設）platform 白底卡片 · variant="sidebar" access 側邊欄 · 三槽：#header / default / #footer</div>
+    </section>
+
+    <!-- ============ ListPanelItem ( 2026.9 新增 ) ============ -->
+    <section class="band" id="comp-list-panel-item">
+      <div class="band-head"><h2>ListPanelItem</h2><span class="src">DS 原生</span><span class="use-b">platform · access 共用</span></div>
+      <p class="band-sub">ListPanel 的單行列表項目。card 變體：左側 4px 色條佔位對齊（border-l-4）；sidebar 變體：絕對定位色條不佔版面。default slot 填入名稱、Badge、副文字。</p>
+      <div class="preview" style="gap:24px;align-items:flex-start">
+        <!-- card selected -->
+        <div style="width:220px;border:1px solid var(--color-stroke);border-radius:8px;overflow:hidden">
+          <div style="border-left:4px solid var(--color-primary-solid);background:var(--color-selected-bg);padding:10px 14px;font-size:12px;font-weight:700;border-bottom:1px solid var(--color-stroke)">card — 已選取</div>
+          <div style="border-left:4px solid transparent;background:var(--color-bg-container);padding:10px 14px;font-size:12px">card — 未選取</div>
+        </div>
+        <!-- sidebar selected -->
+        <div style="width:220px;border:1px solid var(--color-stroke);border-radius:8px;overflow:hidden">
+          <div style="position:relative;background:var(--color-bg-container);padding:10px 14px;font-size:12px;font-weight:700;border-bottom:1px solid var(--color-stroke)">
+            <span style="position:absolute;inset-block:0;left:2px;width:4px;background:var(--color-primary-solid)"></span>sidebar — 已選取
+          </div>
+          <div style="background:var(--color-bg-container);padding:10px 14px;font-size:12px">sidebar — 未選取</div>
+        </div>
+      </div>
+      <div class="spec-line">variant="card"（預設）border-l-4 佔位 · variant="sidebar" absolute 色條不佔位 · props: selected / variant</div>
+    </section>
+
+    <!-- ============ DetailPanel ( 2026.9 新增 ) ============ -->
+    <section class="band" id="comp-detail-panel">
+      <div class="band-head"><h2>DetailPanel</h2><span class="src">DS 原生</span><span class="use-b">platform · access 共用</span></div>
+      <p class="band-sub">右側詳情面板外框。card 變體包覆 border + rounded + shadow 卡片；flat 變體無外框直接鋪滿。兩槽：<code>#header</code>（標題區左側）、<code>#actions</code>（標題區右側按鈕組）、<code>default</code>（頁籤列 + 內容區）。</p>
+      <div class="preview" style="gap:0;align-items:stretch">
+        <div style="width:420px;border:1px solid var(--color-stroke);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);background:var(--color-bg-container);display:flex;flex-direction:column;overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-stroke);padding:14px 20px;flex-shrink:0">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:14px;font-weight:700;color:var(--color-fg-primary-default)">專案名稱</span>
+              <span style="font-size:11px;border:1px solid var(--color-stroke);border-radius:4px;padding:1px 6px;color:var(--color-fg-secondary-default)">執行中</span>
+            </div>
+            <div style="display:flex;gap:8px">
+              <span style="font-size:11px;border:1px solid var(--color-stroke);border-radius:6px;padding:4px 10px">刪除</span>
+              <span style="font-size:11px;background:var(--color-primary-solid);color:#fff;border-radius:6px;padding:4px 10px">執行</span>
+            </div>
+          </div>
+          <div style="display:flex;border-bottom:1px solid var(--color-stroke);padding:0 20px;gap:16px;flex-shrink:0">
+            <span style="font-size:12px;padding:10px 0;border-bottom:2px solid var(--color-primary-solid);color:var(--color-primary-fg);font-weight:700">總覽</span>
+            <span style="font-size:12px;padding:10px 0;color:var(--color-fg-tertiary-default)">設定</span>
+            <span style="font-size:12px;padding:10px 0;color:var(--color-fg-tertiary-default)">稽核</span>
+          </div>
+          <div style="flex:1;padding:20px;font-size:12px;color:var(--color-fg-secondary-default)">內容區域（可捲動）</div>
+        </div>
+      </div>
+      <div class="spec-line">variant="card"（預設）外框卡片 · variant="flat" 無框鋪滿 · 三槽：#header / #actions / default</div>
+    </section>
     </div>
 
     <footer>
-      政府資料匯流分析協作平臺設計系統 · 正式規範 · Foundation 五章已拍板定案 · 元件盤點 2026.07.20 全數 23 項關章 ( 讀碼 → 現況 → 提案 → 拍板 )<br>
+      政府資料匯流分析協作平臺設計系統 · 正式規範 · Foundation 五章已拍板定案 · 元件盤點 2026.07.20 全數 23 項關章，2026.09 新增 ListPanel / ListPanelItem / DetailPanel 共 26 項 ( 讀碼 → 現況 → 提案 → 拍板 )<br>
       已刪除元件：StatusBadge、StatsCard ( 死碼，審計 04 )、Alert、ScrollArea、膠囊式 Tabs ( 零引用 vendor，2026.07.20 拍板 )、Skeleton ( 全面由 Shimmer 取代，2026.07.27 章節連歷史紀錄一併刪除 )。下一步：依收編清單隨頁面遷移逐步落地，最終遷移為 Storybook 作為雙方 Claude Code 的共用設計來源。
     </footer>
    </div>

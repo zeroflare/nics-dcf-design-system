@@ -349,6 +349,12 @@
   .nvuser:hover .name { color: var(--color-fg-primary-hover); }
   .nvloginbtn { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 8px; background: var(--color-primary-solid); color: var(--color-fg-inverted-default); font-size: var(--text-button); line-height: var(--text-button--line-height); font-weight: 500; text-decoration: none; }
   .nvloginbtn svg { width: 16px; height: 16px; }
+  .nvcountdown { display: inline-flex; align-items: center; gap: 4px; font-size: var(--text-body2); font-weight: 500; color: var(--color-fg-secondary-default); white-space: nowrap; }
+  .nvcountdown svg { width: 16px; height: 16px; flex: none; }
+  .nvcountdown--warn { color: var(--color-warning-fg); }
+  .nvghost { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: var(--radius-md); border: 1px solid var(--color-stroke); background: transparent; color: var(--color-fg-secondary-default); font-size: var(--text-button); font-weight: 500; cursor: pointer; white-space: nowrap; text-decoration: none; }
+  .nvghost:hover { background: var(--color-bg-interactive); color: var(--color-fg-primary-default); }
+  .nvghost svg { width: 15px; height: 15px; flex: none; }
   .ftfoot { background: var(--color-neutral-200); }
   .ft-top { padding: 32px 24px; }
   .ft-top-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
@@ -583,7 +589,8 @@
               <a class="nvitem" href="#" onclick="return false">紀錄查詢</a>
               <a class="nvitem" href="#" onclick="return false">系統設定</a>
             </nav>
-            <div class="nv-r">
+            <div class="nv-r" style="gap:8px">
+              <span class="nvcountdown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3 2 6"/><path d="m22 6-3-3"/><path d="M6.38 18.7 4 21"/><path d="M17.64 18.67 20 21"/></svg>29:57</span>
               <span class="nvstatus"><span class="dot"></span>連線正常</span>
               <span class="nvuser"><span class="nvavatar latin">W</span><span class="name">WreckOP</span></span>
             </div>
@@ -598,7 +605,7 @@
             <div class="nv-l">
               <a class="nvlogo" href="#" onclick="return false">
                 <img src="favicon.png" alt="">
-                <span class="txt"><span class="main">政府資料匯流分析平臺</span><span class="sub">管理平台</span></span>
+                <span class="txt"><span class="main">政府資料匯流分析平臺</span><span class="sub">管理平臺</span></span>
               </a>
             </div>
             <nav class="nvitems">
@@ -609,6 +616,8 @@
               <a class="nvitem" href="#" onclick="return false">使用者管理</a>
             </nav>
             <div class="nv-r" style="gap:8px">
+              <span class="nvcountdown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3 2 6"/><path d="m22 6-3-3"/><path d="M6.38 18.7 4 21"/><path d="M17.64 18.67 20 21"/></svg>29:57</span>
+              <a class="nvghost" href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>資料目錄</a>
               <button class="nvicon" aria-label="設定">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.6"/></svg>
               </button>
@@ -634,11 +643,13 @@
               <a class="nvitem" href="#" onclick="return false">最新公告</a>
               <a class="nvitem" href="#" onclick="return false" style="gap:4px">文件區 <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;flex:none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </nav>
-            <div class="nv-r" style="gap:16px">
+            <div class="nv-r" style="gap:8px">
+              <span class="nvcountdown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3 2 6"/><path d="m22 6-3-3"/><path d="M6.38 18.7 4 21"/><path d="M17.64 18.67 20 21"/></svg>29:57</span>
               <a class="nvloginbtn" href="#" onclick="return false">
                 <svg viewBox="0 0 256 256" fill="currentColor" style="width:16px;height:16px;flex:none"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></svg>
                 需求清單
               </a>
+              <a class="nvghost" href="#" onclick="return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>管理平臺</a>
               <span class="nvuser"><span class="nvavatar cjk">王</span><span class="name">王小明</span></span>
             </div>
           </div>
@@ -667,6 +678,8 @@
       <div class="spec-line">已拍板規則 ( 2026.7.28 )：新增 <code>fluid</code> 佈局 prop ( 預設 false )。全寬工作頁 ( 如資料來源桌面式分割版面 ) 內容撐滿整個視窗寬，navbar 若仍鎖 1280 會像「戴小帽子」；<code>fluid=true</code> 時拿掉 <code>max-w-7xl</code> 讓內層也撐滿 ( <code>max-w-full</code> )，logo 貼左緣、actions 貼右緣，對齊底下全寬內容。中間選單中心點在 1280 置中與全寬兩模式下數學上相同 ( 左右內縮量對消 )，切頁時選單不位移、只有 logo/actions 滑向邊緣，切換順滑。各站由路由決定何時傳入 ( demo 用 <code>route.meta.fullWidth</code> )</div>
       <div class="spec-line">右側動作區各站自訂內容，但元素樣式共用：連線狀態圓點 + 文字 ( gap-1 )、圖示按鈕 36px 圓形、使用者頭像 ( 見 Avatar 章 ) + 名稱 ( gap-1 )、登入按鈕 primary-solid 實色；連線狀態與使用者兩塊之間 gap-6 ( 24px )</div>
       <div class="spec-line">已拍板規則 ( 2026.7.29 )：<b>Web 端 ( dcf-website-demo )</b> 已實際換用本殼層元件，為定案內容。與其他站差異：(1) logo 僅單行主名，font-size 1rem，無副名第二行；(2) 中間選單 4 項：儀表板 / 資料目錄 / 最新公告 / 文件區，文件區為 shadcn DropdownMenu 觸發器，排版與 active 樣式對齊 NavbarItem，非原生 NavbarItem 元件；(3) 右側 actions：需求清單按鈕 ( nvloginbtn 樣式 + file-text icon ) + 使用者 avatar 下拉選單；(4) 未登入狀態中間選單與右側 actions 全部隱藏，僅顯示 brand 插槽；(5) &lt; 1024px 顯示漢堡選單按鈕，展開 mobile drawer</div>
+      <div class="spec-line">已拍板規則 ( 2026.9.14 )：右側 actions 新增<b>工作階段倒數計時</b>（AlarmClock icon 16px + mm:ss 文字，body2 / 500 / fg-secondary）排在最左側；剩餘時間 ≤ 5 分鐘時改為 warning-fg 警示色。三站均須實作。</div>
+      <div class="spec-line">已拍板規則 ( 2026.9.14 )：右側 actions 新增<b>切換平台按鈕</b>（ghost 樣式：outline border + transparent 底 + fg-secondary 文字，height 36px，ArrowRightLeft icon 15px）。Web 端按鈕文字「管理平臺」，導往管理平臺；分析平臺按鈕文字「資料目錄」，導往資料目錄；兩者均另開新分頁（noopener,noreferrer）。按鈕排在倒數計時之後、需求清單或其他主要動作之前。</div>
       <div class="spec-line">已拍板規則 ( 2026.7.27 )：業主要求各站視覺一致，navbar 以「殼 + slot」落地，實體為本 repo <code>components/Navbar.vue</code> ( 插槽 brand / 預設選單 / actions ) + <code>components/NavbarItem.vue</code> ( 單一選單項，props：to / active / badge )，樣式規格共用、選單與右側內容各站帶入。<b>存取節點列逐字對照 AppNav.vue / NodeStatusIndicator.vue 搬移，且該站已實際換用本殼層元件，為定案內容</b>；分析平臺列因該站尚無 ds 化的 navbar 可供搬移，屬沿用同一套規格的新提案，非搬移，實作前仍需該站設計負責人拍板</div>
     </section>
 
@@ -698,7 +711,7 @@
           <div style="padding:4px">
             <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:14px;color:var(--color-fg-primary-default);cursor:pointer">
               <svg viewBox="0 0 24 24" fill="none" style="width:15px;height:15px;flex:none;color:var(--color-fg-secondary-default)" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
-              切換至管理平台
+              切換至管理平臺
             </div>
           </div>
           <div style="height:1px;background:var(--color-stroke);margin:0 4px"></div>
@@ -765,8 +778,8 @@
 
       <div class="spec-line">已拍板規則 ( 2026.7.30 )：資訊欄位採小標 + 值堆疊，<b>小標</b> caption ( 11px ) / 500 / fg-secondary / mb-0.5，<b>值</b> body2 ( 14px ) / fg-primary；<b>無冒號</b>。欄位間距 mb-2.5 ( 10px )。資訊區整塊 px-4 py-3 + border-b stroke 與動作區分隔</div>
       <div class="spec-line">動作列底層為 shadcn Dropdown Menu，action item：flex items-center gap-2 px-3 py-2 rounded-md text-body2；登出固定 danger-fg，其餘 fg-primary；icon 15px fg-secondary（登出 icon 繼承 danger-fg）。動作列與資訊區之間無額外間距，靠資訊區 border-b 分隔；帳號管理與登出之間加 separator ( 1px stroke，mx-1 )</div>
-      <div class="spec-line">各站欄位對照：<b>Web 端</b> 名稱 + 帳號 + 帳號管理 + 切換至管理平台 + 登出；<b>分析平臺</b> 帳號 + 角色 + 帳號管理 + 切換至資料目錄 + 登出；<b>存取節點</b> 帳號 + 角色 + 登出（無帳號管理入口）</div>
-      <div class="spec-line">切換平台項目（2026.9.9 拍板）：使用 ArrowRightLeft icon（15px, fg-secondary），文字 fg-primary，置於帳號管理與登出之間，以 separator 分隔；Web 端導往管理平台，分析平臺導往資料目錄；另開新分頁（noopener,noreferrer）</div>
+      <div class="spec-line">各站欄位對照：<b>Web 端</b> 名稱 + 帳號 + 帳號管理 + 切換至管理平臺 + 登出；<b>分析平臺</b> 帳號 + 角色 + 帳號管理 + 切換至資料目錄 + 登出；<b>存取節點</b> 帳號 + 角色 + 登出（無帳號管理入口）</div>
+      <div class="spec-line">切換平台項目（2026.9.9 拍板）：使用 ArrowRightLeft icon（15px, fg-secondary），文字 fg-primary，置於帳號管理與登出之間，以 separator 分隔；Web 端導往管理平臺，分析平臺導往資料目錄；另開新分頁（noopener,noreferrer）</div>
     </section>
 
     <!-- ============ Footer ( 2026.7.27 拍板新增,跨站共用殼 ) ============ -->
@@ -808,7 +821,7 @@
                 <img src="favicon.png" alt="">
                 <div>
                   <div class="main">政府資料匯流分析協作平臺</div>
-                  <div class="sub">管理平台</div>
+                  <div class="sub">管理平臺</div>
                 </div>
               </a>
               <div class="ft-org">
@@ -851,7 +864,7 @@
       <div class="spec-line">底色 neutral-200 · 上半部外層僅上下內距 32px ( py-8 )，內層 max-width 1280px 置中 + 左右內距，品牌區塊靠左、機關資訊區塊靠右對齊容器但內部文字靠左 ( lg:ml-auto lg:text-left ) · 下半部版權列同樣 neutral-200 底色，與上半部間僅用 1px neutral-300 分隔線區隔 ( 無額外對比底色 )，文字置中</div>
       <div class="spec-line">已拍板規則 ( 2026.9.4 )：Logo + 平台名稱整體改為 <code>&lt;a&gt;</code> 可點連結回首頁 ( <code>homeHref</code> prop，預設 <code>/</code> )，hover 加 <code>transition-opacity hover:opacity-80</code> 淡出效果；原先僅 logo 圖片是連結，文字區塊不可點的設計廢除</div>
       <div class="spec-line">已拍板規則 ( 2026.7.30 )：新增 <code>web</code> boolean prop ( 預設 false )。<code>web=true</code> 時主名字級放大至 18px ( body1+2px )、副名行隱藏 ( 單行主名 )，對應 dcf-website-demo 的設計規格；<code>siteLabel</code> prop 在 web=true 時忽略。各站傳入方式：存取節點 / 分析平臺 <code>:site-label="..."</code>，Web 端 <code>:web="true"</code> 即可，不需傳 siteLabel</div>
-      <div class="spec-line">已拍板規則 ( 2026.7.30 )：Footer 全面改版，比照存取節點 AppFooter.vue 定案內容重寫。左側為品牌 logo + 兩行文字 ( 主名「政府資料匯流分析協作平臺」body1-bold + 副名 caption )；右側為機關聯絡資訊 ( 數位發展部連結 + 電話 / 地址，皆用 secondary 文字色，連結 hover 轉 fg-primary-hover 而非品牌色 primary-fg )；下方版權列水平置中。機關聯絡資訊與版權列內容<b>兩站完全相同</b> ( 同一個數位發展部 )，唯一因站別而異的只有 logo 主名下方的副名 ( 存取節點：資料存取節點；分析平臺：管理平台 )，故元件改為 <code>siteLabel</code> prop 而非整段 <code>copyrightText</code> 字串。存取節點列逐字對照 AppFooter.vue 搬移，且該站已實際換用本殼層元件 ( 移除本地 AppFooter.vue，直接引用 <code>@nics/design-tokens/components/Footer.vue</code> )，為定案內容；分析平臺列沿用同一套規格，實作前仍需該站設計負責人拍板</div>
+      <div class="spec-line">已拍板規則 ( 2026.7.30 )：Footer 全面改版，比照存取節點 AppFooter.vue 定案內容重寫。左側為品牌 logo + 兩行文字 ( 主名「政府資料匯流分析協作平臺」body1-bold + 副名 caption )；右側為機關聯絡資訊 ( 數位發展部連結 + 電話 / 地址，皆用 secondary 文字色，連結 hover 轉 fg-primary-hover 而非品牌色 primary-fg )；下方版權列水平置中。機關聯絡資訊與版權列內容<b>兩站完全相同</b> ( 同一個數位發展部 )，唯一因站別而異的只有 logo 主名下方的副名 ( 存取節點：資料存取節點；分析平臺：管理平臺 )，故元件改為 <code>siteLabel</code> prop 而非整段 <code>copyrightText</code> 字串。存取節點列逐字對照 AppFooter.vue 搬移，且該站已實際換用本殼層元件 ( 移除本地 AppFooter.vue，直接引用 <code>@nics/design-tokens/components/Footer.vue</code> )，為定案內容；分析平臺列沿用同一套規格，實作前仍需該站設計負責人拍板</div>
     </section>
 
     <!-- ============ LoginCard ( 2026.7.30 拍板 / 2026.7.30 更新對齊存取節點設計 ) ============ -->
@@ -934,7 +947,7 @@
       </div>
 
       <div class="spec-line">卡片：白底 bg-container · 1px neutral-200 框線 · 12px 圓角 · padding 24px · shadow-sm <code>0 1px 2px 0 rgb(0 0 0/0.05)</code> · 最大寬 384px，置中於 bg-container-subtle 頁面背景</div>
-      <div class="spec-line">品牌區：logo 48×48px 居中 · 下距 8px · 標題 20px 700 fg-primary · 副標 body2 fg-secondary「請登入以繼續操作」（固定文字，三站共用）· 標題文字各站自訂（存取節點：資料存取節點；Web 端：政府資料匯流分析協作平臺；分析平臺：管理平台）</div>
+      <div class="spec-line">品牌區：logo 48×48px 居中 · 下距 8px · 標題 20px 700 fg-primary · 副標 body2 fg-secondary「請登入以繼續操作」（固定文字，三站共用）· 標題文字各站自訂（存取節點：資料存取節點；Web 端：政府資料匯流分析協作平臺；分析平臺：管理平臺）</div>
       <div class="spec-line">表單：欄位縱向 gap 20px · label body2 500 fg-secondary · input height 40px radius-md neutral-200 框線 body2 · 密碼欄含 eye toggle（16px icon，絕對定位右側 10px）· focus 態 primary-solid 框 + 3px primary 15% 透明光暈 · 登入按鈕 height 40px radius-md full-width primary-solid body2 500</div>
       <div class="spec-line">社群快捷（Web 端 / 分析平臺限定）：分隔線「或以其他方式登入」caption fg-tertiary + neutral-200 線，margin 20px 0 · 快捷按鈕 height 40px radius-md neutral-200 框線白底 body2 500 · icon 18px · 間距 mb-8px · hover bg-container-subtle + neutral-300 框</div>
       <div class="spec-line">已拍板規則 ( 2026.7.30 )：存取節點為純帳密表單，無快捷登入按鈕；Web 端與分析平臺在主按鈕下方加 Google + Passkey 兩組快捷，樣式規格三站共用，差異僅在快捷按鈕的有無。</div>
